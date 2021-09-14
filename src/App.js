@@ -1,7 +1,7 @@
 import './sharedStyles/reset.css'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import { useState, useContext } from 'react';
-// import SignUpPage from './components/Signup/SignUpPage'
+import SignUpPage from './components/Signup/SignUpPage'
 // import LoginPage from './components/Login/LoginPage'
 // import TimelinePage from './components/Timeline/TimelinePage'
 // import MyPostsPage from './components/MyPosts/MyPostsPage'
@@ -16,11 +16,11 @@ export default function App() {
       <BrowserRouter>
         <Switch>
 
-          {/* <Route path="/sign-up" exact>
+          <Route path="/sign-up" exact>
             <SignUpPage />
           </ Route> 
 
-          <Route path="/" exact>
+          {/* <Route path="/" exact>
             <LoginPage />
           </ Route> 
 
