@@ -25,6 +25,7 @@ export default function App() {
           </ Route> 
 
           <Route path="/timeline" exact>
+            <MenuHeader />
             <TimelinePage />
           </ Route>  
 
