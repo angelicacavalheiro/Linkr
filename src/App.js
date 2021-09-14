@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useState, useContext } from 'react';
+import MyPostsPage from "./components/MyPosts/MyPostsPage"
 
 export default function App() {
     return(
@@ -21,7 +22,7 @@ export default function App() {
           </ Route>  
 
           <Route path="/my-posts" exact>
-            <MyPosts />
+            <MyPostsPage />
           </ Route>
 
           <Route path="/user/:id" exact>
