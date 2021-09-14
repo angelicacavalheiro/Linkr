@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useState, useContext } from 'react';
-import MyPostsPage from "./components/MyPosts/MyPostsPage"
+import MyPostsPage from "./components/timeline/MyPosts/MyPostsPage";
 
 export default function App() {
     return(
@@ -9,7 +9,7 @@ export default function App() {
 
         <UserContext.Provider >
 
-          <Route path="/sign-up" exact>
+          {/* <Route path="/sign-up" exact>
             <Sign-up />
           </ Route> 
 
@@ -19,13 +19,13 @@ export default function App() {
 
           <Route path="/timeline" exact>
             <Timeline />
-          </ Route>  
+          </ Route>   */}
 
           <Route path="/my-posts" exact>
             <MyPostsPage />
           </ Route>
 
-          <Route path="/user/:id" exact>
+          {/* <Route path="/user/:id" exact>
             <User />
           </ Route>
 
@@ -36,7 +36,7 @@ export default function App() {
           <Route path="/my-likes" exact>
             <Hashtag />
           </ Route>
-        
+         */}
           </UserContext.Provider>
 
       </ Switch>       
