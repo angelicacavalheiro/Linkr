@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useState, useContext } from 'react';
+//import { useState, useContext } from 'react';
 import MyPostsPage from "./components/timeline/MyPosts/MyPostsPage";
 
 export default function App() {
@@ -7,9 +7,9 @@ export default function App() {
         <BrowserRouter>
         <Switch>
 
-        <UserContext.Provider >
+       {/* <UserContext.Provider >
 
-          {/* <Route path="/sign-up" exact>
+           <Route path="/sign-up" exact>
             <Sign-up />
           </ Route> 
 
@@ -36,8 +36,8 @@ export default function App() {
           <Route path="/my-likes" exact>
             <Hashtag />
           </ Route>
-         */}
-          </UserContext.Provider>
+         
+          </UserContext.Provider>*/}
 
       </ Switch>       
     </ BrowserRouter>   
