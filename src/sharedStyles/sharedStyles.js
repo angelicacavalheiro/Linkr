@@ -16,6 +16,7 @@ const ContainerCenterClass = styled.div`
 `
 const ColunaPostsClass = styled.div`
     width: 611px;
+    
 
 `
 
