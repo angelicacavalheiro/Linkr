@@ -62,14 +62,3 @@ h2{
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
 }
-
-
-/* -------------------------------------------- */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #333333;
-}
