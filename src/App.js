@@ -1,3 +1,4 @@
+import './sharedStyles/reset.css'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import { useState, useContext } from 'react';
 // import SignUpPage from './components/Signup/SignUpPage'
@@ -7,6 +8,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import UserPage from './components/User/UserPage'
 // import HashtagPage from './components/Hashtag/HashtagPage'
 // import MyLikesPage from './components/MyLikes/MyLikesPage'
+
+import { useState, useContext } from 'react';
 
 export default function App() {
     return(
