@@ -1,44 +1,47 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useState, useContext } from 'react';
+// import { useState, useContext } from 'react';
+// import SignUpPage from './components/Signup/SignUpPage'
+// import LoginPage from './components/Login/LoginPage'
+// import TimelinePage from './components/Timeline/TimelinePage'
+// import MyPostsPage from './components/MyPosts/MyPostsPage'
+// import UserPage from './components/User/UserPage'
+// import HashtagPage from './components/Hashtag/HashtagPage'
+// import MyLikesPage from './components/MyLikes/MyLikesPage'
 
 export default function App() {
     return(
-        <BrowserRouter>
+      <BrowserRouter>
         <Switch>
 
-        <UserContext.Provider >
-
-          <Route path="/sign-up" exact>
-            <Sign-up />
+          {/* <Route path="/sign-up" exact>
+            <SignUpPage />
           </ Route> 
 
           <Route path="/" exact>
-            <Login />
+            <LoginPage />
           </ Route> 
 
           <Route path="/timeline" exact>
-            <Timeline />
+            <TimelinePage />
           </ Route>  
 
           <Route path="/my-posts" exact>
-            <MyPosts />
+            <MyPostsPage />
           </ Route>
 
           <Route path="/user/:id" exact>
-            <User />
+            <UserPage />
           </ Route>
 
           <Route path="/hashtag/:hashtag" exact>
-            <Hashtag />
+            <HashtagPage />
           </ Route>
 
           <Route path="/my-likes" exact>
-            <Hashtag />
-          </ Route>
-        
-          </UserContext.Provider>
+            <MyLikesPage />
+          </ Route> */}
 
-      </ Switch>       
-    </ BrowserRouter>   
+        </ Switch>       
+      </ BrowserRouter>   
     )
 }
