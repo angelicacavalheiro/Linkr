@@ -25,6 +25,7 @@ export default function App() {
           <Route path="/timeline" exact>
             <TimelinePage />
           </ Route>  */}
+
           <Route path="/my-posts" exact>
             <MyPostsPage />
          </ Route>
