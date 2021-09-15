@@ -1,32 +1,51 @@
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
-export default function Menu(){
+export default function Menu({showMenu, setShowMenu}){
     return (
-            <MyMenu>
-                <Options> 
-                <p>My Likes</p> 
-                <p>My Posts</p> 
-                <p>Logout</p> 
-                </Options>
-            </MyMenu>                
+        <>
+            {
+                (showMenu === true) ?                
+                <MyMenuStyle>
+                    <OptionsStyle> 
+                    <p > My Likes </p>
+                    <p > My Posts </p>
+                    <p > Logout </p>
+                    </OptionsStyle>
+                </MyMenuStyle>                 
+                :            
+                null
+            }  
+        </>             
     )
 }
 
-const Options = styled.div`
+{/* <Link to="/my-likes"> My Likes </Link>
+<Link to="/my-posts"> My Posts </Link>
+<Link to="/"> Logout </Link> */}
+
+const OptionsStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center ;
     justify-content: center;
-    background: powderblue ;
-    width: 100px;
-    height: 100px;
+    background: #171717;
+    border-radius: 0px 0px 0px 20px;
+    width: 150px;
+    height: 109px;
 
     p{
-        margin: 10px;
+        font-family: Lato;
+        font-weight: bold;
+        font-size: 17px;
+        line-height: 20px;
+        letter-spacing: 0.05em;
+        color: #FFFFFF;
+        margin: 5px auto 5px auto;
     }
 `;
 
-const MyMenu = styled.div`
+const MyMenuStyle = styled.div`
     display: flex;
-   justify-content: flex-end;    
+    justify-content: flex-end;    
 `;
