@@ -24,9 +24,9 @@ const PageTitleClass = styled.h2`
     font-size: 43px;
     margin-bottom: 43px;
 `
-const ColunaTrendingClass = styled.div`
-    //nao sei se coloco ainda
-`
+// const ColunaTrendingClass = styled.div`
+//     //nao sei se coloco ainda
+// `
 
 export {
     ContainerBoxClass,

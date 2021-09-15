@@ -9,7 +9,7 @@ import MyPostsPage from './components/MyPosts/MyPostsPage'
 // import HashtagPage from './components/Hashtag/HashtagPage'
 // import MyLikesPage from './components/MyLikes/MyLikesPage'
 
-import { useState, useContext } from 'react';
+// import { useState, useContext } from 'react';
 
 export default function App() {
     return(
