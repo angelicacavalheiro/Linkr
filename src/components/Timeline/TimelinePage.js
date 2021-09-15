@@ -1,18 +1,20 @@
 
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles"
 import Post from "../../sharedComponents/Post"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { getTimelinePosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
+import UserContext from "../../contexts/UserContext";
 
 export default function TimelinePage () {
+    const {user} = useContext(UserContext);
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
-    const token = "8284f936-9148-4604-8114-4f64f5920ce9"
+
     useEffect(()=> {
-        getTimelinePosts(token)
+        getTimelinePosts(user.token)
         .then((res)=> {
             setPostsList(res.data)
             setLoading(false);
