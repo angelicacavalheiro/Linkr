@@ -69,15 +69,12 @@ function LoginArea (){
                 disabled={isLoading ? true : false}>
                     Log In
                 </SignUpOrLoginButtonStyled>
-                <Link to={'/'} style={{textDecoration: 'none'}}>
+                <Link to={'/sing-up'} style={{textDecoration: 'none'}}>
                     <SwitchSignUpLoginLinkStyled>
                         First time? Create an account!
                     </SwitchSignUpLoginLinkStyled>
                 </Link>
-            </LoginDataContainerStyled>
-        
-
-        
+            </LoginDataContainerStyled>        
     );
 }
 
