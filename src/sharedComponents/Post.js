@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-export default function Post ({postInfo}) {
+export default function Post () {
 
     
 
