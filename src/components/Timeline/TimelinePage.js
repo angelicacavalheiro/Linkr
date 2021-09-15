@@ -19,17 +19,12 @@ export default function TimelinePage () {
             setPostsList(res.data)
             setLoading(false);
             postsList.length === 0 ? setNoPosts(true) : setNoPosts(false)
-            console.log(postsList)
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
             setLoading(false)
         });
-
-
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
- 
 
     return(
         
@@ -59,7 +54,6 @@ const LoadingStyle = styled.p`
     text-align:center;
 
 `
-
 const NoPostsStyle = styled.p`
     font-size: 40px;
     color: white;

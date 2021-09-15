@@ -14,7 +14,7 @@ export default function Post ({postInfo}) {
     return(
         <BlackBoxStyle>
             <PhotoAndLikeBoxStyle>
-            <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} /></LinkStyle>
+            <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
                 <Icon />
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
             </PhotoAndLikeBoxStyle>
@@ -29,7 +29,7 @@ export default function Post ({postInfo}) {
                             {postInfo.link}
                         </LinkUrlStyle>
                     </LinkInfoStyle>
-                        <img src={postInfo.linkImage}/>
+                        <img src={postInfo.linkImage} alt={"Link"}/>
                 </LinkBoxStyle>
             </ContentBoxStyle>
         </BlackBoxStyle>
