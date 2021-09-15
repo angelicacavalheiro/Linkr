@@ -18,6 +18,13 @@ const SiteBannerStyled = styled.div`
     width: 63%;
     background-color: #151515;
     padding: 300px 0 0 10%;
+
+    @media(max-width: 800px){
+        width: 100%;
+        height: 175px;
+        padding: 20px 60px;
+        text-align: center;
+    }
 `;
 
 const TitleStyled = styled.p`
@@ -25,6 +32,11 @@ const TitleStyled = styled.p`
     font-size: 106px;
     font-weight: 700;
     color: #FFF;
+   
+    @media(max-width: 800px){
+        width: 100%;
+        font-size: 76px;
+    }
 `;
 
 const SloganStyled = styled.p`
@@ -33,5 +45,11 @@ const SloganStyled = styled.p`
     font-size: 43px;
     font-weight: 700;
     color: #FFF;
+    line-height: 60px;
     
+    @media(max-width: 800px){
+        width: 100%;
+        font-size: 23px;
+        line-height: 28px;
+    }
 `;

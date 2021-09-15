@@ -1,6 +1,10 @@
 import SiteBanner from "../../sharedComponents/SiteBanner";
 import styled from "styled-components";
 import { useState } from "react";
+import { SignUpOrLoginInputStyled, SignUpOrLoginButtonStyled, SwitchSignUpLoginLinkStyled } from "../../sharedStyles/sharedStyles";
+import { postSignUp } from "../../Service";
+import { Link, useHistory } from "react-router-dom";
+
 
 export default function SignUpPage(){
     return(
@@ -12,57 +16,99 @@ export default function SignUpPage(){
 }
 
 function SignUpArea (){
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-    const [pictureURL, setPictureURL] = useState("");
+    const [pictureUrl, setpictureUrl] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const history = useHistory();
+
+    function UserSignUp (event){
+
+        event.preventDefault();
+        const body = {email, password, username, pictureUrl}
+        setIsLoading(true);
+        
+        postSignUp(body)
+            .then((response) => {
+                console.log(response)
+                setIsLoading(false);
+                history.push('/');
+            })
+            .catch((err) => {
+                setIsLoading(false);
+                if (err.response.status === 403){
+                    alert ('O e-mail inserido já está cadastrado.');
+                }
+            });
+    }
+
 
     return(
-        <SignUpDataContainerStyled>
-            <SignUpOrLoginInputStyled 
-                type="email" 
-                placeholder="e-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <SignUpOrLoginInputStyled 
-                type="password" 
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <SignUpOrLoginInputStyled 
-                type="username" 
-                placeholder="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-            />
-            <SignUpOrLoginInputStyled 
-                type="url" 
-                placeholder="picture url"
-                value={pictureURL}
-                onChange={(e) => setPictureURL(e.target.value)}
-                required
-            />
+         
+            <SignUpDataContainerStyled onSubmit={UserSignUp}>
+                <SignUpOrLoginInputStyled 
+                    type="email" 
+                    placeholder="e-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <SignUpOrLoginInputStyled 
+                    type="password" 
+                    placeholder="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <SignUpOrLoginInputStyled 
+                    type="username" 
+                    placeholder="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <SignUpOrLoginInputStyled 
+                    type="url" 
+                    placeholder="picture url"
+                    value={pictureUrl}
+                    onChange={(e) => setpictureUrl(e.target.value)}
+                    required
+                />
+                <SignUpOrLoginButtonStyled type="submit" disabled={isLoading ? true : false}>
+                    Sign Up
+                </SignUpOrLoginButtonStyled>
+                <Link to={'/'} style={{textDecoration: 'none'}}>
+                    <SwitchSignUpLoginLinkStyled>
+                        Switch back to log in
+                    </SwitchSignUpLoginLinkStyled>
+                </Link>
+            </SignUpDataContainerStyled>
+        
 
-
-
-        </SignUpDataContainerStyled>
+        
     );
 }
 
 const SignUpPageStyled = styled.div`
     display: flex;
+
+    @media(max-width: 800px){
+        flex-direction: column;
+    }
 `;
 
-const SignUpDataContainerStyled = styled.div`
+const SignUpDataContainerStyled = styled.form`
+    width: 30%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: 0 auto;
-`;
 
-const SignUpOrLoginInputStyled = styled.input`
-`
+    @media(max-width: 800px){
+        width: 90%;
+        align-items:center;
+        margin-top: 40px;
+    }
+`;
