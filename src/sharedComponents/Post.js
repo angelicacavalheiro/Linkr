@@ -38,14 +38,12 @@ export default function Post ({postInfo}) {
 }
 
 const BlackBox = styled.div`
-
 background-color: #171717;
 width: 611px;
 height: 276px;
 border-radius: 16px;
 margin-top:16px;
 display: flex;
-
 `
 const PhotoAndLikeBox = styled.div`
 display: flex;
@@ -53,7 +51,6 @@ flex-direction: column;
 align-items: center;
 width: 90px;
 text-align: center;
-
     img{
         width: 50px;
         height: 50px;
@@ -72,7 +69,6 @@ font-size: 20px;
 color: #ffffff;
 margin-top: 19px;
 font-weight: 700;
-
 `
 
 const ContentBox = styled.div`
@@ -93,8 +89,6 @@ width: 500px;
     span{
         color: #ffffff;
     }
-
-
 `
 const LinkBox = styled.div`
 display: flex;
@@ -103,14 +97,11 @@ margin-top:10px ;
 border: 1px solid #C4C4C4;
 border-radius: 11px;
 border-right: none;
-
-
 img{
     width: 153px;
     height: 155px;
     border-radius: 0px 13px 13px 0px;
 }
-
 `
 const LinkInfo = styled.div`
 display: flex;
@@ -119,8 +110,6 @@ border-radius: 11px;
 width: 330px;
 border-right: none;
 padding-left: 18px;
-
-
 `
 const LinkTitle = styled.div`
 display: flex;
@@ -129,7 +118,6 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
-
 `
 const LinkDescription = styled.div`
 display: flex;
@@ -138,7 +126,6 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
-
 `
 const LinkUrl = styled.div`
 display: flex;
@@ -148,4 +135,3 @@ font-size: 11px;
 line-height: 13px;
 margin-top: 10px;
 `
-
