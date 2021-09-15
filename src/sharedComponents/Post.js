@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import ReactHashtag from "react-hashtag";
+import { useHistory } from "react-router";
 
 export default function Post ({postInfo}) {
-
-    
+    let history = useHistory()
+    function redirectToHashTag (wrongHahshTag){
+        let hashTag = wrongHahshTag.substr(1);
+        history.push(`/hashtag/${hashTag}`);
+    }
 
     return(
         <BlackBoxStyle>
@@ -15,8 +20,8 @@ export default function Post ({postInfo}) {
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                <p>{postInfo.text}<span>ddd</span>sssssssssss</p>
-                <LinkBoxStyle>
+                <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
+                <LinkBoxStyle href={postInfo.link} target='_blank'>
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
@@ -59,6 +64,7 @@ text-align: center;
         font-size: 11px;
         margin-top: 4px;
         color: #ffffff;
+        
     }
    
 `
@@ -91,14 +97,14 @@ width: 500px;
 
 
 `
-const LinkBoxStyle = styled.div`
+const LinkBoxStyle = styled.a`
 display: flex;
 justify-content: space-between;
 margin-top:10px ;
 border: 1px solid #C4C4C4;
 border-radius: 11px;
 border-right: none;
-
+text-decoration: none;
 
 img{
     width: 153px;
@@ -151,4 +157,7 @@ margin-top: 10px;
 
 const LinkStyle = styled(Link)`
     text-decoration: none;
+`
+const HashTagStyle = styled(ReactHashtag)`
+    cursor: 'pointer';
 `
