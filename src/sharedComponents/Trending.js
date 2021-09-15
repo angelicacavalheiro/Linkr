@@ -3,8 +3,9 @@ import styled from "styled-components"
 export default function Trending () {
 
     return(
-        <TrendingStyle><h1>Componente Trending</h1></TrendingStyle>
-        
+        <TrendingStyle>
+            <h1>Componente Trending</h1>
+        </TrendingStyle>
     )
 }
 

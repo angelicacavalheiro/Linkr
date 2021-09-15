@@ -14,7 +14,7 @@ export default function Post ({postInfo}) {
     return(
         <BlackBoxStyle>
             <PhotoAndLikeBoxStyle>
-            <LinkStyle to={`/user/${postInfo.user.id}`}><img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png" /></LinkStyle>
+            <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} /></LinkStyle>
                 <Icon />
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
             </PhotoAndLikeBoxStyle>
