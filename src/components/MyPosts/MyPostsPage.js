@@ -4,14 +4,18 @@ import Loader from "react-loader-spinner";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { getAnUserPosts} from "../../Service";
+import styled from "styled-components";
 // import UserContext from
 
 export default function MyPostPage(){
-    const token = "b1c3ac55-500a-47fc-82eb-8ac8b2595428";
-    const id = 492;
+    const token = "11";
+    const id = 521;
      //const {token, MyID} = useContext(UserContext);
     const [posts, setPosts]= useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [noPosts, setNoPosts ] = useState(false);
+    const [message, setMessage] = useState("Você ainda não tem posts")
+    
     
     
    
@@ -27,9 +31,28 @@ export default function MyPostPage(){
                 console.log(resp.data)
                 setLoading(false)
                 setPosts(resp.data.posts) 
+
+                if(resp.data.posts.length === 0){
+                    setNoPosts(true);
+                }
             })
+            promise.catch(Erro);
     }
 
+    function Erro(e){
+        
+        if(e.response.status === 403 || e.response.status === 401){
+            setMessage("Erro: Você não esta mais logado")
+        }
+        if(e.response.status === 404){
+            setMessage("Erro: não foi encontrado")
+        }
+        if(e.response.status === 404){
+            setMessage("Erro: não foi encontrado")
+        }
+        setNoPosts(true);
+        setLoading(false);
+    }
 
 
 
@@ -39,16 +62,11 @@ export default function MyPostPage(){
         <ContainerCenterClass>
             <ColunaPostsClass>
                 <PageTitleClass>my posts</PageTitleClass>
-                {posts.map((post,index)=>
-                    <Post key={index} post={post}/>
+                {posts.map((postInfo,index)=>
+                    <Post key={index} postInfo={postInfo}/>
                 )}
-                {loading? <Loader
-                    type="Puff"
-                    color="#00BFFF"
-                    height={100}
-                    width={100}
-                 />: ""}
-                
+                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
+                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
             </ColunaPostsClass>
             
             <h1>Trending</h1>
@@ -59,3 +77,14 @@ export default function MyPostPage(){
     );
 }
 
+const LoadingStyle = styled.p`
+    font-size: 40px;
+    color: white;
+    text-align:center;
+`
+
+const NoPostsStyle = styled.p`
+    font-size: 40px;
+    color: white;
+    text-align:center;
+` 

@@ -5,15 +5,18 @@ import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getHashtagPosts} from "../../Service";
+import styled from "styled-components";
 // import UserContext from
 
 export default function HashtagPage(){
-    const token = "b1c3ac55-500a-47fc-82eb-8ac8b2595428";
+    const token = "b8";
 
      //const {token} = useContext(UserContext);
     const [posts, setPosts]= useState([]);
     const [loading, setLoading] = useState(true);
     const { hashtag } = useParams();
+    const [noPosts, setNoPosts ] = useState(false);
+    const [message, setMessage] = useState("Não há posts com esta #hashtag ")
     
    
 
@@ -28,10 +31,28 @@ export default function HashtagPage(){
                 console.log(resp.data)
                 setLoading(false)
                 setPosts(resp.data.posts) 
+                if(resp.data.posts.length === 0){
+                    setNoPosts(true);
+                }
             })
-    }
-
-
+            promise.catch(Erro);
+        }
+    
+    function Erro(e){
+            
+        if(e.response.status === 403 || e.response.status === 401){
+                setMessage("Erro: Você não esta mais logado")
+        }
+        if(e.response.status === 404){
+                setMessage("Erro: não foi encontrado")
+        }
+        if(e.response.status === 404){
+                setMessage("Erro: não foi encontrado")
+        }
+        setNoPosts(true);
+        setLoading(false);
+    
+     }
 
 
 
@@ -40,16 +61,11 @@ export default function HashtagPage(){
         <ContainerCenterClass>
             <ColunaPostsClass>
                 <PageTitleClass># {hashtag}</PageTitleClass>
-                {posts.map((post,index)=>
-                    <Post key={index} post={post}/>
+                {posts.map((postInfo,index)=>
+                    <Post key={index} postInfo={postInfo}/>
                 )}
-                {loading? <Loader
-                    type="Puff"
-                    color="#00BFFF"
-                    height={100}
-                    width={100}
-                 />: ""}
-                
+                {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""}
+                {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
             </ColunaPostsClass>
             
             <h1>Trending</h1>
@@ -59,3 +75,17 @@ export default function HashtagPage(){
         
     );
 }
+
+const LoadingStyle = styled.p`
+    font-size: 40px;
+    color: white;
+    text-align:center;
+
+`
+
+const NoPostsStyle = styled.p`
+    font-size: 40px;
+    color: white;
+    text-align:center;
+` 
+
