@@ -24,7 +24,7 @@ function SignUpArea (){
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
 
-    function UserSignUp (event){
+    function userSignUp (event){
 
         event.preventDefault();
         const body = {email, password, username, pictureUrl}
@@ -32,7 +32,6 @@ function SignUpArea (){
         
         postSignUp(body)
             .then((response) => {
-                console.log(response)
                 setIsLoading(false);
                 history.push('/');
             })
@@ -53,7 +52,7 @@ function SignUpArea (){
 
     return(
          
-            <SignUpDataContainerStyled onSubmit={UserSignUp}>
+            <SignUpDataContainerStyled onSubmit={userSignUp}>
                 <SignUpOrLoginInputStyled 
                     type="email" 
                     placeholder="e-mail"
