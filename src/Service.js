@@ -6,6 +6,11 @@ function postSignUp (body){
     return promise;
 }
 
+function postLogin (body){
+    const promise = axios.post(`${URL}/sign-in`, body);
+    return promise;
+}
+
 
 function getTimelinePosts (token) {
 
@@ -48,6 +53,7 @@ export {
     getTimelinePosts,
     getAnUserPosts,
     getHashtagPosts,
-    postSignUp
+    postSignUp, 
+    postLogin
 
 }

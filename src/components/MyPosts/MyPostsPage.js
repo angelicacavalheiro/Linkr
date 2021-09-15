@@ -1,23 +1,21 @@
 import { ContainerBoxClass, ContainerCenterClass, ColunaPostsClass, PageTitleClass } from "../../sharedStyles/sharedStyles";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { getAnUserPosts} from "../../Service";
 import styled from "styled-components";
-// import UserContext from
+import UserContext from "../../contexts/UserContext"
 
 export default function MyPostPage(){
-    const token = "11";
-    const id = 521;
-     //const {token, MyID} = useContext(UserContext);
+
+    const {user} = useContext(UserContext);
     const [posts, setPosts]= useState([]);
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Você ainda não tem posts")
     
     
-    
+    console.log(user)
    
 
     useEffect(()=>{
@@ -26,7 +24,8 @@ export default function MyPostPage(){
 
 
     function getMyPosts(){
-        const promise = getAnUserPosts(token, id);
+        const promise = getAnUserPosts(user.token, user.id);
+        console.log(user.token , user.id)
             promise.then((resp)=>{
                 console.log(resp.data)
                 setLoading(false)
