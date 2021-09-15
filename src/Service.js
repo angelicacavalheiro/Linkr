@@ -5,7 +5,7 @@ function getTimelinePosts (token) {
 
     const config = {
         headers: {
-            "Authorization": "Bearer token_recebido"
+            "Authorization": `Bearer ${token}` 
         }
     }
 
@@ -13,7 +13,33 @@ function getTimelinePosts (token) {
     return promise
 }
 
+function getAnUserPosts (token, id) {
+console.log(token, id)
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}` 
+        }
+    }
+
+    const promise = axios.get(`${URL}/users/${id}/posts`, config)
+    return promise;
+}
+
+function getHashtagPosts (token, hashtag) {
+    //console.log(token, hashtag)
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}` 
+            }
+        }
+    
+        const promise = axios.get(`${URL}/hashtags/${hashtag}/posts`, config)
+        return promise;
+    }
+
 
 export {
-    getTimelinePosts
+    getTimelinePosts,
+    getAnUserPosts,
+    getHashtagPosts
 }
