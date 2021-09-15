@@ -8,44 +8,48 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import UserPage from './components/User/UserPage'
 // import HashtagPage from './components/Hashtag/HashtagPage'
 // import MyLikesPage from './components/MyLikes/MyLikesPage'
+import MenuHeader from './components/MenuHeader/MenuHeader';
 
 import { useState, useContext } from 'react';
 
 export default function App() {
     return(
-      <BrowserRouter>
-        <Switch>
 
-          {/* <Route path="/sign-up" exact>
-            <SignUpPage />
-          </ Route> 
+      <MenuHeader />
 
-          <Route path="/" exact>
-            <LoginPage />
-          </ Route> 
+      // <BrowserRouter>
+      //   <Switch>
 
-          <Route path="/timeline" exact>
-            <MenuHeader />
-            <TimelinePage />
-          </ Route>  
+      //     <Route path="/sign-up" exact>
+      //       <SignUpPage />
+      //     </ Route> 
 
-          <Route path="/my-posts" exact>
-            <MyPostsPage />
-          </ Route>
+      //     <Route path="/" exact>
+      //       <LoginPage />
+      //     </ Route> 
 
-          <Route path="/user/:id" exact>
-            <UserPage />
-          </ Route>
+      //     <Route path="/timeline" exact>
+      //       <MenuHeader />
+      //       <TimelinePage />
+      //     </ Route>  
 
-          <Route path="/hashtag/:hashtag" exact>
-            <HashtagPage />
-          </ Route>
+      //     <Route path="/my-posts" exact>
+      //       <MyPostsPage />
+      //     </ Route>
 
-          <Route path="/my-likes" exact>
-            <MyLikesPage />
-          </ Route> */}
+      //     <Route path="/user/:id" exact>
+      //       <UserPage />
+      //     </ Route>
 
-        </ Switch>       
-      </ BrowserRouter>   
+      //     <Route path="/hashtag/:hashtag" exact>
+      //       <HashtagPage />
+      //     </ Route>
+
+      //     <Route path="/my-likes" exact>
+      //       <MyLikesPage />
+      //     </ Route> 
+
+      //   </ Switch>       
+      // </ BrowserRouter>   
     )
 }

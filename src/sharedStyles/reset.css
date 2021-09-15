@@ -63,3 +63,7 @@ h2{
     font-weight: 700;
 }
 
+*{
+    box-sizing: border-box;
+}
+
