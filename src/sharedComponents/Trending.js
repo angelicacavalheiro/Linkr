@@ -1,7 +1,27 @@
+import { useEffect, useContext, useState } from "react";
 import styled from "styled-components"
-
+import { getTrendingHashtags } from "../Service";
+import UserContext from "../contexts/UserContext";
 export default function Trending () {
+    const {user} = useContext(UserContext);
+    const [trendingList, setTrendingList] = useState([]);
 
+    useEffect(()=> {
+        getTrendingHashtags(user.token)
+        .then((res)=> {
+            console.log(res.data)
+            let list = res.data.hashtags
+            setTrendingList(list);
+
+        })
+        .catch(()=> alert('algo deu errado'))
+    }, [])
+
+    if(trendingList.length === 0) {
+        return(
+            <p>Carregando</p>
+        )
+    }    
     return(
 
         <TrendingStyle>
@@ -9,9 +29,11 @@ export default function Trending () {
                 <h2>Trending</h2>
             </TitleTrendingStyle>
             <TrendingListStyle>
-                <p>lista</p>
-                <p>lista</p>
-                <p>lista</p>
+                {trendingList.map((hashtag, index)=>{
+                    return(
+                        <p key={index}>{hashtag.name}</p>
+                    )
+                })}
             </TrendingListStyle>
         </TrendingStyle>
     )

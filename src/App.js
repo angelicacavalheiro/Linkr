@@ -26,7 +26,7 @@ export default function App() {
               <LoginPage />
             </Route> 
 
-            <Route path="/" exact>
+            <Route path="/timeline" exact>
               <TimelinePage />
             </Route>  
 
