@@ -1,15 +1,16 @@
 import { ContainerBoxClass, ContainerCenterClass, ColunaPostsClass, PageTitleClass } from "../../sharedStyles/sharedStyles";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
-import { getAnUserPosts, getTimelinePosts } from "../../Service";
-//import InfiniteScroll from 'react-infinite-scroller';
-// import { useContext } from "react";
+import { getAnUserPosts} from "../../Service";
 // import UserContext from
 
 export default function MyPostPage(){
     const token = "b1c3ac55-500a-47fc-82eb-8ac8b2595428";
     const id = 492;
     const [posts, setPosts]= useState([]);
+    const [loading, setLoading] = useState(true)
     const name = "AnUser";
     
     //const {token, MyID} = useContext(UserContext);
@@ -20,10 +21,10 @@ export default function MyPostPage(){
 
     function getMyPosts(){
 
-        //const promise = getAnUserPosts(token, id);
-        const promise = getTimelinePosts(token);
+        const promise = getAnUserPosts(token, id);
         promise.then((resp)=>{
             console.log(resp.data)
+            setLoading(false)
             setPosts(resp.data.posts)
         })
     }
@@ -40,16 +41,12 @@ export default function MyPostPage(){
                 {posts.map((post,index)=>
                     <Post key={index} post={post}/>
                 )}
-                <Post></Post>
-                {/* <InfiniteScroll
-            pageStart={0}
-            loadMore={loadFunc}
-            hasMore={true || false}
-            // loader={<div className="loader" key={0}>Loading ...</div>}
-            // useWindow={false}
-            // getScrollParent={() => this.scrollParentRef}
-        >
-        </InfiniteScroll> */}
+                {loading? <Loader
+                    type="Puff"
+                    color="#00BFFF"
+                    height={100}
+                    width={100}
+                 />: ""}
                 
             </ColunaPostsClass>
             
@@ -60,3 +57,4 @@ export default function MyPostPage(){
         
     );
 }
+

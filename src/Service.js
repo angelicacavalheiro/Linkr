@@ -1,6 +1,12 @@
 import axios from "axios";
 const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr'
 
+function postSignUp (body){
+    const promise = axios.post(`${URL}/sign-up`, body);
+    return promise;
+}
+
+
 function getTimelinePosts (token) {
 
     const config = {
@@ -41,5 +47,7 @@ function getHashtagPosts (token, hashtag) {
 export {
     getTimelinePosts,
     getAnUserPosts,
-    getHashtagPosts
+    getHashtagPosts,
+    postSignUp
+
 }
