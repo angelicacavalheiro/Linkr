@@ -32,7 +32,7 @@ console.log(token, id)
 }
 
 function getHashtagPosts (token, hashtag) {
-    //console.log(token, hashtag)
+    console.log(token, hashtag)
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}` 

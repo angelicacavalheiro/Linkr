@@ -9,24 +9,25 @@ import { getAnUserPosts} from "../../Service";
 export default function MyPostPage(){
     const token = "b1c3ac55-500a-47fc-82eb-8ac8b2595428";
     const id = 492;
+     //const {token, MyID} = useContext(UserContext);
     const [posts, setPosts]= useState([]);
     const [loading, setLoading] = useState(true)
-    const name = "AnUser";
     
-    //const {token, MyID} = useContext(UserContext);
+    
+   
 
     useEffect(()=>{
         getMyPosts()
     }, [])
 
-    function getMyPosts(){
 
+    function getMyPosts(){
         const promise = getAnUserPosts(token, id);
-        promise.then((resp)=>{
-            console.log(resp.data)
-            setLoading(false)
-            setPosts(resp.data.posts)
-        })
+            promise.then((resp)=>{
+                console.log(resp.data)
+                setLoading(false)
+                setPosts(resp.data.posts) 
+            })
     }
 
 

@@ -5,8 +5,8 @@ import SignUpPage from './components/Signup/SignUpPage'
 // import LoginPage from './components/Login/LoginPage'
 // import TimelinePage from './components/Timeline/TimelinePage'
 import MyPostsPage from './components/MyPosts/MyPostsPage'
-// import UserPage from './components/User/UserPage'
-// import HashtagPage from './components/Hashtag/HashtagPage'
+import UserPage from './components/User/UserPage'
+import HashtagPage from './components/Hashtag/HashtagPage'
 // import MyLikesPage from './components/MyLikes/MyLikesPage'
 
 // import { useState, useContext } from 'react';
@@ -29,13 +29,13 @@ export default function App() {
           <Route path="/my-posts" exact>
             <MyPostsPage />
          </ Route>
-          {/*  <Route path="/user/:id" exact>
+            <Route path="/user/:id" exact>
             <UserPage />
           </ Route>
-          <Route path="/hashtag/:hashtag" exact>
+         <Route path="/hashtag/:hashtag" exact>
             <HashtagPage />
           </ Route>
-          <Route path="/my-likes" exact>
+          {/* <Route path="/my-likes" exact>
             <MyLikesPage />
           </ Route> */}
 
