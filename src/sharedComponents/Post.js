@@ -7,37 +7,32 @@ export default function Post ({postInfo}) {
     
 
     return(
-        <BlackBox>
-            <PhotoAndLikeBox>
-            <LinkStyled to={`/user/${postInfo.user.id}`}><img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png" /></LinkStyled>
+        <BlackBoxStyle>
+            <PhotoAndLikeBoxStyle>
+            <LinkStyle to={`/user/${postInfo.user.id}`}><img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png" /></LinkStyle>
                 <Icon />
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
-            </PhotoAndLikeBox>
-            <ContentBox>
-                <LinkStyled to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyled>
+            </PhotoAndLikeBoxStyle>
+            <ContentBoxStyle>
+                <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
                 <p>{postInfo.text}<span>ddd</span>sssssssssss</p>
-                
-                <LinkBox>
-                    <LinkInfo>
-                        <LinkTitle>{postInfo.linkTitle}
-                        </LinkTitle>
-                        <LinkDescription>{postInfo.linkDescription}
-                        </LinkDescription>
-                        <LinkUrl>
+                <LinkBoxStyle>
+                    <LinkInfoStyle>
+                        <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
+                        <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
+                        <LinkUrlStyle>
                             <a href={postInfo.link} target='_blank'>{postInfo.link}</a>
-                        </LinkUrl>
-                    </LinkInfo>
-                        
+                        </LinkUrlStyle>
+                    </LinkInfoStyle>
                         <img src={postInfo.linkImage}/>
-
-                </LinkBox>
-            </ContentBox>
-        </BlackBox>
+                </LinkBoxStyle>
+            </ContentBoxStyle>
+        </BlackBoxStyle>
         
     )
 }
 
-const BlackBox = styled.div`
+const BlackBoxStyle = styled.div`
 
 background-color: #171717;
 width: 611px;
@@ -47,7 +42,7 @@ margin-top:16px;
 display: flex;
 
 `
-const PhotoAndLikeBox = styled.div`
+const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -75,7 +70,7 @@ font-weight: 700;
 
 `
 
-const ContentBox = styled.div`
+const ContentBoxStyle = styled.div`
 display: flex;
 flex-direction: column;
 margin-top: 27px;
@@ -96,7 +91,7 @@ width: 500px;
 
 
 `
-const LinkBox = styled.div`
+const LinkBoxStyle = styled.div`
 display: flex;
 justify-content: space-between;
 margin-top:10px ;
@@ -112,7 +107,7 @@ img{
 }
 
 `
-const LinkInfo = styled.div`
+const LinkInfoStyle = styled.div`
 display: flex;
 flex-direction: column;
 border-radius: 11px;
@@ -122,7 +117,7 @@ padding-left: 18px;
 
 
 `
-const LinkTitle = styled.div`
+const LinkTitleStyle = styled.div`
 display: flex;
 flex-direction: column;
 color: #CECECE;
@@ -131,7 +126,7 @@ font-size: 16px;
 line-height: 19px;
 
 `
-const LinkDescription = styled.div`
+const LinkDescriptionStyle = styled.div`
 display: flex;
 flex-direction: column;
 font-size: 11px;
@@ -140,7 +135,7 @@ margin-top: 5px;
 line-height: 13px;
 
 `
-const LinkUrl = styled.div`
+const LinkUrlStyle = styled.div`
 display: flex;
 flex-direction: column;
 font-size: 11px;
@@ -154,6 +149,6 @@ margin-top: 10px;
     
 `
 
-const LinkStyled = styled(Link)`
+const LinkStyle = styled(Link)`
     text-decoration: none;
 `
