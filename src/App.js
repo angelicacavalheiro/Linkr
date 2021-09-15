@@ -14,11 +14,11 @@ import UserContext from './contexts/UserContext';
 // import { useState, useContext } from 'react';
 
 export default function App() {
-  const [user, setUser] = useState({});
-
+  const [token, setToken] = useState("");
+  console.log(token);
     return(
       <BrowserRouter>
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{token, setToken}}>
           <Switch>
             <Route path="/sign-up" exact>
               <SignUpPage />

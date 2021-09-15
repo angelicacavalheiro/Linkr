@@ -32,7 +32,8 @@ function LoginArea (){
         postLogin(body)
             .then((response) => {
                 setIsLoading(false);
-                console.log(response)
+                console.log(response);
+                setToken(response.data.token);
                 history.push('/timeline');
             })
             .catch((err) => {
