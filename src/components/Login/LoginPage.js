@@ -21,7 +21,7 @@ function LoginArea (){
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-    const { setToken } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     function userLogin (event){
 
@@ -33,7 +33,7 @@ function LoginArea (){
             .then((response) => {
                 setIsLoading(false);
                 console.log(response);
-                setToken(response.data.token);
+                setUser({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar});
                 history.push('/timeline');
             })
             .catch((err) => {
