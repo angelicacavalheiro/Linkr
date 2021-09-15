@@ -18,9 +18,9 @@ export default function Menu(){
                 (showMenu === true) ?                
                 <MyMenuStyle>
                     <OptionsStyle> 
-                    <Link to="/my-likes" onClick={disappearMenu}> My Likes </Link>
-                    <Link to="/my-posts" onClick={disappearMenu}> My Posts </Link>
-                    <Link to="/" onClick={disappearMenu}> Logout </Link>
+                    <Link to="/my-likes" onClick={disappearMenu}> <p>My Likes</p> </Link>
+                    <Link to="/my-posts" onClick={disappearMenu}> <p>My Posts</p> </Link>
+                    <Link to="/" onClick={disappearMenu}> <p>Logout</p> </Link>
                     </OptionsStyle>
                 </MyMenuStyle>                 
                 :            

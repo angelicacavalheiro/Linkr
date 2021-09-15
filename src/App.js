@@ -20,15 +20,15 @@ export default function App() {
       <BrowserRouter>
         <Switch>
 
-          <Route path="/sign-up" exact>
-            <SignUpPage />
-          </ Route> 
-
-          <Route path="/" exact>
-            <LoginPage />
-          </ Route> 
-
           <ShowMenuContext.Provider value={{showMenu, setShowMenu}}>
+
+            <Route path="/sign-up" exact>
+              <SignUpPage />
+            </ Route> 
+
+            <Route path="/" exact>
+              <LoginPage />
+            </ Route> 
 
             <Route path="/timeline" exact>
               <MenuHeader />
@@ -56,8 +56,6 @@ export default function App() {
             </ Route> 
 
           </ShowMenuContext.Provider>
-
-  
 
         </ Switch>       
       </ BrowserRouter>   
