@@ -58,7 +58,12 @@ const SignUpOrLoginButtonStyled = styled.button`
     font-weight: 700;
     color: #FFF;
 
-    @media(max-width: 600px){
+    &:hover{
+        cursor: pointer;
+        filter: brightness(1.2);
+    }
+
+    @media(max-width: 614px){
         width: 100%;
     }
 `;

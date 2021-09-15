@@ -94,7 +94,7 @@ function SignUpArea (){
 const SignUpPageStyled = styled.div`
     display: flex;
 
-    @media(max-width: 800px){
+    @media(max-width: 614px){
         flex-direction: column;
     }
 `;
@@ -106,7 +106,7 @@ const SignUpDataContainerStyled = styled.form`
     justify-content: center;
     margin: 0 auto;
 
-    @media(max-width: 800px){
+    @media(max-width: 614px){
         width: 90%;
         align-items:center;
         margin-top: 40px;
