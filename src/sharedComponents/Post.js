@@ -40,11 +40,11 @@ export default function Post ({postInfo}) {
 const BlackBoxStyle = styled.div`
 
 background-color: #171717;
-width: 611px;
-height: 276px;
+width: 100%;
 border-radius: 16px;
 margin-top:16px;
 display: flex;
+    
 
 `
 const PhotoAndLikeBoxStyle = styled.div`
@@ -105,12 +105,24 @@ border: 1px solid #C4C4C4;
 border-radius: 11px;
 border-right: none;
 text-decoration: none;
-
+word-wrap: break-word;
 img{
     width: 153px;
     height: 155px;
     border-radius: 0px 13px 13px 0px;
+    margin-left: 10px;
+    @media(max-width: 600px) {
+        width: 95px;
+        height: 100%;
+
+    }
+
 }
+
+@media(max-width: 600px) {
+        word-break: break-all;
+        width: 75vw;
+    }
 
 `
 const LinkInfoStyle = styled.div`
@@ -130,6 +142,9 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
+@media(max-width: 600px) {
+       font-size: 11px;
+    }
 
 `
 const LinkDescriptionStyle = styled.div`
@@ -139,6 +154,10 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
+
+@media(max-width: 600px) {
+       font-size: 8px;
+    }
 
 `
 const LinkUrlStyle = styled.div`
@@ -153,6 +172,9 @@ margin-top: 10px;
         color:#CECECE;
     }
     
+    @media(max-width: 600px) {
+       font-size: 9px;
+    }
 `
 
 const LinkStyle = styled(Link)`
