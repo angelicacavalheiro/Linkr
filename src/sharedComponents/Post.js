@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 
-export default function Post ({postInfo}) {
+export default function Post () {
 
-    console.log(postInfo)
 
     return(
         <BlackBox>
             <PhotoAndLikeBox>
-                <img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png" />
+                <img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png" alt="" />
                 <Icon />
                 <p>13likes</p>
             </PhotoAndLikeBox>
@@ -28,7 +27,7 @@ export default function Post ({postInfo}) {
                         </LinkUrl>
                     </LinkInfo>
                         
-                        <img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png"/>
+                        <img src="https://www.pxpng.com/public/uploads/preview/-11601774644rkfopjcrfk.png" alt=""/>
 
                 </LinkBox>
             </ContentBox>
