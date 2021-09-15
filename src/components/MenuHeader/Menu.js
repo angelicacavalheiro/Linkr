@@ -18,9 +18,9 @@ export default function Menu(){
                 (showMenu === true) ?                
                 <MyMenuStyle>
                     <OptionsStyle> 
-                    <p onClick={disappearMenu}> My Likes </p>
-                    <p onClick={disappearMenu}> My Posts </p>
-                    <p onClick={disappearMenu}> Logout </p>
+                    <Link to="/my-likes" onClick={disappearMenu}> My Likes </Link>
+                    <Link to="/my-posts" onClick={disappearMenu}> My Posts </Link>
+                    <Link to="/" onClick={disappearMenu}> Logout </Link>
                     </OptionsStyle>
                 </MyMenuStyle>                 
                 :            
@@ -30,9 +30,6 @@ export default function Menu(){
     )
 }
 
-{/* <Link to="/my-likes"> My Likes </Link>
-<Link to="/my-posts"> My Posts </Link>
-<Link to="/"> Logout </Link> */}
 
 const OptionsStyle = styled.div`
     display: flex;
