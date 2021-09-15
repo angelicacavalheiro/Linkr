@@ -73,6 +73,7 @@ const SwitchSignUpLoginLinkStyled = styled.p`
     font-family: 'Lato', sans-serif;
     text-align: center;
     text-decoration: underline;
+    margin-bottom: 30px;
 
 `
 

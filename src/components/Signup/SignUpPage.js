@@ -41,6 +41,12 @@ function SignUpArea (){
                 if (err.response.status === 403){
                     alert ('O e-mail inserido já está cadastrado.');
                 }
+                else if (err.response.status === 500){
+                    alert ('Erro de servidor');
+                }
+                else{
+                    alert ('Erro ao realizar cadastro');
+                }
             });
     }
 

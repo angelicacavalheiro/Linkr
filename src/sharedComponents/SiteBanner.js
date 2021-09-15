@@ -21,8 +21,8 @@ const SiteBannerStyled = styled.div`
 
     @media(max-width: 614px){
         width: 100%;
-        height: 175px;
-        padding: 20px 60px;
+        height: auto;
+        padding: 10px 60px;
         text-align: center;
     }
 `;
