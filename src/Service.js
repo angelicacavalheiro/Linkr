@@ -13,6 +13,7 @@ function getTimelinePosts (token) {
     return promise
 }
 
+
 export {
     getTimelinePosts
 }
