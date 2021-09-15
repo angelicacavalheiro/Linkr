@@ -26,7 +26,7 @@ export default function Post ({postInfo}) {
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
                         <LinkUrlStyle>
-                            <a href={postInfo.link} target='_blank'>{postInfo.link}</a>
+                            {postInfo.link}
                         </LinkUrlStyle>
                     </LinkInfoStyle>
                         <img src={postInfo.linkImage}/>
@@ -142,7 +142,8 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
-@media(max-width: 600px) {
+
+    @media(max-width: 600px) {
        font-size: 11px;
     }
 
@@ -155,22 +156,19 @@ color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
 
-@media(max-width: 600px) {
+    @media(max-width: 600px) {
        font-size: 8px;
     }
 
 `
-const LinkUrlStyle = styled.div`
+const LinkUrlStyle = styled.h4`
 display: flex;
 flex-direction: column;
 font-size: 11px;
 line-height: 13px;
 margin-top: 10px;
-
-    a{
-        text-decoration:none;
-        color:#CECECE;
-    }
+text-decoration: none;
+color: #CECECE;
     
     @media(max-width: 600px) {
        font-size: 9px;

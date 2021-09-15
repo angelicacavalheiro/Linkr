@@ -39,9 +39,9 @@ export default function TimelinePage () {
                     :
                     <>
                     <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
-                    {postsList.posts.map((post)=> {
+                    {postsList.posts.map((post, index)=> {
                         return(
-                            <Post postInfo={post}></Post>
+                            <Post key={index}postInfo={post}></Post>
                         )
                     })}</>}
                 </ColunaPostsStyle>
