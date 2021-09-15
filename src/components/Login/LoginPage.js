@@ -32,7 +32,6 @@ function LoginArea (){
         postLogin(body)
             .then((response) => {
                 setIsLoading(false);
-                console.log(response);
                 setUser({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar});
                 history.push('/timeline');
             })
