@@ -1,16 +1,26 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useState, useContext } from 'react';
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
-export default function Menu({showMenu, setShowMenu}){
+export default function Menu(){
+
+    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
+
+
+    function disappearMenu(){       
+        (setShowMenu(false))            
+    }
+
     return (
         <>
             {
                 (showMenu === true) ?                
                 <MyMenuStyle>
                     <OptionsStyle> 
-                    <p > My Likes </p>
-                    <p > My Posts </p>
-                    <p > Logout </p>
+                    <p onClick={disappearMenu}> My Likes </p>
+                    <p onClick={disappearMenu}> My Posts </p>
+                    <p onClick={disappearMenu}> Logout </p>
                     </OptionsStyle>
                 </MyMenuStyle>                 
                 :            

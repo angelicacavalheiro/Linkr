@@ -1,23 +1,33 @@
 import styled from 'styled-components';
 import { useState, useContext } from 'react';
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 import Arrow from './Arrow'
 import UserImage from './UserImage'
 import Menu from './Menu'
 
 export default function MenuHeader(){
 
-    const[showMenu , setShowMenu] = useState(false)
+    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
+
+    function disappearMenu() { 
+        (showMenu === true)
+        ?      
+        (setShowMenu(false))
+        :
+        (setShowMenu(false)  )
+    }
+
 
     return (
         <> 
-            <HeaderStyled>  
+            <HeaderStyled onClick={disappearMenu}>  
                 <TitleStyled>linkr</TitleStyled> 
                 <RightHeaderStyled>                            
-                    <Arrow showMenu={showMenu} setShowMenu={setShowMenu} />
-                    <UserImage showMenu={showMenu} setShowMenu={setShowMenu} />                    
+                    <Arrow />
+                    <UserImage />                    
                 </RightHeaderStyled>
-            </ HeaderStyled>   
-            <Menu showMenu={showMenu} setShowMenu={setShowMenu} />   
+            </ HeaderStyled >   
+            <Menu />   
         </>  
     )
 }

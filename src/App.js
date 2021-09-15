@@ -9,13 +9,19 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import HashtagPage from './components/Hashtag/HashtagPage'
 // import MyLikesPage from './components/MyLikes/MyLikesPage'
 import MenuHeader from './components/MenuHeader/MenuHeader';
-
+import ShowMenuContext from './contexts/ShowMenuContext';
 import { useState, useContext } from 'react';
 
 export default function App() {
+
+  const[showMenu , setShowMenu] = useState(false)
+
     return(
 
-      <MenuHeader />
+      <ShowMenuContext.Provider value={{showMenu, setShowMenu}}>
+        <MenuHeader />
+      </ShowMenuContext.Provider>
+      
 
       // <BrowserRouter>
       //   <Switch>
@@ -35,18 +41,22 @@ export default function App() {
 
       //     <Route path="/my-posts" exact>
       //       <MyPostsPage />
+      //       <TimelinePage />
       //     </ Route>
 
       //     <Route path="/user/:id" exact>
       //       <UserPage />
+      //       <TimelinePage />
       //     </ Route>
 
       //     <Route path="/hashtag/:hashtag" exact>
       //       <HashtagPage />
+      //       <TimelinePage />
       //     </ Route>
 
       //     <Route path="/my-likes" exact>
       //       <MyLikesPage />
+      //       <TimelinePage />
       //     </ Route> 
 
       //   </ Switch>       

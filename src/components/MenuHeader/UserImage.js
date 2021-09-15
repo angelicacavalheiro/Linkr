@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import { useState, useContext } from 'react';
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
-export default function UserImage({showMenu, setShowMenu}){
+export default function UserImage(){
+
+    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
 
     
-    function toggleMenu(){
+    function toggleMenu(event){
+
+        event.stopPropagation();
            
         (showMenu === true)
         ?
@@ -14,7 +19,7 @@ export default function UserImage({showMenu, setShowMenu}){
     }
 
     return (
-           <ImageStyle onClick={toggleMenu} src="https://lh3.googleusercontent.com/proxy/Aac1hByZgG6p_79HlPLObDWtDzApgtIfLS9IBb-VtrBbO_n5ytllyjzWGQL8qI5axMtNcmdpsg6fHY1fQOW8VmTswfVlYGGtmB2TmLx-qKGHgMPO" />      
+           <ImageStyle onClick={(event) => toggleMenu(event) } src="https://lh3.googleusercontent.com/proxy/Aac1hByZgG6p_79HlPLObDWtDzApgtIfLS9IBb-VtrBbO_n5ytllyjzWGQL8qI5axMtNcmdpsg6fHY1fQOW8VmTswfVlYGGtmB2TmLx-qKGHgMPO" />      
     )
 }
 
