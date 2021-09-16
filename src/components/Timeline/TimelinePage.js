@@ -14,7 +14,7 @@ export default function TimelinePage () {
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
 
-    useEffect(()=> {
+    function loadPosts(){
         getTimelinePosts(user.token)
         .then((res)=> {
             setPostsList(res.data)
@@ -23,11 +23,15 @@ export default function TimelinePage () {
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 
+    }
+
+    useEffect(()=> {
+        loadPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    return(
 
+    return(
         <ContainerBoxStyle>
             <ContainerCenterStyle>
                 <ColunaPostsStyle>
@@ -35,7 +39,7 @@ export default function TimelinePage () {
                     {loading ? <LoadingStyle>Loading...</LoadingStyle>
                     :
                     <>
-                    <AddPosts/>
+                    <AddPosts loadPosts={loadPosts}/>
                     <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
                     {postsList.posts.map((post, index)=> {
                         return(

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import { postUserPost } from "../../Service";
 
-export default function AddPosts(){
+export default function AddPosts(props){
     
     const { user } = useContext(UserContext);
     
@@ -15,7 +15,7 @@ export default function AddPosts(){
                     <img src={user.image} alt={''} />
                 </LinkStyle>
             </PhotoBoxStyle>
-            <PostArea token={user.token}/>
+            <PostArea token={user.token} loadPosts={props.loadPosts}/>
         </WhiteBoxStyle>
     );
 }
@@ -36,10 +36,12 @@ function PostArea(props){
             .then((response) => {
                 setIsLoading(false);
                 setLink("");
-                setText("");                
+                setText("");
+                props.loadPosts();               
             })
             .catch((err) => {
                 setIsLoading(false);
+                console.log(err);
                 alert("Houve um erro ao publicar o seu link");
             });
     }
