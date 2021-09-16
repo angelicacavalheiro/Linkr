@@ -11,9 +11,9 @@ export default function AddPosts(){
     return(
         <WhiteBoxStyle>
             <PhotoBoxStyle>
-                <LinkStyle to={`/user/${user.id}`}>
+                <linkStyle to={`/user/${user.id}`}>
                     <img src={user.image} alt={''} />
-                </LinkStyle>
+                </linkStyle>
             </PhotoBoxStyle>
             <PostArea token={user.token}/>
         </WhiteBoxStyle>
@@ -35,9 +35,13 @@ function PostArea(props){
         postUserPost(body, token)
             .then((response) => {
                 setIsLoading(false);
-                document.location.reload();
+                
+                
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                setIsLoading(false);
+                alert("Houve um erro ao publicar o seu link");
+            });
     }
 
     return(
@@ -45,14 +49,14 @@ function PostArea(props){
             <StatusQuestionStyle>
                 O que você tem para favoritar hoje?
             </StatusQuestionStyle>
-            <InputPostLinkStyle 
+            <InputPostlinkStyle 
                 placeholder="http://..."
                 type="url"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
                 required
             />
-            <InputPostLinkDescriptionStyle 
+            <InputPostlinkDescriptionStyle 
                 placeholder="Muito irado esse link falando de #javascript"
                 type="text"
                 value={text}
@@ -88,7 +92,7 @@ const PhotoBoxStyle = styled.div`
         margin-top: 8px;
     }
 `;
-const LinkStyle = styled(Link)`
+const linkStyle = styled(Link)`
     text-decoration: none;
 `;
 
@@ -108,7 +112,7 @@ const StatusQuestionStyle = styled.p`
     
 `;
 
-const InputPostLinkStyle = styled.input`
+const InputPostlinkStyle = styled.input`
     border: none;
     background-color: #EFEFEF;
     border-radius: 5px;
@@ -123,7 +127,7 @@ const InputPostLinkStyle = styled.input`
     }
 `;
 
-const InputPostLinkDescriptionStyle = styled.textarea`
+const InputPostlinkDescriptionStyle = styled.textarea`
     height: 66px;
     border: none;
     background-color: #EFEFEF;
