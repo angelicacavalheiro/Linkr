@@ -21,9 +21,7 @@ export default function Menu(){
             localStorage. clear()
             setUser({})     
             history.push("/")
-
-        }    
-        
+        }            
     }
 
     return (
@@ -34,7 +32,7 @@ export default function Menu(){
                     <OptionsStyled> 
                     <Link to="/my-likes" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Likes</p> </Link>
                     <Link to="/my-posts" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Posts</p> </Link>
-                    <button onClick={cleanUserLogin}> Logout</button> 
+                    <p onClick={cleanUserLogin}> Logout</p> 
                     </OptionsStyled>
                 </MyMenuStyled>                 
                 :            
@@ -55,7 +53,7 @@ const OptionsStyled = styled.div`
     width: 150px;
     height: 109px;
 
-    p{
+    p {
         font-family: Lato;
         font-weight: bold;
         font-size: 17px;
@@ -63,6 +61,7 @@ const OptionsStyled = styled.div`
         letter-spacing: 0.05em;
         color: #FFFFFF;
         margin: 5px auto 5px auto;
+        cursor: pointer;
     }
 `;
 
