@@ -44,8 +44,6 @@ width: 100%;
 border-radius: 16px;
 margin-top:16px;
 display: flex;
-    
-
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
@@ -73,7 +71,6 @@ font-size: 20px;
 color: #ffffff;
 margin-top: 19px;
 font-weight: 700;
-
 `
 
 const ContentBoxStyle = styled.div`
@@ -94,8 +91,6 @@ width: 500px;
     span{
         color: #ffffff;
     }
-
-
 `
 const LinkBoxStyle = styled.a`
 display: flex;
@@ -132,8 +127,6 @@ border-radius: 11px;
 width: 330px;
 border-right: none;
 padding-left: 18px;
-
-
 `
 const LinkTitleStyle = styled.div`
 display: flex;
