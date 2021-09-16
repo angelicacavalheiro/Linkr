@@ -1,5 +1,5 @@
 
-import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles"
+import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles"
 import Post from "../../sharedComponents/Post"
 import { useContext, useEffect, useState } from "react"
 import { getTimelinePosts } from "../../Service";
@@ -34,20 +34,23 @@ export default function TimelinePage () {
     return(
         <ContainerBoxStyle>
             <ContainerCenterStyle>
-                <ColunaPostsStyle>
-                    <PageTitleStyle>TimeLine</PageTitleStyle>
-                    {loading ? <LoadingStyle>Loading...</LoadingStyle>
-                    :
-                    <>
-                    <AddPosts loadPosts={loadPosts}/>
-                    <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
-                    {postsList.posts.map((post, index)=> {
-                        return(
-                            <Post key={index}postInfo={post}></Post>
-                        )
-                    })}</>}
-                </ColunaPostsStyle>
-                <Trending></Trending>
+
+                <PageTitleStyle>TimeLine</PageTitleStyle>
+                <PostsAndTrendingStyle>
+                    <ColunaPostsStyle>
+                        {loading ? <LoadingStyle>Loading...</LoadingStyle>
+                        :
+                        <>
+                        <AddPosts loadPosts={loadPosts}/>
+                        <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
+                        {postsList.posts.map((post, index)=> {
+                            return(
+                                <Post key={index}postInfo={post}></Post>
+                            )
+                        })}</>}
+                    </ColunaPostsStyle>
+                    <Trending></Trending>
+                </PostsAndTrendingStyle>
             </ContainerCenterStyle>    
         </ContainerBoxStyle> 
     )         
