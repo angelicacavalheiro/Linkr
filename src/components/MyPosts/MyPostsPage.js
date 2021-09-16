@@ -1,89 +1,167 @@
-import { ContainerBoxClass, ContainerCenterClass, ColunaPostsClass, PageTitleClass } from "../../sharedStyles/sharedStyles";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Post from "../../sharedComponents/Post";
-import { useContext, useEffect, useState } from "react";
-import { getAnUserPosts} from "../../Service";
+
 import styled from "styled-components";
-import UserContext from "../../contexts/UserContext"
+import { FiHeart } from "react-icons/fi";
+import { Link } from "react-router-dom";
+//import ReactHashtag from "react-hashtag";
+import { useHistory } from "react-router";
 
-export default function MyPostPage(){
-
-    const {user} = useContext(UserContext);
-    const [posts, setPosts]= useState([]);
-    const [loading, setLoading] = useState(true);
-    const [noPosts, setNoPosts ] = useState(false);
-    const [message, setMessage] = useState("Você ainda não tem posts")
-    
-    
-    console.log(user)
-   
-
-    useEffect(()=>{
-        getMyPosts()
-    }, [])
-
-
-    function getMyPosts(){
-        const promise = getAnUserPosts(user.token, user.id);
-        console.log(user.token , user.id)
-            promise.then((resp)=>{
-                console.log(resp.data)
-                setLoading(false)
-                setPosts(resp.data.posts) 
-
-                if(resp.data.posts.length === 0){
-                    setNoPosts(true);
-                }
-            })
-            promise.catch(Erro);
-    }
-
-    function Erro(e){
-        
-        if(e.response.status === 403 || e.response.status === 401){
-            setMessage("Erro: Você não esta mais logado")
-        }
-        if(e.response.status === 404){
-            setMessage("Erro: não foi encontrado")
-        }
-        if(e.response.status === 404){
-            setMessage("Erro: não foi encontrado")
-        }
-        setNoPosts(true);
-        setLoading(false);
-    }
-
-
-
+export default function Post ({postInfo}) {
+    let history = useHistory()
+    // function redirectToHashTag (wrongHahshTag){
+    //     let hashTag = wrongHahshTag.substr(1);
+    //     history.push(`/hashtag/${hashTag}`);
+    // }
 
     return(
-    <ContainerBoxClass>
-        <ContainerCenterClass>
-            <ColunaPostsClass>
-                <PageTitleClass>my posts</PageTitleClass>
-                {posts.map((postInfo,index)=>
-                    <Post key={index} postInfo={postInfo}/>
-                )}
-                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-            </ColunaPostsClass>
-            
-            <h1>Trending</h1>
-        </ContainerCenterClass>
-    </ContainerBoxClass>
-    
+        <BlackBoxStyle>
+            <PhotoAndLikeBoxStyle>
+            <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
+                <Icon />
+                <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
+            </PhotoAndLikeBoxStyle>
+            <ContentBoxStyle>
+                <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                {/* <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p> */}
+                <LinkBoxStyle href={postInfo.link} target='_blank'>
+                    <LinkInfoStyle>
+                        <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
+                        <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
+                        <LinkUrlStyle>
+                            {postInfo.link}
+                        </LinkUrlStyle>
+                    </LinkInfoStyle>
+                        <img src={postInfo.linkImage} alt={"Link"}/>
+                </LinkBoxStyle>
+            </ContentBoxStyle>
+        </BlackBoxStyle>
         
-    );
+    )
 }
 
-const LoadingStyle = styled.p`
-    font-size: 40px;
-    color: white;
-    text-align:center;
+const BlackBoxStyle = styled.div`
+background-color: #171717;
+width: 100%;
+border-radius: 16px;
+margin-top:16px;
+display: flex;
+`
+const PhotoAndLikeBoxStyle = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 90px;
+text-align: center;
+    img{
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        margin-top: 19px;
+    }
+    p{
+        font-size: 11px;
+        margin-top: 4px;
+        color: #ffffff;
+        
+    }
+   
+`
+const Icon = styled(FiHeart)`
+font-size: 20px;
+color: #ffffff;
+margin-top: 19px;
+font-weight: 700;
 `
 
-const NoPostsStyle = styled.p`
-    font-size: 40px;
-    color: white;
-    text-align:center;
-` 
+const ContentBoxStyle = styled.div`
+display: flex;
+flex-direction: column;
+margin-top: 27px;
+margin-bottom: 10px;
+width: 500px;
+    h3{
+        color: #ffffff;
+        font-size: 19px;
+    }
+    p{
+        font-size: 17px;
+        color: #B7B7B7;
+        margin-top: 7px;
+    }
+    span{
+        color: #ffffff;
+    }
+`
+const LinkBoxStyle = styled.a`
+display: flex;
+justify-content: space-between;
+margin-top:10px ;
+border: 1px solid #C4C4C4;
+border-radius: 11px;
+border-right: none;
+text-decoration: none;
+word-wrap: break-word;
+img{
+    width: 153px;
+    height: 155px;
+    border-radius: 0px 13px 13px 0px;
+    margin-left: 10px;
+    @media(max-width: 600px) {
+        width: 95px;
+        height: 100%;
+    }
+}
+@media(max-width: 600px) {
+        word-break: break-all;
+        width: 75vw;
+    }
+`
+const LinkInfoStyle = styled.div`
+display: flex;
+flex-direction: column;
+border-radius: 11px;
+width: 330px;
+border-right: none;
+padding-left: 18px;
+`
+const LinkTitleStyle = styled.div`
+display: flex;
+flex-direction: column;
+color: #CECECE;
+margin-top: 20px;
+font-size: 16px;
+line-height: 19px;
+    @media(max-width: 600px) {
+       font-size: 11px;
+    }
+`
+const LinkDescriptionStyle = styled.div`
+display: flex;
+flex-direction: column;
+font-size: 11px;
+color:#9B9595;
+margin-top: 5px;
+line-height: 13px;
+    @media(max-width: 600px) {
+       font-size: 8px;
+    }
+`
+const LinkUrlStyle = styled.h4`
+display: flex;
+flex-direction: column;
+font-size: 11px;
+line-height: 13px;
+margin-top: 10px;
+text-decoration: none;
+color: #CECECE;
+    
+    @media(max-width: 600px) {
+       font-size: 9px;
+    }
+`
+
+const LinkStyle = styled(Link)`
+    text-decoration: none;
+`
+// const HashTagStyle = styled(ReactHashtag)`
+//     cursor: 'pointer';
+// `
