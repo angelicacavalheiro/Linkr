@@ -26,12 +26,12 @@ export default function App() {
             <SignUpPage />
             </Route> 
             <Route path="/" exact>
-            {user ? <Redirect to="/timeline"/> : <LoginPage/> }
+            {storedUser ? <Redirect to="/timeline"/> : <LoginPage/> }
             </Route> 
 
             <Route path="/timeline" exact>
               <TimelinePage />
-            </Route>  
+            </Route>
 
             {/*
             <Route path="/my-posts" exact>

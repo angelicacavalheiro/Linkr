@@ -6,6 +6,7 @@ import { getTimelinePosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
 import UserContext from "../../contexts/UserContext";
+import AddPosts from "./AddPosts";
 
 export default function TimelinePage () {
     const {user} = useContext(UserContext);
@@ -26,7 +27,7 @@ export default function TimelinePage () {
     }, [])
 
     return(
-        
+
         <ContainerBoxStyle>
             <ContainerCenterStyle>
                 <ColunaPostsStyle>
@@ -34,6 +35,7 @@ export default function TimelinePage () {
                     {loading ? <LoadingStyle>Loading...</LoadingStyle>
                     :
                     <>
+                    <AddPosts/>
                     <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
                     {postsList.posts.map((post, index)=> {
                         return(
