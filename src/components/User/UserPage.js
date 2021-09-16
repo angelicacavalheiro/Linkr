@@ -1,10 +1,11 @@
-import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles";
+import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getAnUserPosts} from "../../Service";
 import styled from "styled-components"; 
 import UserContext from "../../contexts/UserContext"
+import Trending from "../../sharedComponents/Trending";
 
 export default function UserPage(){
     
@@ -21,13 +22,13 @@ export default function UserPage(){
 
     useEffect(()=>{
         getUserPosts()
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     function getUserPosts(){
         const promise = getAnUserPosts(user.token, id);
             promise.then((resp)=>{
-                console.log(resp.data)
                 setLoading(false)
                 setPosts(resp.data.posts) 
                 setName(resp.data.posts[0].user.username)
@@ -60,8 +61,10 @@ export default function UserPage(){
     return(
     <ContainerBoxStyle>
         <ContainerCenterStyle>
-            <ColunaPostsStyle>
-                {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}
+            {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}
+            <PostsAndTrendingStyle>
+                 <ColunaPostsStyle>
+                
                 {posts.map((postInfo,index)=>
                     <Post key={index} postInfo={postInfo}/>
                 )}
@@ -69,7 +72,9 @@ export default function UserPage(){
                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
             </ColunaPostsStyle>
             
-            <h1>Trending</h1>
+           <Trending></Trending>
+            </PostsAndTrendingStyle>
+           
         </ContainerCenterStyle>
     </ContainerBoxStyle>
     

@@ -1,9 +1,10 @@
-import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles";
+import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { getAnUserPosts} from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
+import Trending from "../../sharedComponents/Trending";
 
 export default function MyPostPage(){
 
@@ -19,6 +20,7 @@ export default function MyPostPage(){
 
     useEffect(()=>{
         getMyPosts()
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -58,16 +60,20 @@ export default function MyPostPage(){
     return(
     <ContainerBoxStyle>
         <ContainerCenterStyle>
-            <ColunaPostsStyle>
-                <PageTitleStyle>my posts</PageTitleStyle>
+             <PageTitleStyle>my posts</PageTitleStyle>
+             <PostsAndTrendingStyle>
+                 <ColunaPostsStyle>
+               
                 {posts.map((postInfo,index)=>
                     <Post key={index} postInfo={postInfo}/>
                 )}
                  {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
                  {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-            </ColunaPostsStyle>
+                </ColunaPostsStyle>
+                
+                <Trending />
+             </PostsAndTrendingStyle>
             
-            <h1>Trending</h1>
         </ContainerCenterStyle>
     </ContainerBoxStyle>
     

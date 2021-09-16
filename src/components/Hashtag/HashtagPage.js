@@ -1,10 +1,11 @@
-import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles";
+import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getHashtagPosts} from "../../Service";
 import styled from "styled-components";
-import UserContext from "../../contexts/UserContext"
+import UserContext from "../../contexts/UserContext";
+import Trending from "../../sharedComponents/Trending";
 
 export default function HashtagPage(){
 
@@ -19,13 +20,13 @@ export default function HashtagPage(){
 
     useEffect(()=>{
         getPosts()
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hashtag])
 
 
     function getPosts(){
         const promise = getHashtagPosts(user.token, hashtag);
             promise.then((resp)=>{
-                console.log(resp.data)
                 setLoading(false)
                 setPosts(resp.data.posts) 
                 if(resp.data.posts.length === 0){
@@ -56,8 +57,10 @@ export default function HashtagPage(){
     return(
     <ContainerBoxStyle>
         <ContainerCenterStyle>
-            <ColunaPostsStyle>
-                <PageTitleStyle># {hashtag}</PageTitleStyle>
+            <PageTitleStyle># {hashtag}</PageTitleStyle>
+            <PostsAndTrendingStyle>
+                <ColunaPostsStyle>
+                
                 {posts.map((postInfo,index)=>
                     <Post key={index} postInfo={postInfo}/>
                 )}
@@ -65,7 +68,9 @@ export default function HashtagPage(){
                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
             </ColunaPostsStyle>
             
-            <h1>Trending</h1>
+           <Trending />
+            </PostsAndTrendingStyle>
+            
         </ContainerCenterStyle>
     </ContainerBoxStyle>
     

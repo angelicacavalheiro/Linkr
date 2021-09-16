@@ -25,7 +25,6 @@ function getTimelinePosts (token) {
 }
 
 function getAnUserPosts (token, id) {
-console.log(token, id)
     const config = {
         headers: {
             "Authorization": `Bearer ${token}` 
@@ -37,7 +36,6 @@ console.log(token, id)
 }
 
 function getHashtagPosts (token, hashtag) {
-    console.log(token, hashtag)
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}` 
@@ -49,11 +47,22 @@ function getHashtagPosts (token, hashtag) {
     }
 
 
+function getTrendingHashtags (token) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/hashtags/trending`, config);
+    return promise
+
+}
+
 export {
     getTimelinePosts,
     getAnUserPosts,
     getHashtagPosts,
     postSignUp, 
-    postLogin
-
+    postLogin,
+    getTrendingHashtags
 }

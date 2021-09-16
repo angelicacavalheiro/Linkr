@@ -15,7 +15,6 @@ import UserContext from './contexts/UserContext';
 export default function App() {
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [user, setUser] = useState(storedUser);
-  console.log(user)
 
     return(
       <BrowserRouter>
