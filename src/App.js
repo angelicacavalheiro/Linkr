@@ -25,7 +25,7 @@ export default function App() {
     return(     
 
       <BrowserRouter>
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser, password, setPassword, email, setEmail}}>
           <Switch>
 
             <ShowMenuContext.Provider value={{showMenu, setShowMenu}}> 
@@ -34,12 +34,12 @@ export default function App() {
                 <SignUpPage />
               </ Route> 
 
-              <Route path="/" exact email={email} setEmail={setEmail} password={password} setPassword={setPassword}>              
-                {user ? <Redirect to="/timeline"/> : <LoginPage/> }
+              <Route path="/" exact >              
+                {storedUser ? <Redirect to="/timeline"/> : <LoginPage /> }
               </Route> 
 
               <Route path="/timeline" exact>
-                <MenuHeaderPage email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>
+                <MenuHeaderPage />
                 <TimelinePage />
               </ Route>  
 

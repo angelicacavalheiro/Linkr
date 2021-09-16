@@ -5,7 +5,7 @@ import Arrow from './Arrow'
 import UserImage from './UserImage'
 import Menu from './Menu'
 
-export default function MenuHeaderPage({email, setEmail, password, setPassword}){
+export default function MenuHeaderPage(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
 
@@ -27,7 +27,7 @@ export default function MenuHeaderPage({email, setEmail, password, setPassword})
                     <UserImage />                    
                 </RightHeaderStyled>
             </ HeaderStyled >   
-            <Menu email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>   
+            <Menu />   
         </>  
     )
 }

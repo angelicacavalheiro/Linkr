@@ -2,23 +2,28 @@ import styled from 'styled-components';
 import { Link, useHistory } from "react-router-dom";
 import { useState, useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import UserContext from "../../contexts/UserContext";
 
-export default function Menu({email, setEmail, password, setPassword}){
+export default function Menu(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
+    const { user, setUser } = useContext(UserContext);
     const history = useHistory();
-
-    console.log(email)
-    console.log(password)
 
 
     function disappearMenu(){       
         (setShowMenu(false))            
     }
 
-    function cleanUserLogin(){       
-            
-        history.push("/")
+    function cleanUserLogin(){  
+        (setShowMenu(false))    
+        if (user.token !== undefined) {
+            localStorage. clear()
+            setUser({})     
+            history.push("/")
+
+        }    
+        
     }
 
     return (
