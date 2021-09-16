@@ -1,4 +1,3 @@
-
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles"
 import Post from "../../sharedComponents/Post"
 import { useContext, useEffect, useState } from "react"
@@ -7,9 +6,12 @@ import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
 import UserContext from "../../contexts/UserContext";
 import AddPosts from "./AddPosts";
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function TimelinePage () {
+    
     const {user} = useContext(UserContext);
+    const {disappearMenu} = useContext(ShowMenuContext);
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
@@ -32,22 +34,24 @@ export default function TimelinePage () {
 
 
     return(
-        <ContainerBoxStyle>
+        <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
-                <ColunaPostsStyle>
-                    <PageTitleStyle>TimeLine</PageTitleStyle>
-                    {loading ? <LoadingStyle>Loading...</LoadingStyle>
-                    :
-                    <>
-                    <AddPosts loadPosts={loadPosts}/>
-                    <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
-                    {postsList.posts.map((post, index)=> {
-                        return(
-                            <Post key={index}postInfo={post}></Post>
-                        )
-                    })}</>}
-                </ColunaPostsStyle>
-                <Trending></Trending>
+                <PageTitleStyle>TimeLine</PageTitleStyle>
+                <PostsAndTrendingStyle>
+                    <ColunaPostsStyle>
+                        {loading ? <LoadingStyle>Loading...</LoadingStyle>
+                        :
+                        <>
+                        <AddPosts loadPosts={loadPosts}/>
+                        <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
+                        {postsList.posts.map((post, index)=> {
+                            return(
+                                <Post key={index}postInfo={post}></Post>
+                            )
+                        })}</>}
+                    </ColunaPostsStyle>
+                    <Trending/>
+                </PostsAndTrendingStyle>
             </ContainerCenterStyle>    
         </ContainerBoxStyle> 
     )         
