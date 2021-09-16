@@ -1,6 +1,6 @@
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 
 export default function HashtagPage(){
 

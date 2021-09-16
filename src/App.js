@@ -1,6 +1,6 @@
 import './sharedStyles/reset.css'
 import { BrowserRouter, Switch, Route, Redirect  } from "react-router-dom";
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import SignUpPage from './components/Signup/SignUpPage'
 import LoginPage from './components/Login/LoginPage'
 import TimelinePage from './components/Timeline/TimelinePage'

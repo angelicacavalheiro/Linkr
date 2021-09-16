@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import UserContext from '../../contexts/UserContext';
 

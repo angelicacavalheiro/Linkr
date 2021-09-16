@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import Arrow from './Arrow'
 import UserImage from './UserImage'
@@ -16,7 +16,6 @@ export default function MenuHeaderPage(){
         :
         (setShowMenu(false)  )
     }
-
 
     return (
         <> 

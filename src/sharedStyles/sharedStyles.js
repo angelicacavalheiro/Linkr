@@ -8,26 +8,22 @@ const ContainerBoxStyle = styled.div`
 
 const ContainerCenterStyle = styled.div`
     margin: 160px auto 0px auto;
-    display: flex;
     justify-content: space-between;
     width: 937px;
-
     @media (max-width: 600px) {
         width: 100%;
         margin:160px 0px;
+        padding: 17px;
        
     }
-    
-
 `
 const ColunaPostsStyle = styled.div`
     width: 611px;
     
     @media (max-width: 600px) {
         width: 100%;
-        padding: 17px;
+        
     }
-
 `
 
 const PageTitleStyle = styled.h2`
@@ -88,11 +84,20 @@ const SwitchSignUpLoginLinkStyled = styled.p`
 
 `
 
+const PostsAndTrendingStyle = styled.div`
+    display: flex;
+    justify-content: space-between;
+    @media(max-width:600px) {
+        width:100%;
+    }
+`
+
 export {
     ContainerBoxStyle,
     ContainerCenterStyle,
     ColunaPostsStyle,
     PageTitleStyle,
+    PostsAndTrendingStyle,
     SignUpOrLoginInputStyled,
     SignUpOrLoginButtonStyled,
     SwitchSignUpLoginLinkStyled

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, useHistory } from "react-router-dom";
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import UserContext from "../../contexts/UserContext";
 
@@ -18,7 +18,7 @@ export default function Menu(){
     function cleanUserLogin(){  
         (setShowMenu(false))    
         if (user.token !== undefined) {
-            localStorage. clear()
+            localStorage.clear()
             setUser({})     
             history.push("/")
         }            
