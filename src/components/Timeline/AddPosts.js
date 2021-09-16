@@ -35,8 +35,8 @@ function PostArea(props){
         postUserPost(body, token)
             .then((response) => {
                 setIsLoading(false);
-                
-                
+                setLink("");
+                setText("");                
             })
             .catch((err) => {
                 setIsLoading(false);
