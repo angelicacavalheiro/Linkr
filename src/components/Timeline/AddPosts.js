@@ -80,6 +80,11 @@ const WhiteBoxStyle = styled.div`
     border-radius: 16px;
     margin-top:16px;
     display: flex;
+
+    @media (max-width: 600px){
+        padding: 0 20px;
+        border-radius: 0;
+    }
 `;
 const PhotoBoxStyle = styled.div`
     display: flex;
@@ -94,6 +99,10 @@ const PhotoBoxStyle = styled.div`
         border-radius: 100%;
         margin-top: 15px;
     }
+
+    @media (max-width: 600px){
+        display: none;
+    }
 `;
 const LinkStyle = styled(Link)`
     text-decoration: none;
@@ -104,6 +113,10 @@ const PostAreaFormStyle = styled.form`
     flex-direction: column;
     margin: 20px 0;
     width: 82%;
+    
+    @media (max-width: 600px){
+        width: 100%;
+    }
 `;
 
 const StatusQuestionStyle = styled.p`
@@ -112,6 +125,13 @@ const StatusQuestionStyle = styled.p`
     font-size: 20px;
     font-weight: 300;
     color: #707070;
+
+    @media (max-width: 600px){
+        font-size: 17px;
+        text-align: center;
+        margin-bottom: 5px;
+        
+    }
     
 `;
 
@@ -145,10 +165,17 @@ const InputPostlinkDescriptionStyle = styled.textarea`
         color: #949494;
         text-align: start;
     }
+
+    @media (max-width: 600px){
+        height: 50px;
+    }
 `;
 const ButtonContainerStyle = styled.div`
     width: 100%;
-    padding-left: 77.5%;
+
+    @media(max-width: 600px){
+        padding-left: 0;
+    }
 `;
 
 const PublishButtonStyle = styled.button`
@@ -158,6 +185,7 @@ const PublishButtonStyle = styled.button`
     border: none;
     border-radius: 5px;
     margin-top: 5px;
+    margin-left: calc(100% - 112px);
 
     font-family: 'Lato', sans-serif;
     font-weight: 700;
