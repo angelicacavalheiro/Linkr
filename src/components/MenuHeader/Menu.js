@@ -3,13 +3,20 @@ import { Link } from "react-router-dom";
 import { useState, useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 
-export default function Menu(){
+export default function Menu({email, setEmail, setPassword}){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
 
 
     function disappearMenu(){       
         (setShowMenu(false))            
+    }
+
+    function cleanUserLogin(){
+        if (email !== undefined){
+            setEmail("")
+            setPassword("")
+        }
     }
 
     return (
@@ -20,7 +27,7 @@ export default function Menu(){
                     <OptionsStyled> 
                     <Link to="/my-likes" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Likes</p> </Link>
                     <Link to="/my-posts" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Posts</p> </Link>
-                    <Link to="/" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>Logout</p> </Link>
+                    <Link to="/" onClick={disappearMenu} onClick={cleanUserLogin} style={{textDecoration: 'none'}}> <p>Logout</p> </Link>
                     </OptionsStyled>
                 </MyMenuStyled>                 
                 :            
@@ -59,3 +66,4 @@ const MyMenuStyled = styled.div`
     position: fixed;
     z-index: 1; 
 `;
+

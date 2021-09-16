@@ -1,5 +1,5 @@
 import './sharedStyles/reset.css'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect  } from "react-router-dom";
 import { useState, useContext } from 'react';
 import SignUpPage from './components/Signup/SignUpPage'
 import LoginPage from './components/Login/LoginPage'
@@ -15,8 +15,11 @@ import UserContext from './contexts/UserContext';
 
 export default function App() {
 
-  const[showMenu , setShowMenu] = useState(false)
+  const storedUser = JSON.parse(localStorage.getItem('storedUser'));
+  const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
     return(     
 
@@ -30,12 +33,16 @@ export default function App() {
                 <SignUpPage />
               </ Route> 
 
+              <Route path="/" exact email={email} setEmail={setEmail}>              
+                {user ? <Redirect to="/timeline"/> : <LoginPage/> }
+              </Route> 
+
               <Route path="/" exact>
-                <LoginPage />
-              </ Route> 
+                <TimelinePage />
+              </Route> 
 
               <Route path="/timeline" exact>
-                <MenuHeaderPage />
+                <MenuHeaderPage email={email} setEmail={setEmail}/>
                 <TimelinePage />
               </ Route>  
 
