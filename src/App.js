@@ -1,6 +1,6 @@
 import './sharedStyles/reset.css'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useState } from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import SignUpPage from './components/Signup/SignUpPage'
 import MyPostsPage from './components/MyPosts/MyPostsPage'
 import UserPage from './components/User/UserPage'
@@ -13,20 +13,22 @@ import UserContext from './contexts/UserContext';
 
 
 export default function App() {
-  const [user, setUser] = useState({});
+  const storedUser = JSON.parse(localStorage.getItem('storedUser'));
+  const [user, setUser] = useState(storedUser);
   console.log(user)
+
     return(
       <BrowserRouter>
         <UserContext.Provider value={{user, setUser}}>
           <Switch>
             <Route path="/sign-up" exact>
-              <SignUpPage />
+            <SignUpPage />
             </Route> 
             <Route path="/" exact>
-              <LoginPage />
+            {storedUser ? <Redirect to="/timeline"/> : <LoginPage/> }
             </Route> 
 
-            <Route path="/" exact>
+            <Route path="/timeline" exact>
               <TimelinePage />
             </Route>  
 

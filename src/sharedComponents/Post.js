@@ -1,26 +1,28 @@
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
-//import ReactHashtag from "react-hashtag";
+import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
 
 export default function Post ({postInfo}) {
     let history = useHistory()
-    // function redirectToHashTag (wrongHahshTag){
-    //     let hashTag = wrongHahshTag.substr(1);
-    //     history.push(`/hashtag/${hashTag}`);
-    // }
+
+    function redirectToHashTag (wrongHahshTag){
+        let hashTag = wrongHahshTag.substr(1);
+        history.push(`/hashtag/${hashTag}`);
+    }
+
 
     return(
         <BlackBoxStyle>
             <PhotoAndLikeBoxStyle>
-            <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} /></LinkStyle>
+            <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
                 <Icon />
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                {/* <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p> */}
+                <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
                 <LinkBoxStyle href={postInfo.link} target='_blank'>
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
@@ -29,7 +31,7 @@ export default function Post ({postInfo}) {
                             {postInfo.link}
                         </LinkUrlStyle>
                     </LinkInfoStyle>
-                        <img src={postInfo.linkImage}/>
+                        <img src={postInfo.linkImage} alt={"Link"}/>
                 </LinkBoxStyle>
             </ContentBoxStyle>
         </BlackBoxStyle>
@@ -43,7 +45,6 @@ width: 100%;
 border-radius: 16px;
 margin-top:16px;
 display: flex;
-    
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
@@ -108,12 +109,16 @@ img{
     @media(max-width: 600px) {
         width: 95px;
         height: 100%;
+
     }
+
 }
+
 @media(max-width: 600px) {
         word-break: break-all;
         width: 75vw;
     }
+
 `
 const LinkInfoStyle = styled.div`
 display: flex;
@@ -130,9 +135,11 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
+
     @media(max-width: 600px) {
        font-size: 11px;
     }
+
 `
 const LinkDescriptionStyle = styled.div`
 display: flex;
@@ -141,9 +148,11 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
+
     @media(max-width: 600px) {
        font-size: 8px;
     }
+
 `
 const LinkUrlStyle = styled.h4`
 display: flex;
@@ -162,6 +171,7 @@ color: #CECECE;
 const LinkStyle = styled(Link)`
     text-decoration: none;
 `
-// const HashTagStyle = styled(ReactHashtag)`
-//     cursor: 'pointer';
-// `
+const HashTagStyle = styled(ReactHashtag)`
+    cursor: 'pointer';
+`
+

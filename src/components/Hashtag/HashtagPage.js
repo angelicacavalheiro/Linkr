@@ -1,17 +1,14 @@
-import { ContainerBoxClass, ContainerCenterClass, ColunaPostsClass, PageTitleClass } from "../../sharedStyles/sharedStyles";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getHashtagPosts} from "../../Service";
 import styled from "styled-components";
-// import UserContext from
+import UserContext from "../../contexts/UserContext"
 
 export default function HashtagPage(){
-    const token = "b8";
 
-     //const {token} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [posts, setPosts]= useState([]);
     const [loading, setLoading] = useState(true);
     const { hashtag } = useParams();
@@ -26,7 +23,7 @@ export default function HashtagPage(){
 
 
     function getPosts(){
-        const promise = getHashtagPosts(token, hashtag);
+        const promise = getHashtagPosts(user.token, hashtag);
             promise.then((resp)=>{
                 console.log(resp.data)
                 setLoading(false)
@@ -57,20 +54,20 @@ export default function HashtagPage(){
 
 
     return(
-    <ContainerBoxClass>
-        <ContainerCenterClass>
-            <ColunaPostsClass>
-                <PageTitleClass># {hashtag}</PageTitleClass>
+    <ContainerBoxStyle>
+        <ContainerCenterStyle>
+            <ColunaPostsStyle>
+                <PageTitleStyle># {hashtag}</PageTitleStyle>
                 {posts.map((postInfo,index)=>
                     <Post key={index} postInfo={postInfo}/>
                 )}
                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""}
                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-            </ColunaPostsClass>
+            </ColunaPostsStyle>
             
             <h1>Trending</h1>
-        </ContainerCenterClass>
-    </ContainerBoxClass>
+        </ContainerCenterStyle>
+    </ContainerBoxStyle>
     
         
     );

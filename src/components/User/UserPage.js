@@ -1,16 +1,14 @@
-import { ContainerBoxClass, ContainerCenterClass, ColunaPostsClass, PageTitleClass } from "../../sharedStyles/sharedStyles";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getAnUserPosts} from "../../Service";
-import styled from "styled-components";
-// import UserContext from
+import styled from "styled-components"; 
+import UserContext from "../../contexts/UserContext"
 
 export default function UserPage(){
-    const token = "b1c3ac55-500a-47fc-82eb-8ac8b2595428";
-     //const {token} = useContext(UserContext);
+    
+    const {user} = useContext(UserContext);
     const [nameUser, setName] = useState("")
     const [posts, setPosts]= useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,7 +25,7 @@ export default function UserPage(){
 
 
     function getUserPosts(){
-        const promise = getAnUserPosts(token, id);
+        const promise = getAnUserPosts(user.token, id);
             promise.then((resp)=>{
                 console.log(resp.data)
                 setLoading(false)
@@ -60,20 +58,20 @@ export default function UserPage(){
 
 
     return(
-    <ContainerBoxClass>
-        <ContainerCenterClass>
-            <ColunaPostsClass>
-                {loading ? "" :<PageTitleClass>{nameUser}'s posts</PageTitleClass>}
+    <ContainerBoxStyle>
+        <ContainerCenterStyle>
+            <ColunaPostsStyle>
+                {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}
                 {posts.map((postInfo,index)=>
                     <Post key={index} postInfo={postInfo}/>
                 )}
                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-            </ColunaPostsClass>
+            </ColunaPostsStyle>
             
             <h1>Trending</h1>
-        </ContainerCenterClass>
-    </ContainerBoxClass>
+        </ContainerCenterStyle>
+    </ContainerBoxStyle>
     
         
     );
