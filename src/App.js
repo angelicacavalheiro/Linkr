@@ -29,7 +29,7 @@ export default function App() {
             {user ? <Redirect to="/timeline"/> : <LoginPage/> }
             </Route> 
 
-            <Route path="/" exact>
+            <Route path="/timeline" exact>
               <TimelinePage />
             </Route>  
 
