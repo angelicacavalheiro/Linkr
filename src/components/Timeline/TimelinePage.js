@@ -34,23 +34,20 @@ export default function TimelinePage () {
     return(
         <ContainerBoxStyle>
             <ContainerCenterStyle>
-
-                <PageTitleStyle>TimeLine</PageTitleStyle>
-                <PostsAndTrendingStyle>
-                    <ColunaPostsStyle>
-                        {loading ? <LoadingStyle>Loading...</LoadingStyle>
-                        :
-                        <>
-                        <AddPosts loadPosts={loadPosts}/>
-                        <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
-                        {postsList.posts.map((post, index)=> {
-                            return(
-                                <Post key={index}postInfo={post}></Post>
-                            )
-                        })}</>}
-                    </ColunaPostsStyle>
-                    <Trending></Trending>
-                </PostsAndTrendingStyle>
+                <ColunaPostsStyle>
+                    <PageTitleStyle>TimeLine</PageTitleStyle>
+                    {loading ? <LoadingStyle>Loading...</LoadingStyle>
+                    :
+                    <>
+                    <AddPosts loadPosts={loadPosts}/>
+                    <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
+                    {postsList.posts.map((post, index)=> {
+                        return(
+                            <Post key={index}postInfo={post}></Post>
+                        )
+                    })}</>}
+                </ColunaPostsStyle>
+                <Trending></Trending>
             </ContainerCenterStyle>    
         </ContainerBoxStyle> 
     )         

@@ -17,10 +17,10 @@ export default function LoginPage(){
 
 function LoginArea (){
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const { setUser } = useContext(UserContext);
 
     function userLogin (event){
