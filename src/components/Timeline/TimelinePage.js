@@ -4,7 +4,6 @@ export default function TimelinePage () {
 
     return(
         <>
-        <Trending></Trending>
         </>
     )
 }

@@ -2,6 +2,8 @@ import { useEffect, useContext, useState } from "react";
 import styled from "styled-components"
 import { getTrendingHashtags } from "../Service";
 import UserContext from "../contexts/UserContext";
+import { Link } from "react-router-dom";
+
 export default function Trending () {
     const {user} = useContext(UserContext);
     const [trendingList, setTrendingList] = useState([]);
@@ -9,21 +11,20 @@ export default function Trending () {
     useEffect(()=> {
         getTrendingHashtags(user.token)
         .then((res)=> {
-            console.log(res.data)
             let list = res.data.hashtags
             setTrendingList(list);
-
         })
         .catch(()=> alert('algo deu errado'))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if(trendingList.length === 0) {
         return(
             <p>Carregando</p>
         )
-    }    
+    }  
+    
     return(
-
         <TrendingStyle>
             <TitleTrendingStyle>
                 <h2>Trending</h2>
@@ -31,7 +32,7 @@ export default function Trending () {
             <TrendingListStyle>
                 {trendingList.map((hashtag, index)=>{
                     return(
-                        <p key={index}>{hashtag.name}</p>
+                        <LinkStyle to={`/hashstag/${hashtag.name}`} key={index}><p>#{hashtag.name}</p></LinkStyle>
                     )
                 })}
             </TrendingListStyle>
@@ -44,7 +45,6 @@ const TrendingStyle = styled.div`
     width: 301px;
     border-radius: 16px;
     color: white;
-
 `
 const TitleTrendingStyle = styled.div`
     height:60px;
@@ -54,11 +54,14 @@ const TitleTrendingStyle = styled.div`
     padding: 10px;
     font-weight:bold;
     font-size: 27px;
-    
-    
 `
 const TrendingListStyle = styled.div`
     padding: 25px 10px;
     line-height:30px;
+`
+
+const LinkStyle = styled(Link)`
     font-size: 19px;
+    color: white;
+    text-decoration:none;
 `
