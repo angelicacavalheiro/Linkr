@@ -41,7 +41,6 @@ function PostArea(props){
             })
             .catch((err) => {
                 setIsLoading(false);
-                console.log(err);
                 alert("Houve um erro ao publicar o seu link");
             });
     }
