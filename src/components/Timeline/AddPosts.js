@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
+import { postUserPost } from "../../Service";
 
 export default function AddPosts(){
     
@@ -14,18 +15,29 @@ export default function AddPosts(){
                     <img src={user.image} alt={''} />
                 </LinkStyle>
             </PhotoBoxStyle>
-            <PostArea/>
+            <PostArea token={user.token}/>
         </WhiteBoxStyle>
     );
 }
 
-function PostArea(){
-    const [postUrl, setPostUrl] = useState("");
-    const [postDescription, setPostDescription] = useState("");
-    
+function PostArea(props){
+    const [link, setLink] = useState("");
+    const [text, setText] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const token = props.token;
+
     function publishPost(event){
         event.preventDefault();
-        alert('publicando');
+        
+        const body = {text, link};
+        setIsLoading(true);
+        
+        postUserPost(body, token)
+            .then((response) => {
+                setIsLoading(false);
+                document.location.reload();
+            })
+            .catch((err) => console.log(err));
     }
 
     return(
@@ -36,15 +48,15 @@ function PostArea(){
             <InputPostLinkStyle 
                 placeholder="http://..."
                 type="url"
-                value={postUrl}
-                onChange={(e) => setPostUrl(e.target.value)}
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
                 required
             />
             <InputPostLinkDescriptionStyle 
                 placeholder="Muito irado esse link falando de #javascript"
                 type="text"
-                value={postDescription}
-                onChange={(e) => setPostDescription(e.target.value)}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
             />
             <ButtonContainerStyle>
                 <PublishButtonStyle type="submit">

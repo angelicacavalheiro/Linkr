@@ -11,6 +11,15 @@ function postLogin (body){
     return promise;
 }
 
+function postUserPost (body, token){
+	const config = {
+		headers: {
+			'Authorization': `Bearer ${token}`
+		}
+	};
+	const promise = axios.post(`${URL}/posts`, body, config);
+	return promise;
+};
 
 function getTimelinePosts (token) {
 
@@ -21,11 +30,12 @@ function getTimelinePosts (token) {
     }
 
     const promise = axios.get(`${URL}/posts`, config)
-    return promise
+    return promise;
 }
 
 export {
     getTimelinePosts,
     postSignUp, 
-    postLogin
+    postLogin,
+    postUserPost
 }
