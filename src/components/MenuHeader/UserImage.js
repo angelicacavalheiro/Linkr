@@ -27,7 +27,7 @@ export default function UserImage(){
 const ImageStyle = styled.img`
     width: 53px;
     height: 53px;
-    margin: 13px;
+    margin: 20px;
     border-radius: 26.5px;
 `;
 
