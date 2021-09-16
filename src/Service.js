@@ -24,8 +24,20 @@ function getTimelinePosts (token) {
     return promise
 }
 
+function getTrendingHashtags (token) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/hashtags/trending`, config);
+    return promise
+
+}
+
 export {
     getTimelinePosts,
     postSignUp, 
-    postLogin
+    postLogin,
+    getTrendingHashtags
 }
