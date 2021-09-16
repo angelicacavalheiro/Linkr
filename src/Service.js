@@ -16,7 +16,7 @@ function getTimelinePosts (token) {
 
     const config = {
         headers: {
-            "Authorization": "Bearer token_recebido"
+            "Authorization": `Bearer ${token}`
         }
     }
 

@@ -19,13 +19,10 @@ export default function App() {
   const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState({});
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
     return(     
 
       <BrowserRouter>
-        <UserContext.Provider value={{user, setUser, password, setPassword, email, setEmail}}>
+        <UserContext.Provider value={{user, setUser}}>
           <Switch>
 
             <ShowMenuContext.Provider value={{showMenu, setShowMenu}}> 

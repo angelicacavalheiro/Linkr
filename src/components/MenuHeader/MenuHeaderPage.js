@@ -53,6 +53,8 @@ const HeaderStyled = styled.header`
     background: #151515;
     display: flex; 
     position: fixed;
+    top: 0px;
+    left: 0px;
     z-index: 1;
 `;
 
