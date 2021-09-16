@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
+import Likes from "./Likes"
 
 export default function Post ({postInfo}) {
     let history = useHistory()
@@ -15,8 +15,7 @@ export default function Post ({postInfo}) {
         <BlackBoxStyle>
             <PhotoAndLikeBoxStyle>
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-                <Icon />
-                <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
+                <Likes postInfo={postInfo} />
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
@@ -66,12 +65,7 @@ text-align: center;
     }
    
 `
-const Icon = styled(FiHeart)`
-font-size: 20px;
-color: #ffffff;
-margin-top: 19px;
-font-weight: 700;
-`
+
 
 const ContentBoxStyle = styled.div`
 display: flex;
