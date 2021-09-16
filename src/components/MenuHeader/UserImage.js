@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { useState, useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import UserContext from '../../contexts/UserContext';
 
 export default function UserImage(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
-
+    const {user} = useContext(UserContext);
     
     function toggleMenu(event){
 
@@ -19,7 +20,7 @@ export default function UserImage(){
     }
 
     return (
-           <ImageStyle onClick={(event) => toggleMenu(event) } src="https://lh3.googleusercontent.com/proxy/Aac1hByZgG6p_79HlPLObDWtDzApgtIfLS9IBb-VtrBbO_n5ytllyjzWGQL8qI5axMtNcmdpsg6fHY1fQOW8VmTswfVlYGGtmB2TmLx-qKGHgMPO" />      
+           <ImageStyle onClick={(event) => toggleMenu(event) } src={user.image} />      
     )
 }
 

@@ -22,7 +22,7 @@ const SiteBannerStyled = styled.div`
     @media(max-width: 614px){
         width: 100%;
         height: auto;
-        padding: 10px 60px;
+        padding: 15px 60px 25px 60px;
         text-align: center;
     }
 `;

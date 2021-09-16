@@ -7,17 +7,28 @@ export default function Arrow(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
 
+    function toggleMenu(event){
+
+        event.stopPropagation();
+           
+        (showMenu === true)
+        ?
+        (setShowMenu(false))
+        :
+        (setShowMenu(true))    
+    }
+
 
     return (
         <>
         {
                 (showMenu === true) ? 
                 <p>
-                    <MdKeyboardArrowUpStyled />
+                    <MdKeyboardArrowUpStyled onClick={(event) => toggleMenu(event)} />
                 </p>                           
                 :     
                 <p>
-                    <MdKeyboardArrowDownStyled />
+                    <MdKeyboardArrowDownStyled onClick={(event) => toggleMenu(event)}/>
                 </p>       
                 
             }  

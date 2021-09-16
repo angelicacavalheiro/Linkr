@@ -16,13 +16,13 @@ export default function Menu(){
         <>
             {
                 (showMenu === true) ?                
-                <MyMenuStyle>
-                    <OptionsStyle> 
-                    <Link to="/my-likes" onClick={disappearMenu}> <p>My Likes</p> </Link>
-                    <Link to="/my-posts" onClick={disappearMenu}> <p>My Posts</p> </Link>
-                    <Link to="/" onClick={disappearMenu}> <p>Logout</p> </Link>
-                    </OptionsStyle>
-                </MyMenuStyle>                 
+                <MyMenuStyled>
+                    <OptionsStyled> 
+                    <Link to="/my-likes" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Likes</p> </Link>
+                    <Link to="/my-posts" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Posts</p> </Link>
+                    <Link to="/" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>Logout</p> </Link>
+                    </OptionsStyled>
+                </MyMenuStyled>                 
                 :            
                 null
             }  
@@ -31,7 +31,7 @@ export default function Menu(){
 }
 
 
-const OptionsStyle = styled.div`
+const OptionsStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center ;
@@ -52,7 +52,10 @@ const OptionsStyle = styled.div`
     }
 `;
 
-const MyMenuStyle = styled.div`
+const MyMenuStyled = styled.div`
     display: flex;
-    justify-content: flex-end;    
+    top:72px;
+    right: 0px;
+    position: fixed;
+    z-index: 1; 
 `;

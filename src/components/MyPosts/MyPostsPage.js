@@ -23,6 +23,7 @@ export default function MyPostPage(){
 }
 
 const AllPageStyled = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    padding-top: 150px;
 `;

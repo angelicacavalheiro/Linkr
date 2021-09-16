@@ -5,7 +5,7 @@ import Arrow from './Arrow'
 import UserImage from './UserImage'
 import Menu from './Menu'
 
-export default function MenuHeader(){
+export default function MenuHeaderPage(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
 
@@ -52,6 +52,8 @@ const HeaderStyled = styled.header`
     height: 72px;
     background: #151515;
     display: flex; 
+    position: fixed;
+    z-index: 1;
 `;
 
 const RightHeaderStyled = styled.header`

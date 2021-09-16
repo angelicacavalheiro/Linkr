@@ -8,56 +8,61 @@ import MyPostsPage from './components/MyPosts/MyPostsPage'
 import UserPage from './components/User/UserPage'
 import HashtagPage from './components/Hashtag/HashtagPage'
 import MyLikesPage from './components/MyLikes/MyLikesPage'
-import MenuHeader from './components/MenuHeader/MenuHeader';
+import MenuHeaderPage from './components/MenuHeader/MenuHeaderPage';
 import ShowMenuContext from './contexts/ShowMenuContext';
+import UserContext from './contexts/UserContext';
+
 
 export default function App() {
 
   const[showMenu , setShowMenu] = useState(false)
+  const [user, setUser] = useState({});
 
     return(     
 
       <BrowserRouter>
-        <Switch>
+        <UserContext.Provider value={{user, setUser}}>
+          <Switch>
 
-          <ShowMenuContext.Provider value={{showMenu, setShowMenu}}>
+            <ShowMenuContext.Provider value={{showMenu, setShowMenu}}> 
+         
+              <Route path="/sign-up" exact>
+                <SignUpPage />
+              </ Route> 
 
-            <Route path="/sign-up" exact>
-              <SignUpPage />
-            </ Route> 
+              <Route path="/" exact>
+                <LoginPage />
+              </ Route> 
 
-            <Route path="/" exact>
-              <LoginPage />
-            </ Route> 
+              <Route path="/timeline" exact>
+                <MenuHeaderPage />
+                <TimelinePage />
+              </ Route>  
 
-            <Route path="/timeline" exact>
-              <MenuHeader />
-              <TimelinePage />
-            </ Route>  
+              <Route path="/my-posts" exact>
+                <MenuHeaderPage />      
+                <MyPostsPage />
+              </ Route>
 
-            <Route path="/my-posts" exact>
-              <MenuHeader />
-              <MyPostsPage />
-            </ Route>
+              <Route path="/user/:id" exact>
+                <MenuHeaderPage />
+                <UserPage />
+              </ Route>
 
-            <Route path="/user/:id" exact>
-              <MenuHeader />
-              <UserPage />
-            </ Route>
+              <Route path="/hashtag/:hashtag" exact>
+                <MenuHeaderPage />
+                <HashtagPage />
+              </ Route>
 
-            <Route path="/hashtag/:hashtag" exact>
-              <MenuHeader />
-              <HashtagPage />
-            </ Route>
+              <Route path="/my-likes" exact>
+                <MenuHeaderPage />
+                <MyLikesPage />
+              </ Route> 
 
-            <Route path="/my-likes" exact>
-              <MenuHeader />
-              <MyLikesPage />
-            </ Route> 
+            </ShowMenuContext.Provider>
 
-          </ShowMenuContext.Provider>
-
-        </ Switch>       
+          </ Switch>   
+        </UserContext.Provider >    
       </ BrowserRouter>   
     )
 }
