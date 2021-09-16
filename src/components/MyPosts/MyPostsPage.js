@@ -4,16 +4,8 @@ import { useContext } from 'react';
 
 export default function MyPostPage(){
 
-    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
+    const {disappearMenu} = useContext(ShowMenuContext);
 
-
-    function disappearMenu() { 
-        (showMenu === true)
-        ?      
-        (setShowMenu(false))
-        :
-        (setShowMenu(false)  )
-    }
 
     return (
         <AllPageStyled onClick={disappearMenu}>

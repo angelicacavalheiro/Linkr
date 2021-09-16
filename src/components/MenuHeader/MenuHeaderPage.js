@@ -7,15 +7,8 @@ import Menu from './Menu'
 
 export default function MenuHeaderPage(){
 
-    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
-
-    function disappearMenu() { 
-        (showMenu === true)
-        ?      
-        (setShowMenu(false))
-        :
-        (setShowMenu(false)  )
-    }
+    const {disappearMenu} = useContext(ShowMenuContext);
+    
 
     return (
         <> 

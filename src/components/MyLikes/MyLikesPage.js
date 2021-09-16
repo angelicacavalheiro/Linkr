@@ -4,16 +4,7 @@ import { useContext } from 'react';
 
 export default function MyLikesPage(){
 
-    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
-
-
-    function disappearMenu() { 
-        (showMenu === true)
-        ?      
-        (setShowMenu(false))
-        :
-        (setShowMenu(false)  )
-    }
+    const {disappearMenu} = useContext(ShowMenuContext);
 
     return (
         <AllPageStyled onClick={disappearMenu}>

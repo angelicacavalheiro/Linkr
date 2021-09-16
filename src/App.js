@@ -15,9 +15,13 @@ import UserContext from './contexts/UserContext';
 
 export default function App() {
 
+  function disappearMenu() { 
+    setShowMenu(!showMenu)
+   }
+
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({});  
 
     return(     
 
@@ -25,7 +29,7 @@ export default function App() {
         <UserContext.Provider value={{user, setUser}}>
           <Switch>
 
-            <ShowMenuContext.Provider value={{showMenu, setShowMenu}}> 
+          <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu}}>
          
               <Route path="/sign-up" exact>
                 <SignUpPage />

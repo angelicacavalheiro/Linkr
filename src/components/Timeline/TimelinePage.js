@@ -9,18 +9,12 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function TimelinePage () {
     const {user} = useContext(UserContext);
-    const {showMenu, setShowMenu} = useContext(ShowMenuContext);
+    const {disappearMenu} = useContext(ShowMenuContext);
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
 
-    function disappearMenu() { 
-        (showMenu === true)
-        ?      
-        (setShowMenu(false))
-        :
-        (setShowMenu(false)  )
-    }
+ 
 
     useEffect(()=> {
         getTimelinePosts(user.token)
