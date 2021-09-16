@@ -27,7 +27,7 @@ export default function MenuHeaderPage({email, setEmail, password, setPassword})
                     <UserImage />                    
                 </RightHeaderStyled>
             </ HeaderStyled >   
-            <Menu />   
+            <Menu email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>   
         </>  
     )
 }

@@ -1,22 +1,24 @@
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState, useContext } from 'react';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 
-export default function Menu({email, setEmail, setPassword}){
+export default function Menu({email, setEmail, password, setPassword}){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
+    const history = useHistory();
+
+    console.log(email)
+    console.log(password)
 
 
     function disappearMenu(){       
         (setShowMenu(false))            
     }
 
-    function cleanUserLogin(){
-        if (email !== undefined){
-            setEmail("")
-            setPassword("")
-        }
+    function cleanUserLogin(){       
+            
+        history.push("/")
     }
 
     return (
@@ -27,7 +29,7 @@ export default function Menu({email, setEmail, setPassword}){
                     <OptionsStyled> 
                     <Link to="/my-likes" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Likes</p> </Link>
                     <Link to="/my-posts" onClick={disappearMenu} style={{textDecoration: 'none'}}> <p>My Posts</p> </Link>
-                    <Link to="/" onClick={disappearMenu} onClick={cleanUserLogin} style={{textDecoration: 'none'}}> <p>Logout</p> </Link>
+                    <button onClick={cleanUserLogin}> Logout</button> 
                     </OptionsStyled>
                 </MyMenuStyled>                 
                 :            

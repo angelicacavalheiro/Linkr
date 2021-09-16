@@ -18,6 +18,7 @@ export default function App() {
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState({});
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,16 +34,12 @@ export default function App() {
                 <SignUpPage />
               </ Route> 
 
-              <Route path="/" exact email={email} setEmail={setEmail}>              
+              <Route path="/" exact email={email} setEmail={setEmail} password={password} setPassword={setPassword}>              
                 {user ? <Redirect to="/timeline"/> : <LoginPage/> }
               </Route> 
 
-              <Route path="/" exact>
-                <TimelinePage />
-              </Route> 
-
               <Route path="/timeline" exact>
-                <MenuHeaderPage email={email} setEmail={setEmail}/>
+                <MenuHeaderPage email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>
                 <TimelinePage />
               </ Route>  
 
