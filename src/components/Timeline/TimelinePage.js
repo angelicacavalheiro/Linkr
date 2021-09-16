@@ -1,4 +1,3 @@
-
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles"
 import Post from "../../sharedComponents/Post"
 import { useContext, useEffect, useState } from "react"
@@ -6,12 +5,16 @@ import { getTimelinePosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
 import UserContext from "../../contexts/UserContext";
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function TimelinePage () {
     const {user} = useContext(UserContext);
+    const {disappearMenu} = useContext(ShowMenuContext);
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
+
+ 
 
     useEffect(()=> {
         getTimelinePosts(user.token)
@@ -27,7 +30,7 @@ export default function TimelinePage () {
 
     return(
         
-        <ContainerBoxStyle>
+        <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 <PageTitleStyle>TimeLine</PageTitleStyle>
                 <PostsAndTrendingStyle>
