@@ -43,8 +43,13 @@ export default function Trending () {
 const TrendingStyle = styled.div`
     background-color: #171717;
     width: 301px;
+    height: fit-content;
     border-radius: 16px;
     color: white;
+
+    @media(max-width:600px) {
+        display: none;
+    }
 `
 const TitleTrendingStyle = styled.div`
     height:60px;

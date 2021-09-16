@@ -1,30 +1,37 @@
 import styled from "styled-components";
 
-const ContainerBoxClass = styled.div`
+const ContainerBoxStyle = styled.div`
     background-color: #333333;
     margin: 72px auto 0px auto;
     height:100vh;
 `
 
-const ContainerCenterClass = styled.div`
+const ContainerCenterStyle = styled.div`
     margin: 160px auto 0px auto;
-    display: flex;
     justify-content: space-between;
     width: 937px;
-    
-
+    @media (max-width: 600px) {
+        width: 100%;
+        margin:160px 0px;
+        padding: 17px;
+       
+    }
 `
-const ColunaPostsClass = styled.div`
+const ColunaPostsStyle = styled.div`
     width: 611px;
-
+    
+    @media (max-width: 600px) {
+        width: 100%;
+        
+    }
 `
 
-const PageTitleClass = styled.h2`
+const PageTitleStyle = styled.h2`
     color: white;
     font-size: 43px;
     margin-bottom: 43px;
 `
-// const ColunaTrendingClass = styled.div`
+// const ColunaTrendingStyle = styled.div`
 //     //nao sei se coloco ainda
 // `
 
@@ -66,7 +73,7 @@ const SignUpOrLoginButtonStyled = styled.button`
     @media(max-width: 614px){
         width: 100%;
     }
-`;
+`
 
 const SwitchSignUpLoginLinkStyled = styled.p`
     color: #FFF;
@@ -77,11 +84,20 @@ const SwitchSignUpLoginLinkStyled = styled.p`
 
 `
 
+const PostsAndTrendingStyle = styled.div`
+    display: flex;
+    justify-content: space-between;
+    @media(max-width:600px) {
+        width:100%;
+    }
+`
+
 export {
-    ContainerBoxClass,
-    ContainerCenterClass,
-    ColunaPostsClass,
-    PageTitleClass,
+    ContainerBoxStyle,
+    ContainerCenterStyle,
+    ColunaPostsStyle,
+    PageTitleStyle,
+    PostsAndTrendingStyle,
     SignUpOrLoginInputStyled,
     SignUpOrLoginButtonStyled,
     SwitchSignUpLoginLinkStyled
