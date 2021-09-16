@@ -172,6 +172,8 @@ const InputPostlinkDescriptionStyle = styled.textarea`
 `;
 const ButtonContainerStyle = styled.div`
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
 
     @media(max-width: 600px){
         padding-left: 0;
@@ -181,11 +183,10 @@ const ButtonContainerStyle = styled.div`
 const PublishButtonStyle = styled.button`
     width: 112px;
     height: 31px;
-    background-color: #1777F2;
+    background-color: #1877F2;
     border: none;
     border-radius: 5px;
     margin-top: 5px;
-    margin-left: calc(100% - 112px);
 
     font-family: 'Lato', sans-serif;
     font-weight: 700;
