@@ -11,9 +11,9 @@ export default function AddPosts(){
     return(
         <WhiteBoxStyle>
             <PhotoBoxStyle>
-                <linkStyle to={`/user/${user.id}`}>
+                <LinkStyle to={`/user/${user.id}`}>
                     <img src={user.image} alt={''} />
-                </linkStyle>
+                </LinkStyle>
             </PhotoBoxStyle>
             <PostArea token={user.token}/>
         </WhiteBoxStyle>
@@ -49,7 +49,7 @@ function PostArea(props){
             <StatusQuestionStyle>
                 O que você tem para favoritar hoje?
             </StatusQuestionStyle>
-            <InputPostlinkStyle 
+            <InputPostLinkStyle 
                 placeholder="http://..."
                 type="url"
                 value={link}
@@ -63,8 +63,9 @@ function PostArea(props){
                 onChange={(e) => setText(e.target.value)}
             />
             <ButtonContainerStyle>
-                <PublishButtonStyle type="submit">
-                    Publicar
+                <PublishButtonStyle 
+                type="submit" disabled={isLoading ? true : false}>
+                   {isLoading ? "Publicando" : "Publicar"}
                 </PublishButtonStyle>
             </ButtonContainerStyle>
         </PostAreaFormStyle>
@@ -89,10 +90,10 @@ const PhotoBoxStyle = styled.div`
         width: 50px;
         height: 50px;
         border-radius: 100%;
-        margin-top: 8px;
+        margin-top: 15px;
     }
 `;
-const linkStyle = styled(Link)`
+const LinkStyle = styled(Link)`
     text-decoration: none;
 `;
 
@@ -112,7 +113,7 @@ const StatusQuestionStyle = styled.p`
     
 `;
 
-const InputPostlinkStyle = styled.input`
+const InputPostLinkStyle = styled.input`
     border: none;
     background-color: #EFEFEF;
     border-radius: 5px;
