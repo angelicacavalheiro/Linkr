@@ -1,5 +1,5 @@
 import './sharedStyles/reset.css'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 // import { useState, useContext } from 'react';
 import SignUpPage from './components/Signup/SignUpPage'
 import LoginPage from './components/Login/LoginPage'
@@ -14,16 +14,19 @@ import UserContext from './contexts/UserContext';
 // import { useState, useContext } from 'react';
 
 export default function App() {
-  const [user, setUser] = useState({});
+
+  const storedUser = JSON.parse(localStorage.getItem('storedUser'));
+
+  const [user, setUser] = useState(storedUser);
     return(
       <BrowserRouter>
         <UserContext.Provider value={{user, setUser}}>
           <Switch>
             <Route path="/sign-up" exact>
-              <SignUpPage />
+            <SignUpPage />
             </Route> 
             <Route path="/" exact>
-              <LoginPage />
+            {user ? <Redirect to="/timeline"/> : <LoginPage/> }
             </Route> 
 
             <Route path="/timeline" exact>

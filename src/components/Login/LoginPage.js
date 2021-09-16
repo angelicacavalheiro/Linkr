@@ -33,6 +33,9 @@ function LoginArea (){
             .then((response) => {
                 setIsLoading(false);
                 setUser({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar});
+                const serializedUser = JSON.stringify({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar});
+                localStorage.setItem('storedUser', serializedUser);
+
                 history.push('/timeline');
             })
             .catch((err) => {
@@ -45,10 +48,7 @@ function LoginArea (){
                 }
             });
     }
-
-
     return(
-         
             <LoginDataContainerStyled onSubmit={userLogin}>
                 <SignUpOrLoginInputStyled 
                     type="email" 
@@ -74,7 +74,7 @@ function LoginArea (){
                         First time? Create an account!
                     </SwitchSignUpLoginLinkStyled>
                 </Link>
-            </LoginDataContainerStyled>        
+            </LoginDataContainerStyled>     
     );
 }
 
