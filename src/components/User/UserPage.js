@@ -6,6 +6,7 @@ import { getAnUserPosts} from "../../Service";
 import styled from "styled-components"; 
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function UserPage(){
     
@@ -16,6 +17,7 @@ export default function UserPage(){
     const { id } = useParams();
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("ainda não há posts disponiveis");
+    const {disappearMenu} = useContext(ShowMenuContext);
    
     
    
@@ -59,26 +61,25 @@ export default function UserPage(){
 
 
     return(
-    <ContainerBoxStyle>
-        <ContainerCenterStyle>
-            {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}
-            <PostsAndTrendingStyle>
-                 <ColunaPostsStyle>
+  
+        <ContainerBoxStyle onClick={disappearMenu}>
+            <ContainerCenterStyle>
+                {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}
+                <PostsAndTrendingStyle>
+                    <ColunaPostsStyle>
+                    
+                    {posts.map((postInfo,index)=>
+                        <Post key={index} postInfo={postInfo}/>
+                    )}
+                    {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
+                    {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                </ColunaPostsStyle>
                 
-                {posts.map((postInfo,index)=>
-                    <Post key={index} postInfo={postInfo}/>
-                )}
-                {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-            </ColunaPostsStyle>
+            <Trending></Trending>
+                </PostsAndTrendingStyle>
             
-           <Trending></Trending>
-            </PostsAndTrendingStyle>
-           
-        </ContainerCenterStyle>
-    </ContainerBoxStyle>
-    
-        
+            </ContainerCenterStyle>
+        </ContainerBoxStyle> 
     );
 }
 

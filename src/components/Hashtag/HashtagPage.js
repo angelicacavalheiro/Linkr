@@ -6,6 +6,7 @@ import { getHashtagPosts} from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import Trending from "../../sharedComponents/Trending";
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function HashtagPage(){
 
@@ -15,7 +16,7 @@ export default function HashtagPage(){
     const { hashtag } = useParams();
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Não há posts com esta #hashtag ")
-    
+    const {disappearMenu} = useContext(ShowMenuContext);
    
 
     useEffect(()=>{
@@ -55,7 +56,8 @@ export default function HashtagPage(){
 
 
     return(
-    <ContainerBoxStyle>
+    
+    <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
             <PageTitleStyle># {hashtag}</PageTitleStyle>
             <PostsAndTrendingStyle>
@@ -73,7 +75,7 @@ export default function HashtagPage(){
             
         </ContainerCenterStyle>
     </ContainerBoxStyle>
-    
+
         
     );
 }

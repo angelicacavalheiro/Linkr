@@ -5,6 +5,7 @@ import { getAnUserPosts} from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
+import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function MyPostPage(){
 
@@ -13,7 +14,7 @@ export default function MyPostPage(){
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Você ainda não tem posts")
-    
+    const {disappearMenu} = useContext(ShowMenuContext);
     
     console.log(user)
    
@@ -58,7 +59,8 @@ export default function MyPostPage(){
 
 
     return(
-    <ContainerBoxStyle>
+ 
+    <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
              <PageTitleStyle>my posts</PageTitleStyle>
              <PostsAndTrendingStyle>
@@ -76,8 +78,7 @@ export default function MyPostPage(){
             
         </ContainerCenterStyle>
     </ContainerBoxStyle>
-    
-        
+
     );
 }
 
@@ -92,3 +93,5 @@ const NoPostsStyle = styled.p`
     color: white;
     text-align:center;
 ` 
+
+
