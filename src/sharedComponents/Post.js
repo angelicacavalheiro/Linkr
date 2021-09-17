@@ -4,34 +4,17 @@ import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
 import Trash from "./Trash";
-import { tryDeletePost } from "../Service";
-import { useState, useContext } from "react";
+import {  useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
 export default function Post ({postInfo}) {
     let history = useHistory();
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const {user} = useContext(UserContext);
-    const [loadingTrash, setLoadingTrash] =useState(false);
     
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
         history.push(`/hashtag/${hashTag}`);
     }
-
-    function deletePost() {
-        setLoadingTrash(true)
-        tryDeletePost(postInfo.id, user.token)
-        .then(()=> {
-            setLoadingTrash(false);
-            setModalIsOpen(false);
-     })
-     .catch(()=> {
-        setLoadingTrash(false);
-        setModalIsOpen(false);
-        alert('Houve uma falha ao deletar o Post.')})
-    }
-
 
     return(
         <BlackBoxStyle>
@@ -47,10 +30,7 @@ export default function Post ({postInfo}) {
                         {//colocar o botao de editar o post aqui
                         }
                         {user.id === postInfo.user.id ? <Trash 
-                            setModalIsOpen ={setModalIsOpen} 
-                            deletePost={deletePost}
-                            modalIsOpen={modalIsOpen}
-                            loadingTrash={loadingTrash}>
+                            postInfo={postInfo}>
                         </Trash>
                         :
                         ''}

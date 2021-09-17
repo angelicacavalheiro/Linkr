@@ -1,13 +1,28 @@
 import { BiTrash } from "react-icons/bi";
 import styled from "styled-components";
 import ReactModal from 'react-modal';
+import { tryDeletePost } from "../Service";
+import {  useState, useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 
+export default function Trash({postInfo}) {
+    const {user} = useContext(UserContext);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [loadingTrash, setLoadingTrash] =useState(false);
 
-
-export default function Trash({setModalIsOpen, deletePost, modalIsOpen, loadingTrash}) {
-    
-    
+    function deletePost() {
+        setLoadingTrash(true)
+        tryDeletePost(postInfo.id, user.token)
+        .then(()=> {
+            setLoadingTrash(false);
+            setModalIsOpen(false);
+     })
+     .catch(()=> {
+        setLoadingTrash(false);
+        setModalIsOpen(false);
+        alert('Houve uma falha ao deletar o Post.')})
+    }
     
     return(
         <>
