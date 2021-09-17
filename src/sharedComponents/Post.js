@@ -12,7 +12,7 @@ import { putEditPost } from "../Service";
 
 export default function Post ({postInfo}) {
     let history = useHistory()
-    const FocusHere = useRef();
+    const focusHere = useRef();
     const { user } = useContext(UserContext);
     const [isMyPost , setIsMyPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -40,7 +40,7 @@ export default function Post ({postInfo}) {
         if(isEditing){
             setInputValue(postText)
         }
-       FocusHere.current.focus();
+       focusHere.current.focus();
         
     }
     function keyPrees(e){
@@ -60,7 +60,7 @@ export default function Post ({postInfo}) {
             promise.catch(()=>{
                 alert("Erro: Não foi possível salvar as alterações");
                 setSending(false)
-                FocusHere.current.focus();
+                focusHere.current.focus();
             })
         }
     }
@@ -78,7 +78,7 @@ export default function Post ({postInfo}) {
                     <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
                    {isMyPost? <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> : ""}
                 </DiplayFlexBox>
-                {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={FocusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
+                {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
                 <LinkBoxStyle href={postInfo.link} target='_blank' >
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
