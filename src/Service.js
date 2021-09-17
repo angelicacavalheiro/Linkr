@@ -68,7 +68,6 @@ function getTrendingHashtags (token) {
 }
 
 function putEditPost(token, body, id){
-    console.log(token, body)
     const config = {
         headers: {
             "Authorization": `Bearer ${token}`

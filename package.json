@@ -11,11 +11,8 @@
     "react-hashtag": "^2.1.2",
     "react-icons": "^4.2.0",
     "react-ionicons": "^4.2.0",
-<<<<<<< HEAD
     "react-keydown": "^1.9.12",
-=======
     "react-loader-spinner": "^4.0.0",
->>>>>>> main
     "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
     "react-tooltip": "^4.2.21",
