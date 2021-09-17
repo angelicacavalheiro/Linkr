@@ -53,8 +53,6 @@ export default function HashtagPage(){
     
      }
 
-
-
     return(
     
     <ContainerBoxStyle onClick={disappearMenu}>
