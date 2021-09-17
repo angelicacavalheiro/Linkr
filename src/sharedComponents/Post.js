@@ -4,7 +4,7 @@ import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
 import Likes from "./Likes"
 
-export default function Post ({postInfo}) {
+export default function Post ({postInfo, setPostsList}) {
     let history = useHistory()
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
@@ -15,7 +15,7 @@ export default function Post ({postInfo}) {
         <BlackBoxStyle>
             <PhotoAndLikeBoxStyle>
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-                <Likes postInfo={postInfo} />
+            <Likes postInfo={postInfo}setPostsList={setPostsList} />
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>

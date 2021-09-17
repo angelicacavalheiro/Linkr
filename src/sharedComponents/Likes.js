@@ -2,79 +2,84 @@ import { useContext, useState } from "react"
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
-import axios from "axios";
+import { getTimelinePosts, postLike, postUnlike, getLikes} from "../Service";
 
-export default function Likes ({postInfo}){
+export default function Likes ({postInfo, setPostsList}){
 
     const {user} = useContext(UserContext);
 
     //let isLike = (like !== undefined && like === "red") ? "red" : "#ffffff";
-    //const [like, setLike] = useState("fffff");
+    const [like, setLike] = useState();
+
+    function getLike(id){
+
+        getLikes(user.token)
+        .then(res => {
+            console.log(res.data)  
+            setLike(res.data.posts)  
+            compareLike(id, res.data.posts)       
+        })      
+    }
+    console.log(like)
+
+    function compareLike(id, likeList){
+
+        const likes = likeList.filter((l) => (l.id === id) )
+        likes.length !== 0 ? (unLike(id)) : (Like(id))
+        console.log(likes)
+    }
 
     function Like(id){
-        //console.log(id)
 
-        //setLike("red")
+        console.log("entrou no like")
 
-        const config = {
-            headers:{
-                Authorization: `Bearer ${user.token}`
-            }
-        }
-
-        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/${id}/like`, {}, config)
+        postLike(user.token, id)
         .then(res => {
-            console.log("deu like")
+            setLike("deu like")
             console.log(res.data)
-            })    
+    
+            getTimelinePosts(user.token)
+            .then((res)=> {
+            setPostsList(res.data)
+            })            
+        })      
     }
    
-    // function unLike(id){
+    function unLike(id){
 
-    //     setLike("#ffffff")  
-       
-    //     const config = {
-    //         headers:{
-    //             Authorization: `Bearer ${user.token}`
-    //         }
-    //     }
+        console.log("entrou no unlike")
 
-    //     axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/${id}/dislike`, {}, config)
-    //     .then(res => {
-    //             const config = {
-    //             headers:{
-    //                 Authorization: `Bearer ${user.token}`
-    //             }
-    //         }
+        postUnlike(user.token, id)
+        .then(res => {
+            console.log("deu unlike")
+            console.log(res.data)
     
-    //         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/liked', config)
-    //         .then(res => {
-            
-    //         })            
-    //     })      
-    // }  
+            getTimelinePosts(user.token)
+            .then((res)=> {
+            setPostsList(res.data)
+            })            
+        })      
+    }
+     
 
-
+    //    {(habito.done === true) ?
+    //     <Icon onClick={() => Like()} />                   
+    //     : 
+    //     <Icon onClick={() => unLike()} /> 
+    //     } 
 
 
     return(
        <>
-
-        {/* {(habito.done === true) ?
-        <Icon onClick={() => Like()} />                   
-        : 
-        <Icon onClick={() => unLike()} /> 
-        } */}
-
-        <Icon onClick={() => Like(postInfo.id)}/>
+        <Icon onClick={() => getLike(postInfo.id)} />
         <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
        </>
     )
 }
 
 const Icon = styled(FiHeart)`
-font-size: 20px;
-color: #ffffff;
-margin-top: 19px;
-font-weight: 700;
-`
+    font-size: 20px;
+    color: #ffffff;
+    margin-top: 19px;
+    font-weight: 700;
+`; 
