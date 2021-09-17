@@ -3,6 +3,7 @@ import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
+import Trash from "./Trash";
 
 export default function Post ({postInfo}) {
     let history = useHistory()
@@ -19,7 +20,14 @@ export default function Post ({postInfo}) {
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
-                <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                <UserNameAndOptionsStyle>
+                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                    <div>
+                        {//colocar o botao de editar o post aqui
+                        }
+                        <Trash postId={postInfo.id}></Trash>
+                    </div>
+                </UserNameAndOptionsStyle>
                 <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
                 <LinkBoxStyle href={postInfo.link} target='_blank'>
                     <LinkInfoStyle>
@@ -173,4 +181,9 @@ const LinkStyle = styled(Link)`
 `
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
+`
+
+const UserNameAndOptionsStyle = styled.div`
+    display: flex;
+    justify-content: space-between;
 `
