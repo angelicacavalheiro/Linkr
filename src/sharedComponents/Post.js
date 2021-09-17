@@ -65,6 +65,7 @@ export default function Post ({postInfo}) {
         }
     }
 
+
     return(
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
@@ -95,7 +96,6 @@ export default function Post ({postInfo}) {
 }
 
 const BlackBoxStyle = styled.div`
-
 background-color: #171717;
 width: 100%;
 border-radius: 16px;
@@ -109,7 +109,6 @@ flex-direction: column;
 align-items: center;
 width: 90px;
 text-align: center;
-
     img{
         width: 50px;
         height: 50px;

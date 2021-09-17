@@ -32,7 +32,7 @@ export default function Trending () {
             <TrendingListStyle>
                 {trendingList.map((hashtag, index)=>{
                     return(
-                        <LinkStyle to={`/hashstag/${hashtag.name}`} key={index}><p>#{hashtag.name}</p></LinkStyle>
+                        <LinkStyle to={`/hashtag/${hashtag.name}`} key={index}><p>#{hashtag.name}</p></LinkStyle>
                     )
                 })}
             </TrendingListStyle>

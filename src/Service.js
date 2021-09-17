@@ -33,6 +33,29 @@ function getTimelinePosts (token) {
     return promise;
 }
 
+function getAnUserPosts (token, id) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}` 
+        }
+    }
+
+    const promise = axios.get(`${URL}/users/${id}/posts`, config)
+    return promise;
+}
+
+function getHashtagPosts (token, hashtag) {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}` 
+            }
+        }
+    
+        const promise = axios.get(`${URL}/hashtags/${hashtag}/posts`, config)
+        return promise;
+    }
+
+
 function getTrendingHashtags (token) {
     const config = {
         headers: {
@@ -58,6 +81,8 @@ function putEditPost(token, body, id){
 
 export {
     getTimelinePosts,
+    getAnUserPosts,
+    getHashtagPosts,
     postSignUp, 
     postLogin,
     postUserPost,
