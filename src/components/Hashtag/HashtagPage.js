@@ -20,8 +20,8 @@ export default function HashtagPage(){
    
 
     useEffect(()=>{
-        getPosts()
         setNoPosts(false)
+        getPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag])
 
