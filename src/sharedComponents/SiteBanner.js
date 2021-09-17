@@ -43,7 +43,6 @@ const TitleStyled = styled.p`
 `;
 
 const SloganStyled = styled.p`
-    /* width: 50%; */
     font-family: 'Oswald', sans-serif;
     font-size: 43px;
     font-weight: 700;
