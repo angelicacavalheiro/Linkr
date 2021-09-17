@@ -19,12 +19,11 @@ export default function App() {
     if(showMenu === true){
       setShowMenu(!showMenu)
     }
-
    }
 
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
-  const [user, setUser] = useState({});  
+  const [user, setUser] = useState(storedUser);  
 
     return(     
 
