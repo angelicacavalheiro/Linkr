@@ -17,7 +17,10 @@ const SiteBannerStyled = styled.div`
     height: 100vh;
     width: 63%;
     background-color: #151515;
-    padding: 300px 0 0 10%;
+    padding: 0 25% 0 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     @media(max-width: 614px){
         width: 100%;
@@ -40,7 +43,6 @@ const TitleStyled = styled.p`
 `;
 
 const SloganStyled = styled.p`
-    width: 50%;
     font-family: 'Oswald', sans-serif;
     font-size: 43px;
     font-weight: 700;
