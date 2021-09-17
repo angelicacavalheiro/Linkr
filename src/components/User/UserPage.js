@@ -59,7 +59,6 @@ export default function UserPage(){
     }
 
     return(
-  
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}

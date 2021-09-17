@@ -54,7 +54,6 @@ export default function MyPostPage(){
     }
 
     return(
- 
     <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
              <PageTitleStyle>my posts</PageTitleStyle>

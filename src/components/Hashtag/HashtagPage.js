@@ -21,6 +21,7 @@ export default function HashtagPage(){
 
     useEffect(()=>{
         getPosts()
+        setNoPosts(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag])
 
@@ -53,8 +54,7 @@ export default function HashtagPage(){
     
      }
 
-    return(
-    
+    return(  
     <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
             <PageTitleStyle># {hashtag}</PageTitleStyle>
@@ -73,8 +73,6 @@ export default function HashtagPage(){
             
         </ContainerCenterStyle>
     </ContainerBoxStyle>
-
-        
     );
 }
 
