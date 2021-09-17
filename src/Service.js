@@ -44,10 +44,23 @@ function getTrendingHashtags (token) {
 
 }
 
+function putEditPost(token, body, id){
+    console.log(token, body)
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
+    const promise = axios.put(`${URL}/posts/${id}`, body, config);
+	return promise;
+}
+
 export {
     getTimelinePosts,
     postSignUp, 
     postLogin,
     postUserPost,
-    getTrendingHashtags
+    getTrendingHashtags,
+    putEditPost
 }

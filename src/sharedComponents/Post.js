@@ -7,21 +7,28 @@ import { useHistory } from "react-router";
 import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
 import UserContext from "../contexts/UserContext"
+import { putEditPost } from "../Service";
 
 
 export default function Post ({postInfo}) {
     let history = useHistory()
     const FocusHere = useRef();
     const { user } = useContext(UserContext);
-    console.log("oi");
-    console.log(user.id , postInfo.user.id);
     const [isMyPost , setIsMyPost] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [sending, setSending] = useState(false);
+    const [postText, setPostText]=useState(postInfo.text)
+    const [inputValue, setInputValue] = useState(postInfo.text);
 
     useEffect(()=>{
+        setSending(false)
         if(user.id === postInfo.user.id){
                 setIsMyPost(true);
             }
-    }, [])
+        if(isEditing){
+            editPost();
+        }
+    }, [isEditing])
   
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
@@ -29,10 +36,32 @@ export default function Post ({postInfo}) {
     }
     
     function editPost(){
-        FocusHere.current.focus();
-        console.log(FocusHere.current)
-        console.log("entrei")
+        if(isEditing){
+            setInputValue(postText)
+        }
+       FocusHere.current.focus();
+        
+    }
+    function keyPrees(e){
+        if(e.keyCode === 27){
+                setIsEditing(false);
+            }
+        if(e.keyCode === 13){
+            setSending(true)
+            const body = { text : inputValue};
+            const promise = putEditPost(user.token,body, postInfo.id )
+            promise.then((resp)=>{
+                setIsEditing(false);
+                setInputValue(resp.data.post.text)
+                setPostText(resp.data.post.text)
 
+            });
+            promise.catch(()=>{
+                alert("Erro: Não foi possível salvar as alterações");
+                setSending(false)
+                FocusHere.current.focus();
+            })
+        }
     }
 
     return(
@@ -45,9 +74,9 @@ export default function Post ({postInfo}) {
             <ContentBoxStyle>
                 <DiplayFlexBox>
                     <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                   {isMyPost? <PencilIcon onClick={editPost}/> : ""}
+                   {isMyPost? <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> : ""}
                 </DiplayFlexBox>
-                <p ref={FocusHere} ><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
+                {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={FocusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
                 <LinkBoxStyle href={postInfo.link} target='_blank' >
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
@@ -63,6 +92,10 @@ export default function Post ({postInfo}) {
         
     )
 }
+
+
+
+//const EditBox =styled.text
 
 const BlackBoxStyle = styled.div`
 
@@ -122,6 +155,15 @@ width: 500px;
     }
     span{
         color: #ffffff;
+    }
+    textarea{
+        background-color: #ffffff;
+        height: auto;
+        word-wrap: break-word;
+        word-break: break-all;
+        border-radius: 7px;
+        padding: 7px;
+        font-size: 14px;
     }
 `
 const LinkBoxStyle = styled.a`
