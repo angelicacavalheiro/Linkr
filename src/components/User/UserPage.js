@@ -65,8 +65,8 @@ export default function UserPage(){
                 <PostsAndTrendingStyle>
                     <ColunaPostsStyle>
                     
-                    {posts.map((postInfo,index)=>
-                        <Post key={index} postInfo={postInfo}/>
+                    {posts.map((postInfo)=>
+                        <Post key={postInfo.id} postInfo={postInfo} renderPage={getUserPosts}/>
                     )}
                     {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
                     {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}

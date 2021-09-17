@@ -5,8 +5,7 @@ import { tryDeletePost } from "../Service";
 import {  useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
-
-export default function Trash({postInfo}) {
+export default function Trash({postInfo, renderPage}) {
     const {user} = useContext(UserContext);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [loadingTrash, setLoadingTrash] =useState(false);
@@ -17,6 +16,7 @@ export default function Trash({postInfo}) {
         .then(()=> {
             setLoadingTrash(false);
             setModalIsOpen(false);
+            renderPage()
      })
      .catch(()=> {
         setLoadingTrash(false);
@@ -38,18 +38,16 @@ export default function Trash({postInfo}) {
     )
 }
 
-
 const TrashStyle = styled(BiTrash)`
     color: white;
     margin-left: 5px;
 `
-
 const modalStyle = {
     overlay: {
       backgroundColor: 'rgba(255, 255, 255, 0.5)', 
      },
      content: {
-         border: 'none',   
+        border: 'none',   
      }
  }
 
@@ -71,9 +69,6 @@ const ModalQueryStyle = styled(ReactModal)`
     justify-content: space-between;
     color: white;
     
-    
-    
-
     @media(max-width: 600px) {
         height: 20vh;
         width: 80vw;
@@ -90,8 +85,7 @@ const ButtonsStyle = styled.div`
     justify-content: space-between;
     gap: 20px;
     align-items: center;
-    width: 70%;
-    
+    width: 70%;   
 `
 const ButtonStyle = styled.button`
     width:200px;
