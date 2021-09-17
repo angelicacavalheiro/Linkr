@@ -46,12 +46,15 @@ export default function Post ({postInfo}) {
                     <div>
                         {//colocar o botao de editar o post aqui
                         }
-                        <Trash 
+                        {user.id === postInfo.user.id ? <Trash 
                             setModalIsOpen ={setModalIsOpen} 
                             deletePost={deletePost}
                             modalIsOpen={modalIsOpen}
                             loadingTrash={loadingTrash}>
                         </Trash>
+                        :
+                        ''}
+                        
                     </div>
                 </UserNameAndOptionsStyle>
                 <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
