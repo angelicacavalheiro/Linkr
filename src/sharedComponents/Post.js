@@ -10,6 +10,7 @@ export default function Post ({postInfo}) {
         let hashTag = wrongHahshTag.substr(1);
         history.push(`/hashtag/${hashTag}`);
     }
+    //lets
 
     return(
         <BlackBoxStyle>
