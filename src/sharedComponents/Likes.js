@@ -6,17 +6,15 @@ import axios from "axios";
 
 export default function Likes ({postInfo}){
 
-    console.log(postInfo)
     const {user} = useContext(UserContext);
 
-    let isLike = (like !== undefined && like === "red") ? "red" : "#ffffff";
-    const [like, setLike] = useState(isLike);
+    //let isLike = (like !== undefined && like === "red") ? "red" : "#ffffff";
+    //const [like, setLike] = useState("fffff");
 
+    function Like(id){
+        //console.log(id)
 
-    function Like(){
-
-        setLike("red")
-        let id = (postInfo.id)
+        //setLike("red")
 
         const config = {
             headers:{
@@ -26,46 +24,35 @@ export default function Likes ({postInfo}){
 
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/${id}/like`, {}, config)
         .then(res => {
-
-            const config = {
-                headers:{
-                    Authorization: `Bearer ${user.token}`
-                }
-            }
-    
-            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/liked', config)
-            .then(res => {
-                console.log("deu like")
-            })       
-
-        })    
+            console.log("deu like")
+            console.log(res.data)
+            })    
     }
    
-    function unLike(){
+    // function unLike(id){
 
-        setLike("#ffffff")
-        let id = (postInfo.id)    
+    //     setLike("#ffffff")  
        
-        const config = {
-            headers:{
-                Authorization: `Bearer ${user.token}`
-            }
-        }
+    //     const config = {
+    //         headers:{
+    //             Authorization: `Bearer ${user.token}`
+    //         }
+    //     }
 
-        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/${id}/dislike`, {}, config)
-        .then(res => {
-                const config = {
-                headers:{
-                    Authorization: `Bearer ${user.token}`
-                }
-            }
+    //     axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/${id}/dislike`, {}, config)
+    //     .then(res => {
+    //             const config = {
+    //             headers:{
+    //                 Authorization: `Bearer ${user.token}`
+    //             }
+    //         }
     
-            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/liked', config)
-            .then(res => {
+    //         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/posts/liked', config)
+    //         .then(res => {
             
-            })            
-        })      
-    }  
+    //         })            
+    //     })      
+    // }  
 
 
 
@@ -79,7 +66,7 @@ export default function Likes ({postInfo}){
         <Icon onClick={() => unLike()} /> 
         } */}
 
-        <Icon />
+        <Icon onClick={() => Like(postInfo.id)}/>
         <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
        </>
     )

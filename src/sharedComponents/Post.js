@@ -43,6 +43,7 @@ width: 100%;
 border-radius: 16px;
 margin-top:16px;
 display: flex;
+    
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
@@ -100,6 +101,7 @@ img{
     height: 155px;
     border-radius: 0px 13px 13px 0px;
     margin-left: 10px;
+    
     @media(max-width: 600px) {
         width: 95px;
         height: 100%;
@@ -107,8 +109,7 @@ img{
     }
 
 }
-
-@media(max-width: 600px) {
+    @media(max-width: 600px) {
         word-break: break-all;
         width: 75vw;
     }
