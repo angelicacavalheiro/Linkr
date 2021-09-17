@@ -1,28 +1,54 @@
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react"
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
+import React, { useRef } from "react";
+import { TiPencil } from "react-icons/ti";
+import UserContext from "../contexts/UserContext"
+
 
 export default function Post ({postInfo}) {
     let history = useHistory()
+    const FocusHere = useRef();
+    const { user } = useContext(UserContext);
+    console.log("oi");
+    console.log(user.id , postInfo.user.id);
+    const [isMyPost , setIsMyPost] = useState(false);
+
+    useEffect(()=>{
+        if(user.id === postInfo.user.id){
+                setIsMyPost(true);
+            }
+    }, [])
+  
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
         history.push(`/hashtag/${hashTag}`);
     }
-    //lets
+    
+    function editPost(){
+        FocusHere.current.focus();
+        console.log(FocusHere.current)
+        console.log("entrei")
+
+    }
 
     return(
-        <BlackBoxStyle>
-            <PhotoAndLikeBoxStyle>
+        <BlackBoxStyle >
+            <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
                 <Icon />
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
-                <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
-                <LinkBoxStyle href={postInfo.link} target='_blank'>
+                <DiplayFlexBox>
+                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                   {isMyPost? <PencilIcon onClick={editPost}/> : ""}
+                </DiplayFlexBox>
+                <p ref={FocusHere} ><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
+                <LinkBoxStyle href={postInfo.link} target='_blank' >
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
@@ -73,6 +99,10 @@ font-size: 20px;
 color: #ffffff;
 margin-top: 19px;
 font-weight: 700;
+`
+const PencilIcon =styled(TiPencil)`
+color: #ffffff;
+font-size: 20px;
 `
 
 const ContentBoxStyle = styled.div`
@@ -171,8 +201,13 @@ color: #CECECE;
 `
 
 const LinkStyle = styled(Link)`
-    text-decoration: none;
+    text-decoration: none; 
 `
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
+`
+const DiplayFlexBox =styled.div`
+    display: flex;
+    justify-content: space-between;
+
 `
