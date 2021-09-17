@@ -23,11 +23,7 @@ export default function App() {
     if(showMenu === true){
       setShowMenu(!showMenu)
     }
-
    }
-
-
- 
 
     return(     
 
