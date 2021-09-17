@@ -16,7 +16,6 @@ export default function MyPostPage(){
     const [message, setMessage] = useState("Você ainda não tem posts")
     const {disappearMenu} = useContext(ShowMenuContext);
     
-    console.log(user)
    
 
     useEffect(()=>{
@@ -27,7 +26,6 @@ export default function MyPostPage(){
 
     function getMyPosts(){
         const promise = getAnUserPosts(user.token, user.id);
-        console.log(user.token , user.id)
             promise.then((resp)=>{
                 console.log(resp.data)
                 setLoading(false)
@@ -54,9 +52,6 @@ export default function MyPostPage(){
         setNoPosts(true);
         setLoading(false);
     }
-
-
-
 
     return(
  

@@ -58,8 +58,6 @@ export default function UserPage(){
 
     }
 
-
-
     return(
   
         <ContainerBoxStyle onClick={disappearMenu}>
