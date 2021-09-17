@@ -5,18 +5,18 @@ import { getTimelinePosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
 import UserContext from "../../contexts/UserContext";
+import AddPosts from "./AddPosts";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 
 export default function TimelinePage () {
+    
     const {user} = useContext(UserContext);
     const {disappearMenu} = useContext(ShowMenuContext);
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
 
- 
-
-    useEffect(()=> {
+    function loadPosts(){
         getTimelinePosts(user.token)
         .then((res)=> {
             setPostsList(res.data)
@@ -25,11 +25,15 @@ export default function TimelinePage () {
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 
+    }
+
+    useEffect(()=> {
+        loadPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
     return(
-        
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 <PageTitleStyle>TimeLine</PageTitleStyle>
@@ -38,6 +42,7 @@ export default function TimelinePage () {
                         {loading ? <LoadingStyle>Loading...</LoadingStyle>
                         :
                         <>
+                        <AddPosts loadPosts={loadPosts}/>
                         <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
                         {postsList.posts.map((post, index)=> {
                             return(
@@ -45,9 +50,8 @@ export default function TimelinePage () {
                             )
                         })}</>}
                     </ColunaPostsStyle>
-                    <Trending></Trending>
+                    <Trending/>
                 </PostsAndTrendingStyle>
-                
             </ContainerCenterStyle>    
         </ContainerBoxStyle> 
     )         

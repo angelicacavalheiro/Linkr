@@ -15,16 +15,17 @@ import UserContext from './contexts/UserContext';
 
 export default function App() {
 
-  function disappearMenu() { 
-    if(showMenu === true){
-      setShowMenu(!showMenu)
-    }
-
-   }
 
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
-  const [user, setUser] = useState({});  
+  const [user, setUser] = useState(storedUser);  
+
+  function disappearMenu() { 
+    if(showMenu === true){
+      setShowMenu(!showMenu);
+    }
+   }
+
 
     return(     
 
