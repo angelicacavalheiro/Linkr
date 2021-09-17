@@ -6,10 +6,12 @@ import { useHistory } from "react-router";
 
 export default function Post ({postInfo}) {
     let history = useHistory()
+
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
         history.push(`/hashtag/${hashTag}`);
     }
+
 
     return(
         <BlackBoxStyle>
@@ -38,7 +40,6 @@ export default function Post ({postInfo}) {
 }
 
 const BlackBoxStyle = styled.div`
-
 background-color: #171717;
 width: 100%;
 border-radius: 16px;
@@ -52,7 +53,6 @@ flex-direction: column;
 align-items: center;
 width: 90px;
 text-align: center;
-
     img{
         width: 50px;
         height: 50px;
@@ -175,3 +175,4 @@ const LinkStyle = styled(Link)`
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
 `
+

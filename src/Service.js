@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr'
+const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr'
 
 function postSignUp (body){
     const promise = axios.post(`${URL}/sign-up`, body);
@@ -33,6 +33,29 @@ function getTimelinePosts (token) {
     return promise;
 }
 
+function getAnUserPosts (token, id) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}` 
+        }
+    }
+
+    const promise = axios.get(`${URL}/users/${id}/posts`, config)
+    return promise;
+}
+
+function getHashtagPosts (token, hashtag) {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}` 
+            }
+        }
+    
+        const promise = axios.get(`${URL}/hashtags/${hashtag}/posts`, config)
+        return promise;
+    }
+
+
 function getTrendingHashtags (token) {
     const config = {
         headers: {
@@ -46,6 +69,8 @@ function getTrendingHashtags (token) {
 
 export {
     getTimelinePosts,
+    getAnUserPosts,
+    getHashtagPosts,
     postSignUp, 
     postLogin,
     postUserPost,
