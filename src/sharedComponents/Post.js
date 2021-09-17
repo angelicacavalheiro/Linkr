@@ -1,29 +1,85 @@
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react"
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
+import React, { useRef } from "react";
+import { TiPencil } from "react-icons/ti";
+import UserContext from "../contexts/UserContext"
+import { putEditPost } from "../Service";
+
 
 export default function Post ({postInfo}) {
     let history = useHistory()
+    const focusHere = useRef();
+    const { user } = useContext(UserContext);
+    const [isMyPost , setIsMyPost] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [sending, setSending] = useState(false);
+    const [postText, setPostText]=useState(postInfo.text)
+    const [inputValue, setInputValue] = useState(postInfo.text);
 
+    useEffect(()=>{
+        setSending(false)
+        if(user.id === postInfo.user.id){
+                setIsMyPost(true);
+            }
+        if(isEditing){
+            editPost();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isEditing])
+  
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
         history.push(`/hashtag/${hashTag}`);
     }
+    
+    function editPost(){
+        if(isEditing){
+            setInputValue(postText)
+        }
+       focusHere.current.focus();
+        
+    }
+    function keyPrees(e){
+        if(e.keyCode === 27){
+                setIsEditing(false);
+            }
+        if(e.keyCode === 13){
+            setSending(true)
+            const body = { text : inputValue};
+            const promise = putEditPost(user.token,body, postInfo.id )
+            promise.then((resp)=>{
+                setIsEditing(false);
+                setInputValue(resp.data.post.text)
+                setPostText(resp.data.post.text)
+
+            });
+            promise.catch(()=>{
+                alert("Erro: Não foi possível salvar as alterações");
+                setSending(false)
+                focusHere.current.focus();
+            })
+        }
+    }
 
 
     return(
-        <BlackBoxStyle>
-            <PhotoAndLikeBoxStyle>
+        <BlackBoxStyle >
+            <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
                 <Icon />
                 <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
-                <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
-                <LinkBoxStyle href={postInfo.link} target='_blank'>
+                <DiplayFlexBox>
+                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                   {isMyPost? <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> : ""}
+                </DiplayFlexBox>
+                {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
+                <LinkBoxStyle href={postInfo.link} target='_blank' >
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
@@ -73,6 +129,10 @@ color: #ffffff;
 margin-top: 19px;
 font-weight: 700;
 `
+const PencilIcon =styled(TiPencil)`
+color: #ffffff;
+font-size: 20px;
+`
 
 const ContentBoxStyle = styled.div`
 display: flex;
@@ -91,6 +151,15 @@ width: 500px;
     }
     span{
         color: #ffffff;
+    }
+    textarea{
+        background-color: #ffffff;
+        height: auto;
+        word-wrap: break-word;
+        word-break: break-all;
+        border-radius: 7px;
+        padding: 7px;
+        font-size: 14px;
     }
 `
 const LinkBoxStyle = styled.a`
@@ -170,9 +239,13 @@ color: #CECECE;
 `
 
 const LinkStyle = styled(Link)`
-    text-decoration: none;
+    text-decoration: none; 
 `
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
 `
+const DiplayFlexBox =styled.div`
+    display: flex;
+    justify-content: space-between;
 
+`

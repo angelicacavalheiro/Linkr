@@ -19,9 +19,9 @@ export default function TimelinePage () {
     function loadPosts(){
         getTimelinePosts(user.token)
         .then((res)=> {
-            setPostsList(res.data)
             setLoading(false);
-            postsList.length === 0 ? setNoPosts(true) : setNoPosts(false)
+            postsList.length === 0 ? setNoPosts(true) : setNoPosts(false);
+            setPostsList(res.data);
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 
@@ -31,7 +31,6 @@ export default function TimelinePage () {
         loadPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
 
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
@@ -44,11 +43,13 @@ export default function TimelinePage () {
                         <>
                         <AddPosts loadPosts={loadPosts}/>
                         <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
-                        {postsList.posts.map((post)=> {
+                        {"posts" in postsList && 
+                            <>{postsList.posts.map((post)=> {
                             return(
                                 <Post key={post.id} postInfo={post}></Post>
                             )
-                        })}</>}
+                        })}</>}</>}
+                        
                     </ColunaPostsStyle>
                     <Trending/>
                 </PostsAndTrendingStyle>

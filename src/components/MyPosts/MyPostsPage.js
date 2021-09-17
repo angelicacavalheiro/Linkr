@@ -27,7 +27,6 @@ export default function MyPostPage(){
     function getMyPosts(){
         const promise = getAnUserPosts(user.token, user.id);
             promise.then((resp)=>{
-                console.log(resp.data)
                 setLoading(false)
                 setPosts(resp.data.posts) 
 
@@ -61,7 +60,7 @@ export default function MyPostPage(){
                  <ColunaPostsStyle>
                
                 {posts.map((postInfo,index)=>
-                    <Post key={index} postInfo={postInfo}/>
+                    <Post key={postInfo.id} postInfo={postInfo}/>
                 )}
                  {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
                  {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
