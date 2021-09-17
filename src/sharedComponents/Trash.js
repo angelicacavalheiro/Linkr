@@ -1,23 +1,22 @@
 import { BiTrash } from "react-icons/bi";
 import styled from "styled-components";
 import ReactModal from 'react-modal';
-import { useState } from "react";
-import { tryDeletePost } from "../Service";
 
-export default function Trash({postId}) {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
-   function deletePost() {
-    tryDeletePost()
-   }
+
+
+export default function Trash({setModalIsOpen, deletePost, modalIsOpen, loadingTrash}) {
+    
+    
+    
     return(
         <>
         <TrashStyle onClick={()=> setModalIsOpen(true)}></TrashStyle>
         <ModalQueryStyle isOpen={modalIsOpen} style={modalStyle} ariaHideApp={false}>
-            <p>Tem certeza que deseja {"\n"} excluir essa publicação?</p>
+            {loadingTrash ? <p>Loading...</p> : <p>Tem certeza que deseja {"\n"} excluir essa publicação?</p>}
             <ButtonsStyle>
-                <ButtonStyle backColor={'white'} color={'#1877F2'} onClick={()=> setModalIsOpen(false)}>Não, voltar</ButtonStyle>
-                <ButtonStyle backColor={'#1877F2'} color={'white'} onClick={deletePost}>Sim, excluir</ButtonStyle>
+                <ButtonStyle backColor={'white'} color={'#1877F2'} disabled={loadingTrash} loadingTrash={loadingTrash} onClick={()=> setModalIsOpen(false)}>Não, voltar</ButtonStyle>
+                <ButtonStyle backColor={'#1877F2'} color={'white'} disabled={loadingTrash} loadingTrash={loadingTrash} onClick={deletePost}>Sim, excluir</ButtonStyle>
             </ButtonsStyle>
         </ModalQueryStyle>
         </>
@@ -89,4 +88,5 @@ const ButtonStyle = styled.button`
     border: none;
     font-size: 18px;
     padding: 2px 2px;
+    opacity: ${(props) => props.loadingTrash ? '0.3' : '1'};
 `

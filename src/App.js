@@ -1,57 +1,75 @@
 import './sharedStyles/reset.css'
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-// import { useState, useContext } from 'react';
+import { BrowserRouter, Switch, Route, Redirect  } from "react-router-dom";
+import { useState } from 'react';
 import SignUpPage from './components/Signup/SignUpPage'
 import LoginPage from './components/Login/LoginPage'
 import TimelinePage from './components/Timeline/TimelinePage'
-import { useState } from 'react';
 import UserContext from './contexts/UserContext';
-// import MyPostsPage from './components/MyPosts/MyPostsPage'
-// import UserPage from './components/User/UserPage'
-// import HashtagPage from './components/Hashtag/HashtagPage'
-// import MyLikesPage from './components/MyLikes/MyLikesPage'
+import MyPostsPage from './components/MyPosts/MyPostsPage'
+import UserPage from './components/User/UserPage'
+import HashtagPage from './components/Hashtag/HashtagPage'
+import MyLikesPage from './components/MyLikes/MyLikesPage'
+import MenuHeaderPage from './components/MenuHeader/MenuHeaderPage';
+import ShowMenuContext from './contexts/ShowMenuContext';
 
-// import { useState, useContext } from 'react';
+
 
 export default function App() {
-
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
+  const [user, setUser] = useState(storedUser);  
+  const [showMenu , setShowMenu] = useState(false);
 
-  const [user, setUser] = useState(storedUser);
-    return(
+  function disappearMenu() { 
+    if(showMenu === true){
+      setShowMenu(!showMenu)
+    }
+   }
+
+    return(     
+
       <BrowserRouter>
         <UserContext.Provider value={{user, setUser}}>
           <Switch>
-            <Route path="/sign-up" exact>
-            <SignUpPage />
-            </Route> 
-            <Route path="/" exact>
-            {user ? <Redirect to="/timeline"/> : <LoginPage/> }
-            </Route> 
 
-            <Route path="/timeline" exact>
-              <TimelinePage />
-            </Route>  
+          <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu}}>
+         
+              <Route path="/sign-up" exact>
+                <SignUpPage />
+              </ Route> 
 
-            {/*
-            <Route path="/my-posts" exact>
-              <MyPostsPage />
-            </ Route>
+              <Route path="/" exact >              
+                {storedUser ? <Redirect to="/timeline"/> : <LoginPage /> }
+              </Route> 
 
-            <Route path="/user/:id" exact>
-              <UserPage />
-            </ Route>
+              <Route path="/timeline" exact>
+                <MenuHeaderPage />
+                <TimelinePage />
+              </ Route>  
 
-            <Route path="/hashtag/:hashtag" exact>
-              <HashtagPage />
-            </ Route>
+              <Route path="/my-posts" exact>
+                <MenuHeaderPage />      
+                <MyPostsPage />
+              </ Route>
 
-            <Route path="/my-likes" exact>
-              <MyLikesPage />
-            </ Route> */}
+              <Route path="/user/:id" exact>
+                <MenuHeaderPage />
+                <UserPage />
+              </ Route>
 
-          </Switch>
-        </UserContext.Provider>       
-      </BrowserRouter>   
+              <Route path="/hashtag/:hashtag" exact>
+                <MenuHeaderPage />
+                <HashtagPage />
+              </ Route>
+
+              <Route path="/my-likes" exact>
+                <MenuHeaderPage />
+                <MyLikesPage />
+              </ Route> 
+
+            </ShowMenuContext.Provider>
+
+          </ Switch>   
+        </UserContext.Provider >    
+      </ BrowserRouter>   
     )
 }

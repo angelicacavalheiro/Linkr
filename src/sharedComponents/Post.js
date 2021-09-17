@@ -4,13 +4,34 @@ import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
 import Trash from "./Trash";
+import { tryDeletePost } from "../Service";
+import { useState, useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 export default function Post ({postInfo}) {
-    let history = useHistory()
+    let history = useHistory();
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const {user} = useContext(UserContext);
+    const [loadingTrash, setLoadingTrash] =useState(false);
+    
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
         history.push(`/hashtag/${hashTag}`);
     }
+
+    function deletePost() {
+        setLoadingTrash(true)
+        tryDeletePost(postInfo.id, user.token)
+        .then(()=> {
+            setLoadingTrash(false);
+            setModalIsOpen(false);
+     })
+     .catch(()=> {
+        setLoadingTrash(false);
+        setModalIsOpen(false);
+        alert('Houve uma falha ao deletar o Post.')})
+    }
+
 
     return(
         <BlackBoxStyle>
@@ -25,7 +46,12 @@ export default function Post ({postInfo}) {
                     <div>
                         {//colocar o botao de editar o post aqui
                         }
-                        <Trash postId={postInfo.id}></Trash>
+                        <Trash 
+                            setModalIsOpen ={setModalIsOpen} 
+                            deletePost={deletePost}
+                            modalIsOpen={modalIsOpen}
+                            loadingTrash={loadingTrash}>
+                        </Trash>
                     </div>
                 </UserNameAndOptionsStyle>
                 <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postInfo.text}</HashTagStyle></p>
@@ -46,12 +72,12 @@ export default function Post ({postInfo}) {
 }
 
 const BlackBoxStyle = styled.div`
-
 background-color: #171717;
 width: 100%;
 border-radius: 16px;
 margin-top:16px;
 display: flex;
+    
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
@@ -59,7 +85,6 @@ flex-direction: column;
 align-items: center;
 width: 90px;
 text-align: center;
-
     img{
         width: 50px;
         height: 50px;
@@ -114,6 +139,7 @@ img{
     height: 155px;
     border-radius: 0px 13px 13px 0px;
     margin-left: 10px;
+    
     @media(max-width: 600px) {
         width: 95px;
         height: 100%;
@@ -121,8 +147,7 @@ img{
     }
 
 }
-
-@media(max-width: 600px) {
+    @media(max-width: 600px) {
         word-break: break-all;
         width: 75vw;
     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr'
+const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr'
 
 function tryDeletePost (id, token) {
     const config = {
@@ -7,7 +7,7 @@ function tryDeletePost (id, token) {
             "Authorization": `Bearer ${token}`
         }
     }
-    const promise = axios.delete(`${URL}/${id}`, token)
+    const promise = axios.delete(`${URL}/posts/${id}`, config)
     return promise
 }
 
@@ -21,6 +21,15 @@ function postLogin (body){
     return promise;
 }
 
+function postUserPost (body, token){
+	const config = {
+		headers: {
+			'Authorization': `Bearer ${token}`
+		}
+	};
+	const promise = axios.post(`${URL}/posts`, body, config);
+	return promise;
+};
 
 function getTimelinePosts (token) {
 
@@ -31,12 +40,50 @@ function getTimelinePosts (token) {
     }
 
     const promise = axios.get(`${URL}/posts`, config)
+    return promise;
+}
+
+function getAnUserPosts (token, id) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}` 
+        }
+    }
+
+    const promise = axios.get(`${URL}/users/${id}/posts`, config)
+    return promise;
+}
+
+function getHashtagPosts (token, hashtag) {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}` 
+            }
+        }
+    
+        const promise = axios.get(`${URL}/hashtags/${hashtag}/posts`, config)
+        return promise;
+    }
+
+
+function getTrendingHashtags (token) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/hashtags/trending`, config);
     return promise
+
 }
 
 export {
     getTimelinePosts,
+    getAnUserPosts,
+    getHashtagPosts,
     postSignUp, 
     postLogin,
-    tryDeletePost
+    tryDeletePost,
+    postUserPost,
+    getTrendingHashtags
 }
