@@ -28,6 +28,7 @@ export default function Post ({postInfo}) {
         if(isEditing){
             editPost();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing])
   
     function redirectToHashTag (wrongHahshTag){
@@ -92,10 +93,6 @@ export default function Post ({postInfo}) {
         
     )
 }
-
-
-
-//const EditBox =styled.text
 
 const BlackBoxStyle = styled.div`
 

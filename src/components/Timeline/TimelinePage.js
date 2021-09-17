@@ -15,7 +15,6 @@ export default function TimelinePage () {
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
-    console.log(postsList)
 
     function loadPosts(){
         getTimelinePosts(user.token)
