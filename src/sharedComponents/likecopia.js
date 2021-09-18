@@ -51,41 +51,47 @@ export default function Likes ({postInfo, setPostsList}){
 
     function NumberofLikes(){
         if (postInfo.likes.length === 0){
-            return (null)
+            return ("nada")
         } else if (postInfo.likes.length === 1) {
-            return (postInfo.likes[0]["user.username"])
+            return (postInfo.likes[0].userId)
         } else if   (postInfo.likes.length === 2) {
-            return(`${postInfo.likes[0]["user.username"]}, ${postInfo.likes[1]["user.username"]}`)
+            return(`${postInfo.likes[0].userId}, ${postInfo.likes[1].userId}`)
         } else if (postInfo.likes.length > 2){
-            return (`${postInfo.likes[2]["user.username"]}, ${postInfo.likes[1]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
+            return (`${postInfo.likes[0].userId}, ${postInfo.likes[1].userId} e outras ${(postInfo.likes.length)-2} pessoas`)
         }
     }
-    
-    function NumberofLikesIncludesMy(){
-    if (postInfo.likes.length === 0){
-        return (null)
-    } else if (postInfo.likes.length === 1) {
-        return ("Você curtiu")
-    } else if   (postInfo.likes.length === 2) {
-        return(`Você e ${postInfo.likes[0]["user.username"]} curtiram`)
-    } else if (postInfo.likes.length > 2){
-        return (`Você, ${postInfo.likes[2]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
-    }
-}
 
+    // function NumberofN(){
+    //     if (postInfo.likes.length === 0){
+    //         return ("nada")
+    //     } else if (postInfo.likes.length === 1) {
+    //         return (postInfo.likes[0].userId)
+    //     } else if   (postInfo.likes.length === 2) {
+    //         return(`Você e ${postInfo.likes[1].userId} curtiram`)
+    //     } else if (postInfo.likes.length > 2){
+    //         return (`Você, ${postInfo.likes[1].userId} e outras ${(postInfo.likes.length)-2} pessoas`)
+    //     }
+    // }
+    
+   
     return(
        <>
             {postInfo.likes.filter((l) => (l.userId === user.id)).length !== 0 ?
                 <IconAiFillHeart style={{color:"#AC0000"}} 
                 onClick={() => getLike(postInfo.id)} 
-                data-tip={NumberofLikesIncludesMy()}/>
+                data-tip data-for="ifYouLike"/>
                 :
                 <IconOutlineHeart style={{color:"#ffffff"}} 
                 onClick={() => getLike(postInfo.id)}
-                data-tip={NumberofLikes()} />
+                data-tip />
             }
-        
-            <ReactTooltip />
+            <ReactTooltip id="ifYouLike" place="top" effect="solid">
+                curtiu
+            </ReactTooltip>
+
+            <ReactTooltip place="top" effect="solid">
+                {NumberofLikes()}
+            </ReactTooltip>
     
             <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
        </>
