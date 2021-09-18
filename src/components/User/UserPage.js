@@ -66,7 +66,7 @@ export default function UserPage(){
                     <ColunaPostsStyle>
                     
                     {posts.map((postInfo)=>
-                        <Post key={postInfo.id} postInfo={postInfo}/>
+                        <Post key={postInfo.id} postInfo={postInfo} renderPage={getUserPosts}/>
                     )}
                     {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
                     {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}

@@ -4,13 +4,14 @@ import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
+import Trash from "./Trash";
+import UserContext from "../contexts/UserContext";
 import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
-import UserContext from "../contexts/UserContext"
 import { putEditPost } from "../Service";
 
 
-export default function Post ({postInfo}) {
+export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -65,7 +66,6 @@ export default function Post ({postInfo}) {
         }
     }
 
-
     return(
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
@@ -76,7 +76,12 @@ export default function Post ({postInfo}) {
             <ContentBoxStyle>
                 <DiplayFlexBox>
                     <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                   {isMyPost? <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> : ""}
+                   {isMyPost? 
+                   <TrashAndEditStyle>
+                   <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> 
+                   <Trash postInfo={postInfo} renderPage={renderPage}></Trash>
+                    </TrashAndEditStyle>
+                   : ""}
                 </DiplayFlexBox>
                 {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
                 <LinkBoxStyle href={postInfo.link} target='_blank' >
@@ -100,8 +105,7 @@ background-color: #171717;
 width: 100%;
 border-radius: 16px;
 margin-top:16px;
-display: flex;
-    
+display: flex;    
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
@@ -160,6 +164,10 @@ width: 500px;
         border-radius: 7px;
         padding: 7px;
         font-size: 14px;
+    }
+
+    @media(max-width: 600px){
+        word-break:break-all;
     }
 `
 const LinkBoxStyle = styled.a`
@@ -248,4 +256,9 @@ const DiplayFlexBox =styled.div`
     display: flex;
     justify-content: space-between;
 
+`
+const TrashAndEditStyle = styled.div`
+    display: flex;
+    justify-content: space-between;
+    
 `

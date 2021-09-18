@@ -46,7 +46,7 @@ export default function TimelinePage () {
                         {"posts" in postsList && 
                             <>{postsList.posts.map((post)=> {
                             return(
-                                <Post key={post.id} postInfo={post}></Post>
+                                <Post key={post.id} postInfo={post} renderPage ={loadPosts}></Post>
                             )
                         })}</>}</>}
                         

@@ -62,7 +62,7 @@ export default function HashtagPage(){
                 <ColunaPostsStyle>
                 
                 {posts.map((postInfo)=>
-                    <Post key={postInfo.id} postInfo={postInfo}/>
+                    <Post key={postInfo.id} postInfo={postInfo} renderPage={getPosts}/>
                 )}
                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""}
                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}

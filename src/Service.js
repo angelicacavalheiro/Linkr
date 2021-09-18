@@ -1,6 +1,16 @@
 import axios from "axios";
 const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr'
 
+function tryDeletePost (id, token) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.delete(`${URL}/posts/${id}`, config)
+    return promise
+}
+
 function postSignUp (body){
     const promise = axios.post(`${URL}/sign-up`, body);
     return promise;
@@ -84,6 +94,7 @@ export {
     getHashtagPosts,
     postSignUp, 
     postLogin,
+    tryDeletePost,
     postUserPost,
     getTrendingHashtags,
     putEditPost

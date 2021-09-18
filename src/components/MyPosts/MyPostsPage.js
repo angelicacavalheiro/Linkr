@@ -21,7 +21,7 @@ export default function MyPostPage(){
     useEffect(()=>{
         getMyPosts()
          // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [    ])
 
 
     function getMyPosts(){
@@ -60,7 +60,7 @@ export default function MyPostPage(){
                  <ColunaPostsStyle>
                
                 {posts.map((postInfo,index)=>
-                    <Post key={postInfo.id} postInfo={postInfo}/>
+                    <Post key={postInfo.id} postInfo={postInfo} renderPage ={getMyPosts}/>
                 )}
                  {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
                  {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
