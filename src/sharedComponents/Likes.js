@@ -35,8 +35,7 @@ export default function Likes ({postInfo, setPostsList}){
             })            
         })      
     }
-    
-   
+       
     function unLike(id){
 
         postUnlike(user.token, id)
