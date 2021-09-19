@@ -68,7 +68,7 @@ export default function Likes ({postInfo, setPostsList}){
     } else if   (postInfo.likes.length === 2) {
         return(`Você e ${postInfo.likes[1]["user.username"]} curtiram`)
     } else if (postInfo.likes.length > 2){
-        return (`Você, ${postInfo.likes[0]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
+        return (`Você, ${postInfo.likes[1]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
     }
 }
 

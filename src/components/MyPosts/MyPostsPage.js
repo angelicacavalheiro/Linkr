@@ -36,6 +36,7 @@ export default function MyPostPage(){
             })
             promise.catch(Erro);
     }
+    console.log(posts)
 
     function Erro(e){
         
