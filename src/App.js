@@ -12,19 +12,18 @@ import MenuHeaderPage from './components/MenuHeader/MenuHeaderPage';
 import ShowMenuContext from './contexts/ShowMenuContext';
 import UserContext from './contexts/UserContext';
 
-
 export default function App() {
 
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState(storedUser);  
+  console.log(user)
 
   function disappearMenu() { 
     if(showMenu === true){
       setShowMenu(!showMenu);
     }
    }
-
 
     return(     
 
