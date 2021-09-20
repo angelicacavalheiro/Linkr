@@ -1,8 +1,8 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { getTimelinePosts, postLike, postUnlike, getLikes} from "../Service";
+import { postLike, postUnlike, getLikes} from "../Service";
 import ReactTooltip from 'react-tooltip';
 
 export default function Likes ({postInfo, renderPage}){
