@@ -7,6 +7,7 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import ReactTooltip from 'react-tooltip';
 
 export default function HashtagPage(){
 
@@ -17,8 +18,7 @@ export default function HashtagPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Não há posts com esta #hashtag ")
     const {disappearMenu} = useContext(ShowMenuContext);
-   
-
+  
     useEffect(()=>{
         setNoPosts(false)
         getPosts()
@@ -31,6 +31,7 @@ export default function HashtagPage(){
             promise.then((resp)=>{
                 setLoading(false)
                 setPosts(resp.data.posts) 
+                ReactTooltip.rebuild()
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }
