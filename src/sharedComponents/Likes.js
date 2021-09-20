@@ -8,7 +8,7 @@ import ReactTooltip from 'react-tooltip';
 export default function Likes ({postInfo, setPostsList}){
 
     const {user} = useContext(UserContext);
-    console.log(postInfo)
+    //console.log(postInfo.likes[0].userId)
     
     function getLike(id){
 
@@ -66,9 +66,10 @@ export default function Likes ({postInfo, setPostsList}){
     } else if (postInfo.likes.length === 1) {
         return ("Você curtiu")
     } else if   (postInfo.likes.length === 2) {
-        return(`Você e ${postInfo.likes[1]["user.username"]} curtiram`)
+        return (`Você e ${postInfo.likes[0]["user.username"] === user.id ? postInfo.likes[1]["user.username"] : postInfo.likes[0]["user.username"]}  curtiram`)
     } else if (postInfo.likes.length > 2){
-        return (`Você, ${postInfo.likes[1]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
+        const likeListExcludeMy = postInfo.likes.filter((l) => (l.userId !== user.id))
+        return (`Você, ${likeListExcludeMy[0]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
     }
 }
 
