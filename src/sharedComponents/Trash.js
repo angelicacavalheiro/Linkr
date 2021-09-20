@@ -41,6 +41,10 @@ export default function Trash({postInfo, renderPage}) {
 const TrashStyle = styled(BiTrash)`
     color: white;
     margin-left: 5px;
+    :hover{
+    cursor: pointer;
+    filter: brightness(0.7);
+}
 `
 const modalStyle = {
     overlay: {

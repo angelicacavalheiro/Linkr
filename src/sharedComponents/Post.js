@@ -133,6 +133,11 @@ text-align: center;
 const PencilIcon =styled(TiPencil)`
 color: #ffffff;
 font-size: 20px;
+
+:hover{
+    cursor: pointer;
+    filter: brightness(0.7);
+}
 `
 const ContentBoxStyle = styled.div`
 display: flex;

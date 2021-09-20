@@ -30,7 +30,10 @@ const PageTitleStyle = styled.h2`
     color: white;
     font-size: 43px;
     margin-bottom: 43px;
-    margin-left: 17px;
+    
+    @media (max-width: 600px){
+        margin-left: 17px;
+    }
 `
 // const ColunaTrendingStyle = styled.div`
 //     //nao sei se coloco ainda
