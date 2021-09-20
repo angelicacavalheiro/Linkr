@@ -35,7 +35,6 @@ export default function MyLikePage(){
             })
             promise.catch(Erro);
     }
- //console.log(likes)
 
     function Erro(e){
         

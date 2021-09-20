@@ -8,7 +8,6 @@ import ReactTooltip from 'react-tooltip';
 export default function Likes ({postInfo, renderPage}){
 
     const {user} = useContext(UserContext);
-    //console.log(postInfo.likes[0].userId)
     
     function getLike(id){
 
