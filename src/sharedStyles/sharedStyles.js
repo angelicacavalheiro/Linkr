@@ -12,8 +12,8 @@ const ContainerCenterStyle = styled.div`
     width: 937px;
     @media (max-width: 600px) {
         width: 100%;
-        margin:160px 0px;
-        padding: 17px;
+        margin: 100px 0px;
+        padding: 17px 0;
        
     }
 `
@@ -30,6 +30,7 @@ const PageTitleStyle = styled.h2`
     color: white;
     font-size: 43px;
     margin-bottom: 43px;
+    margin-left: 17px;
 `
 // const ColunaTrendingStyle = styled.div`
 //     //nao sei se coloco ainda

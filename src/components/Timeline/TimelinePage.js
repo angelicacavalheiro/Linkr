@@ -37,7 +37,7 @@ export default function TimelinePage () {
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
-                <PageTitleStyle>TimeLine</PageTitleStyle>
+                <PageTitleStyle>timeline</PageTitleStyle>
                 <PostsAndTrendingStyle>
                     <ColunaPostsStyle>
                         {loading ? <LoadingStyle>Loading...</LoadingStyle>

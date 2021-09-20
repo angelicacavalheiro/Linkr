@@ -77,7 +77,6 @@ const WhiteBoxStyle = styled.div`
     background-color: #FFF;
     width: 100%;
     border-radius: 16px;
-    margin-top:16px;
     display: flex;
 
     @media (max-width: 600px){

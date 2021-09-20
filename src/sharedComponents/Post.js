@@ -99,11 +99,15 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
 }
 
 const BlackBoxStyle = styled.div`
-background-color: #171717;
-width: 100%;
-border-radius: 16px;
-margin-top:16px;
-display: flex;    
+    background-color: #171717;
+    width: 100%;
+    border-radius: 16px;
+    margin-top:16px;
+    display: flex;  
+
+    @media (max-width: 600px){
+        border-radius: 0;
+}  
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
