@@ -4,24 +4,23 @@ import { useState } from 'react';
 import SignUpPage from './components/Signup/SignUpPage'
 import LoginPage from './components/Login/LoginPage'
 import TimelinePage from './components/Timeline/TimelinePage'
-import UserContext from './contexts/UserContext';
 import MyPostsPage from './components/MyPosts/MyPostsPage'
 import UserPage from './components/User/UserPage'
 import HashtagPage from './components/Hashtag/HashtagPage'
 import MyLikesPage from './components/MyLikes/MyLikesPage'
 import MenuHeaderPage from './components/MenuHeader/MenuHeaderPage';
 import ShowMenuContext from './contexts/ShowMenuContext';
-
-
+import UserContext from './contexts/UserContext';
 
 export default function App() {
+
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
+  const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState(storedUser);  
-  const [showMenu , setShowMenu] = useState(false);
 
   function disappearMenu() { 
     if(showMenu === true){
-      setShowMenu(!showMenu)
+      setShowMenu(!showMenu);
     }
    }
 

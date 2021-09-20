@@ -1,3 +1,4 @@
+
 import axios from "axios";
 const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr'
 
@@ -88,6 +89,39 @@ function putEditPost(token, body, id){
 	return promise;
 }
 
+function postLike (token, id) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/posts/${id}/like`, {}, config);    
+    return promise
+
+}
+
+function postUnlike (token, id) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/posts/${id}/dislike`, {}, config);    
+    return promise
+
+}
+
+function getLikes (token) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/posts/liked`, config);    
+    return promise
+
+}
+
 export {
     getTimelinePosts,
     getAnUserPosts,
@@ -97,5 +131,8 @@ export {
     tryDeletePost,
     postUserPost,
     getTrendingHashtags,
-    putEditPost
+    putEditPost,
+    postLike,
+    postUnlike,
+    getLikes
 }

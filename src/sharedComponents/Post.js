@@ -1,17 +1,16 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react"
-import { FiHeart } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import { useHistory } from "react-router";
+import Likes from "./Likes"
+import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 import Trash from "./Trash";
 import UserContext from "../contexts/UserContext";
 import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
 
-
-export default function Post ({postInfo, renderPage}) {
+export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -70,8 +69,7 @@ export default function Post ({postInfo, renderPage}) {
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-                <Icon />
-                <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
+            <Likes postInfo={postInfo} renderPage={renderPage} />
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
@@ -127,17 +125,11 @@ text-align: center;
     }
    
 `
-const Icon = styled(FiHeart)`
-font-size: 20px;
-color: #ffffff;
-margin-top: 19px;
-font-weight: 700;
-`
+
 const PencilIcon =styled(TiPencil)`
 color: #ffffff;
 font-size: 20px;
 `
-
 const ContentBoxStyle = styled.div`
 display: flex;
 flex-direction: column;
