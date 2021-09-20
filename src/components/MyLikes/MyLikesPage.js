@@ -13,7 +13,7 @@ export default function MyLikePage(){
     const [likes, setLikes]= useState([]);
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts ] = useState(false);
-    const [message, setMessage] = useState("Você ainda não tem posts")
+    const [message, setMessage] = useState("Você ainda não deu like")
     const {disappearMenu} = useContext(ShowMenuContext);
     
 
