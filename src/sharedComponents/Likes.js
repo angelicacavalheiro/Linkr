@@ -5,7 +5,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { getTimelinePosts, postLike, postUnlike, getLikes} from "../Service";
 import ReactTooltip from 'react-tooltip';
 
-export default function Likes ({postInfo, setPostsList}){
+export default function Likes ({postInfo, renderPage}){
 
     const {user} = useContext(UserContext);
     //console.log(postInfo.likes[0].userId)
@@ -28,32 +28,24 @@ export default function Likes ({postInfo, setPostsList}){
 
         postLike(user.token, id)
         .then(res => {   
-            getTimelinePosts(user.token)
-            .then((res)=> {
-            setPostsList(res.data)
-            ReactTooltip.rebuild();
-            })            
-        })      
-    }
+            renderPage()
+        }) 
+    } 
        
     function unLike(id){
 
         postUnlike(user.token, id)
         .then(res => {    
-            getTimelinePosts(user.token)
-            .then((res)=> {
-            setPostsList(res.data)
-            ReactTooltip.rebuild();
-            })            
-        })      
-    }
+            renderPage()                                 
+        })   
+    }       
 
     function NumberofLikes(){
         if (postInfo.likes.length === 0){
             return (null)
         } else if (postInfo.likes.length === 1) {
             return (postInfo.likes[0]["user.username"])
-        } else if   (postInfo.likes.length === 2) {
+        } else if   (postInfo.likes.length === 2) {            
             return(`${postInfo.likes[0]["user.username"]}, ${postInfo.likes[1]["user.username"]}`)
         } else if (postInfo.likes.length > 2){
             return (`${postInfo.likes[0]["user.username"]}, ${postInfo.likes[1]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)

@@ -69,7 +69,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-            <Likes postInfo={postInfo} setPostsList={setPostsList} />
+            <Likes postInfo={postInfo} renderPage={renderPage} />
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
