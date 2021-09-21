@@ -9,6 +9,8 @@ import UserContext from "../contexts/UserContext";
 import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
+import YoutubeVideo from "./YoutubeVideo";
+import getYouTubeID from "get-youtube-id";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -19,7 +21,8 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [sending, setSending] = useState(false);
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
-
+    const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
+console.log(isYoutubeVideo)
     useEffect(()=>{
         setSending(false)
         if(user.id === postInfo.user.id){
@@ -28,8 +31,16 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         if(isEditing){
             editPost();
         }
+       checkYoutubeVideo()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing])
+
+    function checkYoutubeVideo(){
+        let v = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        if (postInfo.link.match(v)){
+            setIsYoutubeVideo(true)
+        }
+    }
   
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
@@ -92,6 +103,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                     </LinkInfoStyle>
                         <img src={postInfo.linkImage} alt={"Link"}/>
                 </LinkBoxStyle>
+                {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : ""}
             </ContentBoxStyle>
         </BlackBoxStyle>
         
