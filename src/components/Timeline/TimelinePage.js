@@ -31,15 +31,15 @@ export default function TimelinePage () {
 
     useEffect(()=> {
         loadPosts()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+       
 
         const intervalRerenderId = setInterval(() => {
             loadPosts();
-            console.log('atualizei')
         }, 15000);
-
+ 
         return () => clearInterval(intervalRerenderId);
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
   
 
