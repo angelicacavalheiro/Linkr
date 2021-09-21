@@ -68,3 +68,7 @@ h2{
 *{
     box-sizing: border-box;
 }
+
+textarea:focus{
+     outline: none; 
+}

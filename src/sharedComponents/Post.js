@@ -9,6 +9,8 @@ import UserContext from "../contexts/UserContext";
 import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
+import YoutubeVideo from "./YoutubeVideo";
+
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -19,6 +21,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [sending, setSending] = useState(false);
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
+    const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
 
     useEffect(()=>{
         setSending(false)
@@ -28,8 +31,16 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         if(isEditing){
             editPost();
         }
+       checkYoutubeVideo()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing])
+
+    function checkYoutubeVideo(){
+        let v = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        if (postInfo.link.match(v)){
+            setIsYoutubeVideo(true)
+        }
+    }
   
     function redirectToHashTag (wrongHahshTag){
         let hashTag = wrongHahshTag.substr(1);
@@ -82,7 +93,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                    : ""}
                 </DiplayFlexBox>
                 {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
-                <LinkBoxStyle href={postInfo.link} target='_blank' >
+                {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : <LinkBoxStyle href={postInfo.link} target='_blank' >
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
@@ -91,7 +102,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                         </LinkUrlStyle>
                     </LinkInfoStyle>
                         <img src={postInfo.linkImage} alt={"Link"}/>
-                </LinkBoxStyle>
+                </LinkBoxStyle>}
             </ContentBoxStyle>
         </BlackBoxStyle>
         
