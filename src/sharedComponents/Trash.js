@@ -72,6 +72,7 @@ const ModalQueryStyle = styled(ReactModal)`
     text-align: center;
     justify-content: space-between;
     color: white;
+    outline: none;
     
     @media(max-width: 600px) {
         height: 20vh;
