@@ -4,6 +4,7 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 import Arrow from './Arrow'
 import UserImage from './UserImage'
 import Menu from './Menu'
+import Search from './Search'
 import { Link } from 'react-router-dom';
 export default function MenuHeaderPage(){
 
@@ -18,6 +19,7 @@ export default function MenuHeaderPage(){
                         linkr
                     </Link>
                 </TitleStyled> 
+                <Search />
                 <RightHeaderStyled>                            
                     <Arrow />
                     <UserImage />                    
@@ -52,10 +54,10 @@ const HeaderStyled = styled.header`
     top: 0px;
     left: 0px;
     z-index: 1;
+    justify-content: space-between;
 `;
 
 const RightHeaderStyled = styled.header`
-    width: 100vw;
     display: flex;
     justify-content: flex-end;
     align-items: center;    

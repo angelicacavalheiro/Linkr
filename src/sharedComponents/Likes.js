@@ -87,10 +87,12 @@ const IconAiFillHeart = styled(AiFillHeart)`
     font-size: 20px;
     margin-top: 19px;
     font-weight: 700;
+    outline: 0;
 `; 
 
 const IconOutlineHeart = styled(AiOutlineHeart)`
     font-size: 20px;
     margin-top: 19px;
     font-weight: 700;
+    outline: 0;
 `; 
