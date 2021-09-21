@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import { postUserPost } from "../../Service";
+import { IoLocationOutline } from 'react-icons/io5'
 
 export default function AddPosts(props){
     
@@ -24,6 +25,8 @@ function PostArea(props){
     const [link, setLink] = useState("");
     const [text, setText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [locationStatus, setLocationStatus] = useState('Localização desativada');
+    const [locationColor, setLocationColor] = useState('#707070')
     const token = props.token;
 
     function publishPost(event){
@@ -45,6 +48,16 @@ function PostArea(props){
             });
     }
 
+    function toggleLocation(){
+        locationStatus === 'Localização desativada' ? 
+            setLocationStatus('Localização ativada') :
+            setLocationStatus('Localização desativada');
+
+        locationColor === '#707070' ? 
+            setLocationColor('#238700') :
+            setLocationColor('#707070');
+    }
+
     return(
         <PostAreaFormStyle onSubmit={publishPost}>
             <StatusQuestionStyle>
@@ -64,6 +77,10 @@ function PostArea(props){
                 onChange={(e) => setText(e.target.value)}
             />
             <ButtonContainerStyle>
+                <LocationStyle color={locationColor} onClick={toggleLocation}>
+                    <LocationIcon/>
+                    <span>{locationStatus}</span>
+                </LocationStyle>
                 <PublishButtonStyle 
                 type="submit" disabled={isLoading ? true : false}>
                    {isLoading ? "Publicando" : "Publicar"}
@@ -142,9 +159,7 @@ const InputPostLinkStyle = styled.input`
     margin-top: 10px;
 
     &::placeholder{
-        font-family: 'Lato', sans-serif;
-        font-size: 15px;
-        font-weight: 300;
+        font-family: 'Lato', sans-serif;GrLocation
         color: #949494;
     }
 `;
@@ -172,7 +187,8 @@ const InputPostlinkDescriptionStyle = styled.textarea`
 const ButtonContainerStyle = styled.div`
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
 
     @media(max-width: 600px){
         padding-left: 0;
@@ -190,4 +206,19 @@ const PublishButtonStyle = styled.button`
     font-family: 'Lato', sans-serif;
     font-weight: 700;
     color: #FFF;
+`;
+
+const LocationStyle = styled.div`
+    color: ${(props) => props.color};
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+`;
+
+const LocationIcon = styled(IoLocationOutline)`
+    color: ${(props) => props.color};
+    margin-right: 5px;
+    font-size: 16px;
 `;
