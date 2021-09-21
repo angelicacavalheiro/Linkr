@@ -1,12 +1,15 @@
 import styled from 'styled-components';
-import { useContext, useState } from 'react';
+import { useContext, useState} from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import UserContext from "../../contexts/UserContext";
+import axios from "axios";
 
 export default function Search(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
-    const [people, setPeople] = useState("")
+    const {user} = useContext(UserContext);
+    const [usersSearch, setUsersSearch] = useState("")
 
     function toggleMenu(event){
 
@@ -17,17 +20,32 @@ export default function Search(){
           }
     }
 
+    function search(){
+       console.log(usersSearch)
+
+       const config = {
+        headers: {
+            "Authorization": `Bearer ${user.token}`
+            }
+        }
+    
+        console.log(config)
+        const promisse = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/users/search?username=${usersSearch}`, config)
+        promisse.then((res) => {    
+            console.log(res.data.users)                                 
+             });         
+    } 
+
 
     return (
-        <RelativeStyled>
+        <RelativeStyled onClick={toggleMenu}>
             <InputStyled
                 type="text" 
                 placeholder="Search for people and friends"
-                value={people}
-                onChange={(e) => setPeople(e.target.value)}
-                required
+                value={usersSearch}
+                onChange={(e) => setUsersSearch(e.target.value)}
             />                 
-            <Icon />                       
+            <Icon onClick={search} />                       
         </RelativeStyled>
            
             
@@ -45,6 +63,7 @@ const Icon = styled(AiOutlineSearch)`
     outline: 0;
     font-family: Lato;
     font-size: 19px;
+    cursor: pointer;
 `;
 
 
