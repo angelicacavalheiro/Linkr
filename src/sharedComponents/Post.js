@@ -11,6 +11,7 @@ import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
 import CommentsIcon from "./CommentsIcon";
 import Comments from "./Comments";
+import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 
 
@@ -24,6 +25,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [seeComments, setSeeComments] = useState(false)
+    const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
     console.log(seeComments)
 
@@ -99,7 +101,8 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                    : ""}
                 </DiplayFlexBox>
                 {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
-                {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : <LinkBoxStyle href={postInfo.link} target='_blank' >
+                <Iframe displayIframe={displayIframe} postInfo={postInfo} setDisplayIframe={setDisplayIframe}></Iframe>
+                {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : <LinkBoxStyle onClick={()=> setDisplayIframe(true)}>
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
@@ -194,7 +197,7 @@ width: 500px;
         word-break:break-all;
     }
 `
-const LinkBoxStyle = styled.a`
+const LinkBoxStyle = styled.div`
 display: flex;
 justify-content: space-between;
 margin-top:10px ;
@@ -203,6 +206,9 @@ border-radius: 11px;
 border-right: none;
 text-decoration: none;
 word-wrap: break-word;
+:hover{
+    cursor: pointer;
+}
 img{
     width: 153px;
     height: 155px;
