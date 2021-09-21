@@ -39,7 +39,7 @@ export default function TimelinePage () {
         }, 15000);
 
         return () => clearInterval(intervalRerenderId);
-    }, []);
+    });
 
   
 
