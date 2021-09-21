@@ -9,6 +9,8 @@ import UserContext from "../contexts/UserContext";
 import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
+import CommentsIcon from "./CommentsIcon";
+import Comments from "./Comments";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -19,6 +21,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [sending, setSending] = useState(false);
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
+    const [seeComments, setSeeComments] = useState(false)
 
     useEffect(()=>{
         setSending(false)
@@ -66,10 +69,12 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     }
 
     return(
+        <CommentContainerStyle>
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} renderPage={renderPage} />
+            <CommentsIcon onClick={()=> setSeeComments(!seeComments)}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
@@ -94,6 +99,11 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                 </LinkBoxStyle>
             </ContentBoxStyle>
         </BlackBoxStyle>
+        <CommentBoxStyle>
+            <Comments />
+        </CommentBoxStyle>
+        </CommentContainerStyle>
+       
         
     )
 }
@@ -101,6 +111,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
 const BlackBoxStyle = styled.div`
     background-color: #171717;
     width: 100%;
+    height: auto;
     border-radius: 16px;
     margin-top:16px;
     display: flex;  
@@ -262,4 +273,16 @@ const TrashAndEditStyle = styled.div`
     display: flex;
     justify-content: space-between;
     
+`
+const CommentContainerStyle = styled.div`
+    width: auto;
+    height: auto;
+    background-color: #1E1E1E;
+    border-radius: 16px;
+
+`
+const CommentBoxStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
