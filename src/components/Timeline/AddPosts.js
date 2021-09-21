@@ -28,7 +28,8 @@ function PostArea(props){
     const [locationStatus, setLocationStatus] = useState('Localização desativada');
     const [locationColor, setLocationColor] = useState('#707070')
     const token = props.token;
-
+    const geo = navigator.geolocation;
+    
     function publishPost(event){
         event.preventDefault();
         
@@ -56,7 +57,21 @@ function PostArea(props){
         locationColor === '#707070' ? 
             setLocationColor('#238700') :
             setLocationColor('#707070');
+
+        locationStatus === 'Localização desativada' ? getUserLocation() : alert('Localização desativada');
     }
+
+    
+   
+    function getUserLocation(){
+
+        function showUserPosition(position){
+            console.log(position);
+        }
+
+        geo.getCurrentPosition(showUserPosition);
+    }
+    
 
     return(
         <PostAreaFormStyle onSubmit={publishPost}>
