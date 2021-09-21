@@ -99,11 +99,15 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
 }
 
 const BlackBoxStyle = styled.div`
-background-color: #171717;
-width: 100%;
-border-radius: 16px;
-margin-top:16px;
-display: flex;    
+    background-color: #171717;
+    width: 100%;
+    border-radius: 16px;
+    margin-top:16px;
+    display: flex;  
+
+    @media (max-width: 600px){
+        border-radius: 0;
+}  
 `
 const PhotoAndLikeBoxStyle = styled.div`
 display: flex;
@@ -129,6 +133,11 @@ text-align: center;
 const PencilIcon =styled(TiPencil)`
 color: #ffffff;
 font-size: 20px;
+
+:hover{
+    cursor: pointer;
+    filter: brightness(0.7);
+}
 `
 const ContentBoxStyle = styled.div`
 display: flex;
