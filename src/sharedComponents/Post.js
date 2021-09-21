@@ -27,7 +27,6 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [seeComments, setSeeComments] = useState(false)
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
-    console.log(seeComments)
 
     useEffect(()=>{
         setSending(false)
