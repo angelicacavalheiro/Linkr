@@ -41,6 +41,10 @@ export default function Trash({postInfo, renderPage}) {
 const TrashStyle = styled(BiTrash)`
     color: white;
     margin-left: 5px;
+    :hover{
+    cursor: pointer;
+    filter: brightness(0.7);
+}
 `
 const modalStyle = {
     overlay: {
@@ -68,6 +72,7 @@ const ModalQueryStyle = styled(ReactModal)`
     text-align: center;
     justify-content: space-between;
     color: white;
+    outline: none;
     
     @media(max-width: 600px) {
         height: 20vh;

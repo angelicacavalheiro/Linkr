@@ -94,7 +94,6 @@ const WhiteBoxStyle = styled.div`
     background-color: #FFF;
     width: 100%;
     border-radius: 16px;
-    margin-top:16px;
     display: flex;
 
     @media (max-width: 600px){
@@ -206,6 +205,11 @@ const PublishButtonStyle = styled.button`
     font-family: 'Lato', sans-serif;
     font-weight: 700;
     color: #FFF;
+
+    :hover{
+        filter: brightness(1.2);
+        cursor: pointer;
+    }
 `;
 
 const LocationStyle = styled.div`
@@ -215,6 +219,11 @@ const LocationStyle = styled.div`
     font-size: 13px;
     display: flex;
     align-items: center;
+
+    :hover{
+        filter: brightness(0.6);
+        cursor: pointer;
+    }
 `;
 
 const LocationIcon = styled(IoLocationOutline)`

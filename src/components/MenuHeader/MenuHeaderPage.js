@@ -4,7 +4,7 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 import Arrow from './Arrow'
 import UserImage from './UserImage'
 import Menu from './Menu'
-
+import { Link } from 'react-router-dom';
 export default function MenuHeaderPage(){
 
     const {disappearMenu} = useContext(ShowMenuContext);
@@ -13,7 +13,11 @@ export default function MenuHeaderPage(){
     return (
         <> 
             <HeaderStyled onClick={disappearMenu}>  
-                <TitleStyled>linkr</TitleStyled> 
+                <TitleStyled>
+                    <Link style={{textDecoration:'none', color:'#FFF'}} to="/timeline">
+                        linkr
+                    </Link>
+                </TitleStyled> 
                 <RightHeaderStyled>                            
                     <Arrow />
                     <UserImage />                    

@@ -31,13 +31,22 @@ export default function TimelinePage () {
 
     useEffect(()=> {
         loadPosts()
+       
+
+        const intervalRerenderId = setInterval(() => {
+            loadPosts();
+        }, 15000);
+ 
+        return () => clearInterval(intervalRerenderId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    },[]);
+
+  
 
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
-                <PageTitleStyle>TimeLine</PageTitleStyle>
+                <PageTitleStyle>timeline</PageTitleStyle>
                 <PostsAndTrendingStyle>
                     <ColunaPostsStyle>
                         {loading ? <LoadingStyle>Loading...</LoadingStyle>
