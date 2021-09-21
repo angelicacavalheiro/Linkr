@@ -1,14 +1,14 @@
 import {AiOutlineComment } from "react-icons/ai";
 import styled from "styled-components";
 
-export default function CommentsIcon(){
+export default function CommentsIcon({setSeeComments, seeComments}){
     
 
     return(
-        <>
+        <div onClick={()=> setSeeComments(!seeComments)}>
         <CommentsIconStyle />
         <p>0 comments</p>
-        </>
+        </div>
     )
 }
 

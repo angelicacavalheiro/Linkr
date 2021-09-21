@@ -25,6 +25,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [seeComments, setSeeComments] = useState(false)
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
+    console.log(seeComments)
 
     useEffect(()=>{
         setSending(false)
@@ -85,7 +86,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} renderPage={renderPage} />
-            <CommentsIcon onClick={()=> setSeeComments(!seeComments)}/>
+            <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
@@ -111,7 +112,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             </ContentBoxStyle>
         </BlackBoxStyle>
         <CommentBoxStyle>
-            <Comments />
+            {seeComments? <Comments /> : ""}
         </CommentBoxStyle>
         </CommentContainerStyle>
        
