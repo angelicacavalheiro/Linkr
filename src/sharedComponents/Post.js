@@ -10,7 +10,7 @@ import React, { useRef } from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
 import YoutubeVideo from "./YoutubeVideo";
-import getYouTubeID from "get-youtube-id";
+
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -22,7 +22,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
-console.log(isYoutubeVideo)
+
     useEffect(()=>{
         setSending(false)
         if(user.id === postInfo.user.id){
@@ -93,7 +93,7 @@ console.log(isYoutubeVideo)
                    : ""}
                 </DiplayFlexBox>
                 {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
-                <LinkBoxStyle href={postInfo.link} target='_blank' >
+                {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : <LinkBoxStyle href={postInfo.link} target='_blank' >
                     <LinkInfoStyle>
                         <LinkTitleStyle>{postInfo.linkTitle}</LinkTitleStyle>
                         <LinkDescriptionStyle>{postInfo.linkDescription}</LinkDescriptionStyle>
@@ -102,8 +102,7 @@ console.log(isYoutubeVideo)
                         </LinkUrlStyle>
                     </LinkInfoStyle>
                         <img src={postInfo.linkImage} alt={"Link"}/>
-                </LinkBoxStyle>
-                {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : ""}
+                </LinkBoxStyle>}
             </ContentBoxStyle>
         </BlackBoxStyle>
         
