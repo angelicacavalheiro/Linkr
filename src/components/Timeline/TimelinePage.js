@@ -33,7 +33,7 @@ export default function TimelinePage () {
         loadPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
