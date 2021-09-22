@@ -12,7 +12,7 @@ import ReactTooltip from 'react-tooltip';
 export default function TimelinePage () {
     
     const {user} = useContext(UserContext);
-    const {disappearMenu} = useContext(ShowMenuContext);
+    const {disappearMenu, setFollowing} = useContext(ShowMenuContext);
     const [postsList, setPostsList] = useState({});
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
@@ -42,6 +42,7 @@ export default function TimelinePage () {
                 setNoFollow(true);
             };
             getFollowersPosts(res.data.users.length)
+            setFollowing(res.data.users)
         })
     }
 

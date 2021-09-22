@@ -25,7 +25,7 @@ export default function UserPage(){
     useEffect(()=>{
         getUserPosts()
          // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [id])
 
 
     function getUserPosts(){
