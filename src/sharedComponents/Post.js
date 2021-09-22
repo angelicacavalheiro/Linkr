@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import Trash from "./Trash";
 import UserContext from "../contexts/UserContext";
-import CommentContext from "../contexts/CommentContext";
 import React, { useRef} from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
@@ -29,7 +28,6 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
     const [comments, setComments] =useState([]);
-    const [inputComment, setInputComment]= useState("");
     
     useEffect(()=>{
         setSending(false)
@@ -91,7 +89,6 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     }
 
     return(
-    <CommentContext.Provider value={{inputComment, setInputComment}}>
         <CommentContainerStyle>
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
@@ -125,10 +122,6 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         </BlackBoxStyle>
              <Comments comments={comments} id={postInfo.id} seeComments={seeComments} />
         </CommentContainerStyle>
-    </CommentContext.Provider>
-       
-       
-        
     )
 }
 

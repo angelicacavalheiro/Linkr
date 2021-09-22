@@ -2,12 +2,11 @@ import styled from "styled-components";
 import {FiSend } from "react-icons/fi";
 import {postComment} from "../Service"
 import { useState, useContext } from "react";
-import CommentContext from "../contexts/CommentContext"
 import UserContext from "../contexts/UserContext";
 
 export default function SendComment({id}){
     const [isSending, setIsSending] = useState(false);
-    const {setInputComment, inputComment} = useContext(CommentContext)
+    const [inputComment, setInputComment]= useState("");
     const {user} = useContext(UserContext)
 
     function keyPrees(e){
@@ -33,7 +32,13 @@ export default function SendComment({id}){
     return(
         <>
          <img src={user.image} alt="" />
-         <input placeholder="write a comment..." value={inputComment} onChange={(e)=> setInputComment(e.target.value)} onKeyUp={(e)=>keyPrees(e)} disabled={isSending}></input>
+         <input placeholder="write a comment..." 
+                value={inputComment} 
+                onChange={(e)=> setInputComment(e.target.value)} 
+                onKeyUp={(e)=>keyPrees(e)} 
+                disabled={isSending}>
+
+        </input>
          <IconStyle onClick={sendingComment}/>
         </>
     )
