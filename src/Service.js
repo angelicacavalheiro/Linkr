@@ -40,7 +40,7 @@ function getTimelinePosts (token) {
         }
     }
 
-    const promise = axios.get(`${URL}/posts`, config)
+    const promise = axios.get(`${URL}/following/posts`, config)
     return promise;
 }
 
@@ -122,6 +122,16 @@ function getLikes (token) {
 
 }
 
+function getFollowingUsers(token) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/users/follows`, config);
+    return promise
+}
+
 export {
     getTimelinePosts,
     getAnUserPosts,
@@ -134,5 +144,6 @@ export {
     putEditPost,
     postLike,
     postUnlike,
-    getLikes
+    getLikes,
+    getFollowingUsers
 }
