@@ -32,7 +32,7 @@ function LoginArea (){
         postLogin(body)
             .then((response) => {
                 setIsLoading(false);
-                setUser({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar});
+                setUser({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar, username: response.data.user.username});
                 const serializedUser = JSON.stringify({token: response.data.token, id: response.data.user.id, image: response.data.user.avatar});
                 localStorage.setItem('storedUser', serializedUser);
 

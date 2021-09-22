@@ -130,6 +130,15 @@ function getComments(token, id){
     const promise = axios.get(`${URL}/posts/${id}/comments`, config);    
     return promise
 }
+function postComment(token, id, body){
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/posts/${id}/comment`,body, config);    
+    return promise
+}
 
 export {
     getTimelinePosts,
@@ -144,5 +153,6 @@ export {
     postLike,
     postUnlike,
     getLikes,
-    getComments
+    getComments,
+    postComment
 }

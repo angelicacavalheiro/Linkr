@@ -14,6 +14,7 @@ import Comments from "./Comments";
 import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import { getComments } from "../Service";
+import SendComment from "./SendComment";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -27,8 +28,9 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [seeComments, setSeeComments] = useState(false)
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
-    const [comments, setComments] =useState({})
-    const [noComments, setNoComments] = useState(true)
+    const [comments, setComments] =useState([]);
+    const [noComments, setNoComments] = useState(true);
+    const [inputComment, setInputComment]= useState("");
 
     useEffect(()=>{
         setSending(false)
@@ -39,6 +41,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             editPost();
         }
        checkYoutubeVideo()
+
       const promise = getComments(user.token, postInfo.id)
       promise.then((resp)=>{
           setComments(resp.data.comments)
@@ -124,7 +127,10 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         </BlackBoxStyle>
         <CommentBoxStyle>
             {seeComments? <>
-                            {comments.map((comment)=> <Comments key={comment.id} comment={comment}/>)}
+                            {comments.map((comment)=> <Comments key={comment.id} comment={comment} myUser={user}/>)}
+                            <WriteCommentStyled>
+                               <SendComment inputComment={inputComment} setInputComment={setInputComment} user={user} id={postInfo.id} comments={comments} setComments={setComments} />
+                            </WriteCommentStyled>
                           </>
                         :
                             ""
@@ -316,4 +322,36 @@ const CommentBoxStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    input{
+        background-color: #252525;
+        color: #ffffff;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        width: 80%;
+        margin: 10px 0px;
+        height: 40px;
+        border: none;
+        padding-left: 13px;
+    }
+    input::placeholder{
+        color: #575757;
+        font-style: italic;
+        font-size: 14px;
+    }
+`
+const WriteCommentStyled = styled.div`
+    display: flex;
+    width:100%;
+    align-items: center;
+    margin-bottom: 10px;
+
+    img{
+        border-radius: 100%;
+        width: 39px;
+        height: 39px;
+        margin-left: 20px;
+        margin-right: 15px;
+    }
+
 `

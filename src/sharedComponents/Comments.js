@@ -1,19 +1,26 @@
 import styled from "styled-components"
+import { useContext } from "react"
+import UserContext from "../contexts/UserContext"
 
-export default function Comments(props){
-    const {id, text, user} = props.comment;
-
+export default function Comments({comment}){
+    // const {id, text, user} = props.comment;
+    const {user} = useContext(UserContext);
+    let isMycomment = false
+    
+    if(comment.user.id === user.id){
+        isMycomment =true;
+    }
     return(
         <>
         <Comment>
-            <img src={user.avatar} alt=""/>
+            <img src={comment.user.avatar} alt=""/>
             <div>
                 <UserInfo>
-                    <h5>{user.username}</h5>
-                    <span>• following</span>
+                    <h5>{comment.user.username}</h5>
+                    <span>{isMycomment?`• post’s author`:`• following`}</span>
                 </UserInfo>
                 <p>
-                {text}
+                {comment.text}
                 </p>
             </div>  
         </Comment>
@@ -27,14 +34,12 @@ const Comment = styled.div`
     width: 100%;
     height: auto;
     color: #ffffff;
-    padding-left: 10px;
     margin-top: 10px;
     display: flex;
-   
 
     img{
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
         border-radius: 100%;
         margin-right: 15px;
         margin-left: 20px;
