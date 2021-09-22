@@ -31,7 +31,6 @@ function PostArea(props){
     const [locationColor, setLocationColor] = useState('#707070')
     const token = props.token;
     const geo = navigator.geolocation;
-    let userGeolocation;
     
     function publishPost(event){
         event.preventDefault();

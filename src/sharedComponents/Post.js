@@ -86,7 +86,9 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
-                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle><LocationMap/>
+                    <UserDataContainerStyle>
+                        <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle><LocationMap/>
+                    </UserDataContainerStyle>
                    {isMyPost? 
                    <TrashAndEditStyle>
                    <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> 
@@ -263,6 +265,9 @@ color: #CECECE;
        font-size: 9px;
     }
 `
+const UserDataContainerStyle = styled.div`
+    display: flex;
+`;
 
 const LinkStyle = styled(Link)`
     text-decoration: none; 
