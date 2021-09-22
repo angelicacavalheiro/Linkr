@@ -19,18 +19,8 @@ export default function SendComment({setInputComment, inputComment, user, id, se
             }
 
             const promise = postComment(user.token , id, body);
-            promise.then((resp)=> {
+            promise.then(()=> {
                 setIsSending(false)
-                const newcomment = {
-                    id: resp.data.comment.postId,
-                    text: resp.data.comment.text,
-                    user: {
-                        id: user.id,
-                        username: user.username,
-                        avatar: user.image
-                    } 
-                }
-                setComments([...comments,newcomment])
                 setInputComment("");
             })
         }
