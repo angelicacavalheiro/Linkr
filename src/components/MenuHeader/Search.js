@@ -4,6 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import UserContext from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
+import {DebounceInput} from 'react-debounce-input';
 import axios from "axios";
 
 export default function Search(){
@@ -30,12 +31,13 @@ export default function Search(){
             }
         }
     
-        console.log(config)
         const promisse = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/users/search?username=${usersSearch}`, config)
         promisse.then((res) => {    
-            console.log(res.data.users[0].id) 
             setUsersFound(res.data.users)                                
-             });         
+             }); 
+        promisse.catch((res) => {     
+        setUsersFound("")                                
+            });              
     } 
 
     return (
@@ -43,13 +45,16 @@ export default function Search(){
 
             <SearchandResultsStyled onClick={toggleMenu}>
                 <RelativeStyled>
-                <InputStyled
-                    type="text" 
-                    placeholder="Search for people and friends"
-                    value={usersSearch}
-                    onChange={(e) => setUsersSearch(e.target.value)}
-                    onInput={search}
-                />                 
+                           
+                <DebounceInputStyled
+                minLength={3}
+                debounceTimeout={300}
+                type="text" 
+                placeholder="Search for people and friends"
+                value={usersSearch}
+                onChange={(e) => setUsersSearch(e.target.value)} 
+                onInput={search()}/>
+
                 <Icon onClick={search} />                 
                 </RelativeStyled>
 
@@ -128,7 +133,7 @@ const Icon = styled(AiOutlineSearch)`
 `;
 
 
-const InputStyled = styled.input `
+const DebounceInputStyled = styled(DebounceInput) `
     width: 538px;
     height: 45px;
     background: #FFFFFF;
