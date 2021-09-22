@@ -12,27 +12,28 @@ export default function SendComment({setInputComment, inputComment, user, id, se
         }
     }
     function sendingComment(){
-        setIsSending(true)
-       let body ={
-            text: inputComment
-        }
-
-        const promise = postComment(user.token , id, body);
-        promise.then((resp)=> {
-            console.log(resp.data)
-            setIsSending(false)
-            const newcomment = {
-                id: resp.data.comment.postId,
-                text: resp.data.comment.text,
-                user: {
-                    id: user.id,
-                    username: user.username,
-                    avatar: user.image
-                } 
+        if(inputComment.length !== 0){
+            setIsSending(true)
+        let body ={
+                text: inputComment
             }
-            setComments([...comments,newcomment])
-            setInputComment("");
-        })
+
+            const promise = postComment(user.token , id, body);
+            promise.then((resp)=> {
+                setIsSending(false)
+                const newcomment = {
+                    id: resp.data.comment.postId,
+                    text: resp.data.comment.text,
+                    user: {
+                        id: user.id,
+                        username: user.username,
+                        avatar: user.image
+                    } 
+                }
+                setComments([...comments,newcomment])
+                setInputComment("");
+            })
+        }
     }
 
     return(

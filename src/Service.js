@@ -139,6 +139,15 @@ function postComment(token, id, body){
     const promise = axios.post(`${URL}/posts/${id}/comment`,body, config);    
     return promise
 }
+function getWhoIFollow(token){
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/users/follows`, config);
+    return promise
+}
 
 export {
     getTimelinePosts,
@@ -154,5 +163,6 @@ export {
     postUnlike,
     getLikes,
     getComments,
-    postComment
+    postComment,
+    getWhoIFollow
 }

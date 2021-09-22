@@ -29,9 +29,8 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
     const [comments, setComments] =useState([]);
-    const [noComments, setNoComments] = useState(true);
     const [inputComment, setInputComment]= useState("");
-
+    
     useEffect(()=>{
         setSending(false)
         if(user.id === postInfo.user.id){
@@ -45,12 +44,10 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
       const promise = getComments(user.token, postInfo.id)
       promise.then((resp)=>{
           setComments(resp.data.comments)
-          if(resp.data.comments.lenght !== 0){
-              setNoComments(false)
-          }
+          
       })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isEditing])
+    }, [isEditing,comments])
 
     function checkYoutubeVideo(){
         let v = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -99,7 +96,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} renderPage={renderPage} />
-            <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments}/>
+            <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>

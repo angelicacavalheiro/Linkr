@@ -3,13 +3,19 @@ import { useContext } from "react"
 import UserContext from "../contexts/UserContext"
 
 export default function Comments({comment}){
-    // const {id, text, user} = props.comment;
     const {user} = useContext(UserContext);
-    let isMycomment = false
+    let isMycomment = false;
+    let amIFollowing =false;
     
     if(comment.user.id === user.id){
         isMycomment =true;
     }
+    // L.map(()=>{
+    //     if(comment.user.id === o que vai vir){
+    //         amIFollowing =true;
+    //     }
+    // })
+
     return(
         <>
         <Comment>
@@ -17,7 +23,8 @@ export default function Comments({comment}){
             <div>
                 <UserInfo>
                     <h5>{comment.user.username}</h5>
-                    <span>{isMycomment?`• post’s author`:`• following`}</span>
+                    <span>{isMycomment?`• post’s author`:""}</span>
+                    <span>{amIFollowing?"• following" : ""}</span>
                 </UserInfo>
                 <p>
                 {comment.text}
