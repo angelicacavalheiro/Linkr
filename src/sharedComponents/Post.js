@@ -101,7 +101,13 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                 <DiplayFlexBox>
                     <UserDataContainerStyle>
                         <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
-                        {postInfo.hasOwnProperty('geolocation') ?<LocationMap/> : <div/>}
+                        {postInfo.hasOwnProperty('geolocation') ? 
+                            <LocationMap latitude={postInfo.geolocation.latitude} 
+                                    longitude={postInfo.geolocation.longitude}
+                                    username={postInfo.user.username}
+                            /> 
+                            : <div/>
+                        }
                     </UserDataContainerStyle>
                    {isMyPost? 
                    <TrashAndEditStyle>

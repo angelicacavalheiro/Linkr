@@ -6,7 +6,7 @@ import {  useState } from "react";
 import UserMap from './UserMap';
 
 
-export default function LocationMap({postInfo, renderPage}) {
+export default function LocationMap({latitude, longitude, username}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     
@@ -16,10 +16,10 @@ export default function LocationMap({postInfo, renderPage}) {
         <ModalQueryStyle isOpen={modalIsOpen} style={modalStyle} ariaHideApp={false}>
                 <>
                     <p>
-                    <span>User's location</span><AiOutlineClose onClick={() => setModalIsOpen(false)}/>
+                    <span>{username}'s location</span><AiOutlineClose onClick={() => setModalIsOpen(false)}/>
                     </p>
                     <MapContainerStyle>
-                        <UserMap/>
+                        <UserMap latitude={latitude} longitude={longitude}/>
                     </MapContainerStyle>
                 </>
             
