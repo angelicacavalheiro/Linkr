@@ -23,7 +23,7 @@ export default function TimelinePage () {
             setLoading(false);
             postsList.length === 0 ? setNoPosts(true) : setNoPosts(false);
             setPostsList(res.data);
-            ReactTooltip.rebuild();  
+            ReactTooltip.rebuild();
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 
