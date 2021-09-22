@@ -24,7 +24,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
-
+    
     useEffect(()=>{
         setSending(false)
         if(user.id === postInfo.user.id){
