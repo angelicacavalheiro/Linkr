@@ -122,13 +122,12 @@ function getLikes (token) {
 
 }
 function getComments(token, id){
-    console.log(token, id)
     const config = {
         headers: {
             "Authorization": `Bearer ${token}`
         }
     }
-    const promise = axios.get(`${URL}/posts/${id}/comment`, config);    
+    const promise = axios.get(`${URL}/posts/${id}/comments`, config);    
     return promise
 }
 

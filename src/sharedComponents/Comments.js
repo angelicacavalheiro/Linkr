@@ -1,32 +1,19 @@
 import styled from "styled-components"
 
-export default function Comments(){
+export default function Comments(props){
+    const {id, text, user} = props.comment;
 
     return(
         <>
         <Comment>
-            <img src="https://pngimg.com/uploads/mario/mario_PNG55.png" alt=""/>
+            <img src={user.avatar} alt=""/>
             <div>
                 <UserInfo>
-                    <h5>Joao Avatare</h5>
+                    <h5>{user.username}</h5>
                     <span>• following</span>
                 </UserInfo>
                 <p>
-                Adorei esse post, ajuda muito a usar Material UI com React!
-                Adorei esse post, ajuda muito a usar Material UI com React!
-                </p>
-            </div>  
-        </Comment>
-        <Border />
-        <Comment>
-            <img src="https://pngimg.com/uploads/mario/mario_PNG55.png" alt=""/>
-            <div>
-                <UserInfo>
-                    <h5>Joao Avatare</h5>
-                    <span>• following</span>
-                </UserInfo>
-                <p>
-                Adorei esse post, ajuda muito a usar Material UI com React!
+                {text}
                 </p>
             </div>  
         </Comment>

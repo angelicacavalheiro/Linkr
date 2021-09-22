@@ -6,14 +6,14 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import Trash from "./Trash";
 import UserContext from "../contexts/UserContext";
-import React, { useRef } from "react";
+import React, { useRef} from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
 import CommentsIcon from "./CommentsIcon";
 import Comments from "./Comments";
 import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
-
+import { getComments } from "../Service";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -26,7 +26,9 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [seeComments, setSeeComments] = useState(false)
     const [displayIframe, setDisplayIframe] = useState(false);
-    const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
+    const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
+    const [comments, setComments] =useState({})
+    const [noComments, setNoComments] = useState(true)
 
     useEffect(()=>{
         setSending(false)
@@ -37,6 +39,13 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             editPost();
         }
        checkYoutubeVideo()
+      const promise = getComments(user.token, postInfo.id)
+      promise.then((resp)=>{
+          setComments(resp.data.comments)
+          if(resp.data.comments.lenght !== 0){
+              setNoComments(false)
+          }
+      })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing])
 
@@ -114,7 +123,12 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             </ContentBoxStyle>
         </BlackBoxStyle>
         <CommentBoxStyle>
-            {seeComments? <Comments /> : ""}
+            {seeComments? <>
+                            {comments.map((comment)=> <Comments key={comment.id} comment={comment}/>)}
+                          </>
+                        :
+                            ""
+                        }
         </CommentBoxStyle>
         </CommentContainerStyle>
        
