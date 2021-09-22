@@ -6,14 +6,6 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import Trash from "./Trash";
 import UserContext from "../contexts/UserContext";
-import styled from "styled-components";
-import ReactHashtag from "react-hashtag";
-import { useHistory } from "react-router";
-import Likes from "./Likes"
-import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom";
-import Trash from "./Trash";
-import UserContext from "../contexts/UserContext";
 import React, { useRef} from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
