@@ -58,26 +58,52 @@ export default function Search(){
                 <Icon onClick={search} />                 
                 </RelativeStyled>
 
-               <BlockStyled>
+               { usersFound.length > 4 ? 
+               < BlockStyled value={"scroll"} >
+                   {usersFound !== ""  ?
+                        // lista de usuários que eu sigo, criada com filter
+                        // map nessa lista
+                        // se não map na proxima lista
+                        (usersFound.map((u) => {
+                            return(
+                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
+                                    <ResultsStyled>
+                                        <ImageStyled src={u.avatar} />   
+                                        <UsernameStyled> {u.username} </UsernameStyled>   
+                                        <UserStatusStyled> {u.isFollowingLoggedUser === true ? ("• following") : null} </UserStatusStyled>   
+                                    </ResultsStyled>
+                                </Link>    
+                            )
+                        }))                 
+                        : 
+                        null
+                    }
 
+                </BlockStyled>  
+               : 
+                < BlockStyled value={"visible"} >
                     {usersFound !== ""  ?
-                    //lista de usuários que eu sigo, criada com filter
-                    //map nessa lista
-                    //se não map na proxima lista
-                    (usersFound.map((u) => {
-                        return(
-                            <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
-                                <ResultsStyled>
-                                    <ImageStyled src={u.avatar} />   
-                                    <UsernameStyled> {u.username} </UsernameStyled>   
-                                    <UserStatusStyled> {u.isFollowingLoggedUser === true ? ("• following") : null} </UserStatusStyled>   
-                                </ResultsStyled>
-                            </Link>    
-                        )
-                    }))                 
-                    : 
-                    null}
-               </BlockStyled>              
+                        // lista de usuários que eu sigo, criada com filter
+                        // map nessa lista
+                        // se não map na proxima lista
+                        (usersFound.map((u) => {
+                            return(
+                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
+                                    <ResultsStyled>
+                                        <ImageStyled src={u.avatar} />   
+                                        <UsernameStyled> {u.username} </UsernameStyled>   
+                                        <UserStatusStyled> {u.isFollowingLoggedUser === true ? ("• following") : null} </UserStatusStyled>   
+                                    </ResultsStyled>
+                                </Link>    
+                            )
+                        }))                 
+                        : 
+                        null
+                    }
+
+                </BlockStyled>               
+                    
+               }         
                                
             </SearchandResultsStyled>
         </>          
@@ -85,8 +111,10 @@ export default function Search(){
 }
 
 const BlockStyled = styled.div`
-    border-radius: 0px 0 8px 8px;
-    background-color: red;
+    border-radius: 8px 8px 8px 8px;
+    background: #E7E7E7;
+    overflow-y: ${(props) => props.value}; 
+    height: ${(props) => props.value === "visible" ? "auto" : "50vh"} ;
 `;
 
 const ResultsStyled = styled.div `
@@ -95,7 +123,6 @@ const ResultsStyled = styled.div `
     font-family: Lato;
     font-size: 19px;
     line-height: 23px;
-    background: #E7E7E7;
 `;
 
 const UserStatusStyled = styled.p`    
@@ -134,7 +161,7 @@ const Icon = styled(AiOutlineSearch)`
 
 
 const DebounceInputStyled = styled(DebounceInput) `
-    width: 538px;
+    width: 553px;
     height: 45px;
     background: #FFFFFF;
     border-color: #FFFFFF;
