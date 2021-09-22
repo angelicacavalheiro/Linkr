@@ -8,14 +8,12 @@ import UserMap from './UserMap';
 
 export default function LocationMap({postInfo, renderPage}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [loadingTrash, setLoadingTrash] =useState(false);
+
     
     return(
         <>
         <LocationIconStyle onClick={()=> setModalIsOpen(true)}/>
         <ModalQueryStyle isOpen={modalIsOpen} style={modalStyle} ariaHideApp={false}>
-            {loadingTrash ? 
-                <p>Loading...</p> :
                 <>
                     <p>
                     <span>User's location</span><AiOutlineClose onClick={() => setModalIsOpen(false)}/>
@@ -23,7 +21,7 @@ export default function LocationMap({postInfo, renderPage}) {
                     <MapContainerStyle>
                         <UserMap/>
                     </MapContainerStyle>
-                </>}
+                </>
             
         </ModalQueryStyle>
         </>

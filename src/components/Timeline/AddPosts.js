@@ -4,7 +4,6 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import { postUserPost } from "../../Service";
 import { IoLocationOutline } from 'react-icons/io5'
-import LocationMap from "../../sharedComponents/Maps/LocationMap";
 
 export default function AddPosts(props){
     
@@ -25,16 +24,23 @@ export default function AddPosts(props){
 function PostArea(props){
     const [link, setLink] = useState("");
     const [text, setText] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [locationStatus, setLocationStatus] = useState('Localização desativada');
     const [locationColor, setLocationColor] = useState('#707070')
     const token = props.token;
     const geo = navigator.geolocation;
+    let userGeolocation;
     
     function publishPost(event){
         event.preventDefault();
+        let body;
+
+        locationStatus === 'Localização ativada' ? 
+        body = {text, link, geolocation:{latitude, longitude}} :
+        body = {text, link};
         
-        const body = {text, link};
         setIsLoading(true);
         
         postUserPost(body, token)
@@ -59,18 +65,21 @@ function PostArea(props){
             setLocationColor('#238700') :
             setLocationColor('#707070');
 
-        locationStatus === 'Localização desativada' ? getUserLocation() : alert('Localização desativada');
-    }
+        if (locationStatus === 'Localização desativada'){
+            getUserLocation();
+        }
+        }
 
     
    
     function getUserLocation(){
 
-        function showUserPosition(position){
-            console.log(position);
+        function setUserPosition(position){
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
         }
 
-        geo.getCurrentPosition(showUserPosition);
+        geo.getCurrentPosition(setUserPosition);
     }
     
 
@@ -93,7 +102,6 @@ function PostArea(props){
                 onChange={(e) => setText(e.target.value)}
             />
             <ButtonContainerStyle>
-                <LocationMap/>
                 <LocationStyle color={locationColor} onClick={toggleLocation}>
                     <LocationIcon/>
                     <span>{locationStatus}</span>

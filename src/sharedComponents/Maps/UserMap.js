@@ -7,8 +7,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 13,
-  lng: 12
+  lat: 12,
+  lng: 13
 };
 
 function UserMap(props) {
@@ -38,7 +38,6 @@ function UserMap(props) {
         onUnmount={onUnmount}
       >
         <>
-          
         </>
       </GoogleMap>
   ) : <></>
