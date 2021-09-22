@@ -1,6 +1,5 @@
 import {AiOutlineComment } from "react-icons/ai";
 import styled from "styled-components";
-import { getWhoIFollow } from "../Service";
 
 export default function CommentsIcon({setSeeComments, seeComments, howManyComments}){
 

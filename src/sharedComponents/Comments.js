@@ -16,6 +16,7 @@ export default function Comments({comment}){
         if(comment.user.id === f.id){
             amIFollowing =true;
         }
+        return true;
     })
 
     return(
