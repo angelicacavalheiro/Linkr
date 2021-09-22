@@ -123,7 +123,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                 </LinkBoxStyle>}
             </ContentBoxStyle>
         </BlackBoxStyle>
-             <Comments comments={comments} id={postInfo.id} seeComments={seeComments} user={user}/>
+             <Comments comments={comments} id={postInfo.id} seeComments={seeComments} />
         </CommentContainerStyle>
     </CommentContext.Provider>
        

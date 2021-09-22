@@ -2,11 +2,11 @@ import Comment from "./Comment";
 import styled from "styled-components";
 import SendComment from "./SendComment";
 
-export default function Comments({comments, seeComments,user, id}){
+export default function Comments({comments, seeComments, id}){
     return(
         <CommentBoxStyle>
             {seeComments? <>
-                            {comments.map((comment)=> <Comment key={comment.id} comment={comment} user={user}/>)}
+                            {comments.map((comment)=> <Comment key={comment.id} comment={comment} />)}
                             <WriteCommentStyled>
                                <SendComment  id={id} />
                             </WriteCommentStyled>
