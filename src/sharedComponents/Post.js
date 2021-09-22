@@ -132,7 +132,6 @@ const BlackBoxStyle = styled.div`
     border-radius: 16px;
     margin-top:16px;
     display: flex;  
-
     @media (max-width: 600px){
         border-radius: 0;
 }  
@@ -161,7 +160,6 @@ text-align: center;
 const PencilIcon =styled(TiPencil)`
 color: #ffffff;
 font-size: 20px;
-
 :hover{
     cursor: pointer;
     filter: brightness(0.7);
@@ -194,7 +192,6 @@ width: 500px;
         padding: 7px;
         font-size: 14px;
     }
-
     @media(max-width: 600px){
         word-break:break-all;
     }
@@ -220,15 +217,12 @@ img{
     @media(max-width: 600px) {
         width: 95px;
         height: 100%;
-
     }
-
 }
     @media(max-width: 600px) {
         word-break: break-all;
         width: 75vw;
     }
-
 `
 const LinkInfoStyle = styled.div`
 display: flex;
@@ -245,11 +239,9 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
-
     @media(max-width: 600px) {
        font-size: 11px;
     }
-
 `
 const LinkDescriptionStyle = styled.div`
 display: flex;
@@ -258,11 +250,9 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
-
     @media(max-width: 600px) {
        font-size: 8px;
     }
-
 `
 const LinkUrlStyle = styled.h4`
 display: flex;
@@ -287,7 +277,6 @@ const HashTagStyle = styled(ReactHashtag)`
 const DiplayFlexBox =styled.div`
     display: flex;
     justify-content: space-between;
-
 `
 const TrashAndEditStyle = styled.div`
     display: flex;
@@ -300,4 +289,7 @@ const CommentContainerStyle = styled.div`
     background-color: #1E1E1E;
     border-radius: 16px;
 
+    @media (max-width: 600px){
+        border-radius: 0;
+    }
 `
