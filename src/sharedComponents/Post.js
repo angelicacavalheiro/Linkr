@@ -11,7 +11,7 @@ import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
 import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
-
+import LocationMap from "./Maps/LocationMap";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -86,7 +86,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
-                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle><LocationMap/>
                    {isMyPost? 
                    <TrashAndEditStyle>
                    <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> 

@@ -1,23 +1,14 @@
-import { IoLocationOutline } from 'react-icons/io5'
+import { MdLocationOn } from 'react-icons/md'
 import { AiOutlineClose } from 'react-icons/ai'
 import styled from "styled-components";
 import ReactModal from 'react-modal';
 import {  useState } from "react";
-import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps';
+import UserMap from './UserMap';
+
 
 export default function LocationMap({postInfo, renderPage}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [loadingTrash, setLoadingTrash] =useState(false);
-
-    function Map(){
-        return(
-            <GoogleMap 
-                defaultZoom={10} 
-                defaultCenter={{ lat:12, lng:12}}/>
-        );
-    }
-
-    const WrappedMap = withScriptjs(withGoogleMap(Map));
     
     return(
         <>
@@ -30,12 +21,7 @@ export default function LocationMap({postInfo, renderPage}) {
                     <span>User's location</span><AiOutlineClose onClick={() => setModalIsOpen(false)}/>
                     </p>
                     <MapContainerStyle>
-                        <WrappedMap 
-                          googleMapURL={'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places'}
-                          loadingElement={<div style={{height: '100%'}}/>}
-                          containerElement={<div style={{height: '100%'}}/>}
-                          mapElement={<div style={{height: '100%'}}/>}
-                    />
+                        <UserMap/>
                     </MapContainerStyle>
                 </>}
             
@@ -45,8 +31,8 @@ export default function LocationMap({postInfo, renderPage}) {
 }
 
 
-const LocationIconStyle = styled(IoLocationOutline)`
-    color: orange;
+const LocationIconStyle = styled(MdLocationOn)`
+    color: #FFF;
     margin-left: 5px;
     :hover{
     cursor: pointer;

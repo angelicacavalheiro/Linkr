@@ -4,7 +4,7 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import { postUserPost } from "../../Service";
 import { IoLocationOutline } from 'react-icons/io5'
-import LocationMap from "../../sharedComponents/LocationMap";
+import LocationMap from "../../sharedComponents/Maps/LocationMap";
 
 export default function AddPosts(props){
     
