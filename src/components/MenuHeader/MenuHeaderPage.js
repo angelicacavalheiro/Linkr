@@ -8,8 +8,7 @@ import Search from './Search'
 import { Link } from 'react-router-dom';
 export default function MenuHeaderPage(){
 
-    const {disappearMenu} = useContext(ShowMenuContext);
-    
+    const {disappearMenu} = useContext(ShowMenuContext);    
 
     return (
         <> 
@@ -25,7 +24,7 @@ export default function MenuHeaderPage(){
                     <UserImage />                    
                 </RightHeaderStyled>
             </ HeaderStyled >   
-            <Menu />   
+            <Menu />  
         </>  
     )
 }
