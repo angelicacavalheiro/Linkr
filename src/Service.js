@@ -132,6 +132,18 @@ function getFollowingUsers(token) {
     return promise
 }
 
+function getOlderPosts (token, lastPostId) {
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
+    const promise = axios.get(`${URL}/following/posts?olderThan=${lastPostId}`, config)
+    return promise;
+}
+
 export {
     getTimelinePosts,
     getAnUserPosts,
@@ -145,5 +157,6 @@ export {
     postLike,
     postUnlike,
     getLikes,
-    getFollowingUsers
+    getFollowingUsers,
+    getOlderPosts
 }

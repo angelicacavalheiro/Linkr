@@ -13,7 +13,7 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 
 
-export default function Post ({postInfo, setPostsList, renderPage}) {
+export default function Post ({postInfo, setPostsList, renderPage, setLastPostId}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -23,9 +23,11 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [displayIframe, setDisplayIframe] = useState(false);
-    const [isYoutubeVideo, setIsYoutubeVideo] = useState(false)
-    
+    const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
+
+    setLastPostId(postInfo.id)
     useEffect(()=>{
+        
         setSending(false)
         if(user.id === postInfo.user.id){
                 setIsMyPost(true);
