@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import Trash from "./Trash";
 import UserContext from "../contexts/UserContext";
+import CommentContext from "../contexts/CommentContext";
 import React, { useRef} from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
@@ -14,7 +15,6 @@ import Comments from "./Comments";
 import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import { getComments } from "../Service";
-import SendComment from "./SendComment";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
@@ -91,6 +91,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     }
 
     return(
+    <CommentContext.Provider value={{inputComment, setInputComment}}>
         <CommentContainerStyle>
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
@@ -122,18 +123,10 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                 </LinkBoxStyle>}
             </ContentBoxStyle>
         </BlackBoxStyle>
-        <CommentBoxStyle>
-            {seeComments? <>
-                            {comments.map((comment)=> <Comments key={comment.id} comment={comment} myUser={user}/>)}
-                            <WriteCommentStyled>
-                               <SendComment inputComment={inputComment} setInputComment={setInputComment} user={user} id={postInfo.id} comments={comments} setComments={setComments} />
-                            </WriteCommentStyled>
-                          </>
-                        :
-                            ""
-                        }
-        </CommentBoxStyle>
+             <Comments comments={comments} id={postInfo.id} seeComments={seeComments} user={user}/>
         </CommentContainerStyle>
+    </CommentContext.Provider>
+       
        
         
     )
@@ -313,42 +306,5 @@ const CommentContainerStyle = styled.div`
     height: auto;
     background-color: #1E1E1E;
     border-radius: 16px;
-
-`
-const CommentBoxStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    input{
-        background-color: #252525;
-        color: #ffffff;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        width: 80%;
-        margin: 10px 0px;
-        height: 40px;
-        border: none;
-        padding-left: 13px;
-    }
-    input::placeholder{
-        color: #575757;
-        font-style: italic;
-        font-size: 14px;
-    }
-`
-const WriteCommentStyled = styled.div`
-    display: flex;
-    width:100%;
-    align-items: center;
-    margin-bottom: 10px;
-
-    img{
-        border-radius: 100%;
-        width: 39px;
-        height: 39px;
-        margin-left: 20px;
-        margin-right: 15px;
-    }
 
 `

@@ -1,89 +1,57 @@
-import styled from "styled-components"
-import { useContext } from "react"
-import UserContext from "../contexts/UserContext"
-import ShowMenuContext from "../contexts/ShowMenuContext"
+import Comment from "./Comment";
+import styled from "styled-components";
+import SendComment from "./SendComment";
 
-export default function Comments({comment}){
-    const {user} = useContext(UserContext);
-    const {following} = useContext(ShowMenuContext)
-    let isMycomment = false;
-    let amIFollowing =false;
-
-    if(comment.user.id === user.id){
-        isMycomment =true;
-    }
-    following.map((f)=>{
-        if(comment.user.id === f.id){
-            amIFollowing =true;
-        }
-        return true;
-    })
-
+export default function Comments({comments, seeComments,user, id}){
     return(
-        <>
-        <Comment>
-            <img src={comment.user.avatar} alt=""/>
-            <div>
-                <UserInfo>
-                    <h5>{comment.user.username}</h5>
-                    <span>{isMycomment?`• post’s author`:""}</span>
-                    <span>{amIFollowing?"• following" : ""}</span>
-                </UserInfo>
-                <p>
-                {comment.text}
-                </p>
-            </div>  
-        </Comment>
-        <Border />
-        </>
+        <CommentBoxStyle>
+            {seeComments? <>
+                            {comments.map((comment)=> <Comment key={comment.id} comment={comment} user={user}/>)}
+                            <WriteCommentStyled>
+                               <SendComment  id={id} />
+                            </WriteCommentStyled>
+                          </>
+                        :
+                            ""
+                        }
+        </CommentBoxStyle>
     )
 }
 
-
-const Comment = styled.div`
-    width: 100%;
-    height: auto;
-    color: #ffffff;
-    margin-top: 10px;
+const CommentBoxStyle = styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    img{
+    input{
+        background-color: #252525;
+        color: #ffffff;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        width: 80%;
+        margin: 10px 0px;
         height: 40px;
-        width: 40px;
-        border-radius: 100%;
-        margin-right: 15px;
-        margin-left: 20px;
+        border: none;
+        padding-left: 13px;
     }
-    p{
-        color: #ACACAC;
+    input::placeholder{
+        color: #575757;
+        font-style: italic;
         font-size: 14px;
-        margin-right: 13px;
     }
-   
 `
-const UserInfo = styled.div`
+const WriteCommentStyled = styled.div`
     display: flex;
-    font-size: 14px;
-    width: auto;
-    height: auto;
+    width:100%;
+    align-items: center;
     margin-bottom: 10px;
 
-        h5{
-            color: #F3F3F3;
-            font-weight: 700;
-        }
-        span{
-            color: #565656;
-            margin-left: 7px;
-        }
-
-`
-const Border =styled.div`
-    height: 1px;
-    width: 95%;
-    background-color: #353535;
-    margin-top: 15px;
-    margin-bottom: 15px;
-
+    img{
+        border-radius: 100%;
+        width: 39px;
+        height: 39px;
+        margin-left: 20px;
+        margin-right: 15px;
+    }
 
 `

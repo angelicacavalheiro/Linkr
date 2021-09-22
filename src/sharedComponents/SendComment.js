@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import {FiSend } from "react-icons/fi";
 import {postComment} from "../Service"
-import { useState } from "react";
+import { useState, useContext } from "react";
+import CommentContext from "../contexts/CommentContext"
+import UserContext from "../contexts/UserContext";
 
-export default function SendComment({setInputComment, inputComment, user, id, setComments, comments}){
+export default function SendComment({id}){
     const [isSending, setIsSending] = useState(false);
+    const {setInputComment, inputComment} = useContext(CommentContext)
+    const {user} = useContext(UserContext)
 
     function keyPrees(e){
         if(e.keyCode === 13){
