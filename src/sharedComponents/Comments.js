@@ -1,20 +1,22 @@
 import styled from "styled-components"
 import { useContext } from "react"
 import UserContext from "../contexts/UserContext"
+import ShowMenuContext from "../contexts/ShowMenuContext"
 
 export default function Comments({comment}){
     const {user} = useContext(UserContext);
+    const {following} = useContext(ShowMenuContext)
     let isMycomment = false;
     let amIFollowing =false;
-    
+
     if(comment.user.id === user.id){
         isMycomment =true;
     }
-    // L.map(()=>{
-    //     if(comment.user.id === o que vai vir){
-    //         amIFollowing =true;
-    //     }
-    // })
+    following.map((f)=>{
+        if(comment.user.id === f.id){
+            amIFollowing =true;
+        }
+    })
 
     return(
         <>

@@ -17,6 +17,7 @@ export default function App() {
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState(storedUser);  
+  const [following, setFollowing]=useState([])
 
   function disappearMenu() { 
     if(showMenu === true){
@@ -30,7 +31,7 @@ export default function App() {
         <UserContext.Provider value={{user, setUser}}>
           <Switch>
 
-          <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu}}>
+          <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu, setFollowing, following}}>
          
               <Route path="/sign-up" exact>
                 <SignUpPage />
