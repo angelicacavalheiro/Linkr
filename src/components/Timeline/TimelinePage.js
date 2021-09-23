@@ -31,7 +31,10 @@ export default function TimelinePage () {
             if(res.data.posts.length === 0 && numFollow > 0){
                 setNoPosts(true);
             }
-            setLastPostId(res.data.posts[res.data.posts.length-1].id);
+            if(postsList.length<10) {
+            //    setLastPostId(res.data.posts[res.data.posts.length-1].id);
+            }
+            
             setPostsList(res.data.posts);
             ReactTooltip.rebuild();  
             console.log(lastPostId);
@@ -56,7 +59,7 @@ export default function TimelinePage () {
     useEffect(()=> {
         loadPosts()
         const intervalRerenderId = setInterval(() => {
-            loadPosts();
+          //  renderMorePosts();
         }, 15000);
  
         return () => clearInterval(intervalRerenderId);
@@ -71,7 +74,7 @@ export default function TimelinePage () {
             setPostsList([...postsList, ...res.data.posts]);
             //setLastPostId(res.data.posts[res.data.posts.length-1].id);
             setHasMore(false);
-            console.log(res.data.posts)
+            console.log(postsList)
         })
         .catch(err => alert('Nao foi possivel carregar mais posts'))
         
