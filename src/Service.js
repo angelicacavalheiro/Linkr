@@ -149,7 +149,6 @@ function getFollowingUsers(token) {
     return promise
 }
 function postUnfollowOrFollow(token, id, action){
-    console.log(token, id, action)
     const config = {
         headers: {
             "Authorization": `Bearer ${token}`

@@ -36,6 +36,8 @@ const PageTitleStyle = styled.h2`
     
     @media (max-width: 600px){
         margin-left: 17px;
+        flex-direction: column;
+        width: 90%;
     }
 `
 // const ColunaTrendingStyle = styled.div`

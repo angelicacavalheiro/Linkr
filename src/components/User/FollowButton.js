@@ -60,4 +60,8 @@ const ButtonStyle = styled.button`
     border: none;
     width: 112px;
     height: 31px;
+    @media (max-width: 600px){
+        margin-top: 20px;
+        margin-right: -55%;
+}  
 `
