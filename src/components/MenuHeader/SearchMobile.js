@@ -15,23 +15,22 @@ export default function SearchMobile(){
     const [usersFound, setUsersFound] = useState("")
 
     function toggleMenu(event){
-
-        event.stopPropagation();
-           
+        event.stopPropagation();           
         if(showMenu === true){
             setShowMenu(!showMenu);
-          }
+        }
     }
 
-    function search(){
-
-        getUsers(user.token, usersSearch)
-        .then((res) => {    
+    function search(){        
+        if (usersSearch !== "") {
+            getUsers(user.token, usersSearch)
+            .then((res) => {    
             sortUsers(res.data.users)                               
             }) 
-        .catch((res) => {     
-        setUsersFound("")                                
-            });                  
+            .catch((res) => {     
+            setUsersFound("")                                
+            }); 
+        }                         
     } 
 
     function sortUsers(dataUser){
@@ -56,16 +55,15 @@ export default function SearchMobile(){
                     onInput={search()}/>
                     <Icon onClick={search} />      
                 </RelativeStyled>
-               { usersFound.length > 4 ? 
-               < BlockStyled value={"scroll"} >
-                   {usersFound !== ""  ?
+                <BlockStyled >
+                   {usersFound !== ""  ? 
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
                                     <ResultsStyled>
                                         <ImageStyled src={u.avatar} />   
-                                        <UsernameStyled> {u.username} </UsernameStyled>   
-                                        <UserStatusStyled> {u.isFollowingLoggedUser === true ? ("• following") : null} </UserStatusStyled>   
+                                        <UsernameStyled> {u.username} </UsernameStyled> 
+                                        <UserStatusStyled> {u.isFollowingLoggedUser === true ? ("• following") : null} </UserStatusStyled>                                        
                                     </ResultsStyled>
                                 </Link>    
                             )
@@ -73,26 +71,7 @@ export default function SearchMobile(){
                         : 
                         null
                     }
-                </BlockStyled>  
-               : 
-                < BlockStyled value={"visible"} >
-                    {usersFound !== ""  ?                       
-                        (usersFound.map((u) => {
-                            return(
-                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
-                                    <ResultsStyled>
-                                        <ImageStyled src={u.avatar} />   
-                                        <UsernameStyled> {u.username} </UsernameStyled>   
-                                        <UserStatusStyled> {u.isFollowingLoggedUser === true ? ("• following") : null} </UserStatusStyled>   
-                                    </ResultsStyled>
-                                </Link>    
-                            )
-                        }))                 
-                        : 
-                        null
-                    }
-                </BlockStyled>             
-               }                        
+                </BlockStyled> 
             </SearchandResultsStyled>
         </>          
     )
@@ -101,11 +80,14 @@ export default function SearchMobile(){
 const BlockStyled = styled.div`
     border-radius: 8px;
     background: #E7E7E7;
-    overflow-y: ${(props) => props.value}; 
     overflow-x: hidden;
-    height: ${(props) => props.value === "visible" ? "auto" : "30vh"};
     width: 350px;
     margin: 0px auto 0 auto;
+
+    @media(max-height: 30vh){
+        overflow-y: scroll;
+        height: 30vh;
+    }
 
         &::-webkit-scrollbar {
         width: 10px;
