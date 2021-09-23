@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import { postUserPost } from "../../Service";
+import { IoLocationOutline } from 'react-icons/io5'
 
 export default function AddPosts(props){
     
@@ -23,13 +24,21 @@ export default function AddPosts(props){
 function PostArea(props){
     const [link, setLink] = useState("");
     const [text, setText] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [sharingLocation, setSharingLocation] = useState(false);
     const token = props.token;
-
+    const geo = navigator.geolocation;
+    
     function publishPost(event){
         event.preventDefault();
+        let body;
+
+        sharingLocation ? 
+        body = {text, link, geolocation:{latitude, longitude}} :
+        body = {text, link};
         
-        const body = {text, link};
         setIsLoading(true);
         
         postUserPost(body, token)
@@ -44,6 +53,35 @@ function PostArea(props){
                 alert("Houve um erro ao publicar o seu link");
             });
     }
+
+    function toggleLocation(){
+
+        if (sharingLocation){
+            setSharingLocation(false);
+        }
+        else{
+            setSharingLocation(true);
+            getUserLocation();
+        }
+    }
+
+    
+   
+    function getUserLocation(){
+
+        function defineUserPosition(position){
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+        }
+
+        function positionError (){
+            alert(`Erro ao obter localização, verifique se a permissão de acesso foi concedida ao navegador`);
+            setSharingLocation(false);
+        }
+
+        geo.getCurrentPosition(defineUserPosition, positionError);
+    }
+    
 
     return(
         <PostAreaFormStyle onSubmit={publishPost}>
@@ -64,6 +102,10 @@ function PostArea(props){
                 onChange={(e) => setText(e.target.value)}
             />
             <ButtonContainerStyle>
+                <LocationStyle sharingLocation={sharingLocation} onClick={toggleLocation}>
+                    <LocationIcon sharingLocation={sharingLocation} />
+                    <span>{sharingLocation ? 'Localização ativada' : 'Localização desativada'}</span>
+                </LocationStyle>
                 <PublishButtonStyle 
                 type="submit" disabled={isLoading ? true : false}>
                    {isLoading ? "Publicando" : "Publicar"}
@@ -142,8 +184,6 @@ const InputPostLinkStyle = styled.input`
 
     &::placeholder{
         font-family: 'Lato', sans-serif;
-        font-size: 15px;
-        font-weight: 300;
         color: #949494;
     }
 `;
@@ -171,7 +211,8 @@ const InputPostlinkDescriptionStyle = styled.textarea`
 const ButtonContainerStyle = styled.div`
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
 
     @media(max-width: 600px){
         padding-left: 0;
@@ -194,4 +235,24 @@ const PublishButtonStyle = styled.button`
         filter: brightness(1.2);
         cursor: pointer;
     }
+`;
+
+const LocationStyle = styled.div`
+    color: ${(props) => props.sharingLocation ? '#238700' : '#707070'};
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+
+    :hover{
+        filter: brightness(0.6);
+        cursor: pointer;
+    }
+`;
+
+const LocationIcon = styled(IoLocationOutline)`
+    color: ${(props) => props.sharingLocation ? '#238700' : '#707070'};
+    margin-right: 5px;
+    font-size: 16px;
 `;
