@@ -45,7 +45,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
           
       })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isEditing,comments])
+    }, [isEditing])
 
     function checkYoutubeVideo(){
         let v = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -120,7 +120,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                 </LinkBoxStyle>}
             </ContentBoxStyle>
         </BlackBoxStyle>
-             <Comments comments={comments} id={postInfo.id} seeComments={seeComments} />
+             <Comments comments={comments} setComments={setComments} id={postInfo.id} seeComments={seeComments} />
         </CommentContainerStyle>
     )
 }
