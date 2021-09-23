@@ -39,7 +39,6 @@ export default function FollowButton({id}){
          promise.then(()=>{
              setIsLoading(false)
              setIsFollowing(!isFollowing);
-             console.log("voltei")
          })
     }
 
