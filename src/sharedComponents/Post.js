@@ -115,7 +115,18 @@ export default function Post ({postInfo, renderPage}) {
                     </TrashAndEditStyle>
                    : ""}
                 </DiplayFlexBox>
-                {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
+                {isEditing? 
+                    <textarea type="text" 
+                              value={inputValue} 
+                              onChange={(e)=> setInputValue(e.target.value)} 
+                              ref={focusHere} onKeyUp={(e)=>keyPrees(e)} 
+                              disabled={sending}>
+                    </textarea> : 
+                    <BreackHashtag>
+                        <HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>
+                            {postText}
+                        </HashTagStyle>
+                    </BreackHashtag>}
                 <Iframe displayIframe={displayIframe} postInfo={postInfo} setDisplayIframe={setDisplayIframe}></Iframe>
                 {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : <LinkBoxStyle onClick={()=> setDisplayIframe(true)}>
                     <LinkInfoStyle>
@@ -282,6 +293,7 @@ const UserDataContainerStyle = styled.div`
 
 const LinkStyle = styled(Link)`
     text-decoration: none; 
+    word-break: break-all;
 `
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
@@ -304,4 +316,8 @@ const CommentContainerStyle = styled.div`
     @media (max-width: 600px){
         border-radius: 0;
     }
+`
+const BreackHashtag = styled.div`
+word-break: break-all;
+
 `
