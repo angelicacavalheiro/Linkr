@@ -41,6 +41,11 @@ export default function SearchMobile(){
         setUsersFound(sortUsersFound)  
     }
 
+    function clean(){
+
+        setUsersFound("")  
+    }
+
     return (
         <>
             <SearchandResultsStyled onClick={toggleMenu}>
@@ -59,7 +64,7 @@ export default function SearchMobile(){
                    {usersFound && usersSearch !== "" ?
                         (usersFound.map((u) => {
                             return(
-                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
+                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}} onClick={clean}> 
                                     <ResultsStyled>
                                         <ImageStyled src={u.avatar} />   
                                         <UsernameStyled> {u.username} </UsernameStyled> 
