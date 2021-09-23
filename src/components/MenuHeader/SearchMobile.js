@@ -102,9 +102,24 @@ const BlockStyled = styled.div`
     border-radius: 8px;
     background: #E7E7E7;
     overflow-y: ${(props) => props.value}; 
+    overflow-x: hidden;
     height: ${(props) => props.value === "visible" ? "auto" : "30vh"};
     width: 350px;
     margin: 0px auto 0 auto;
+
+        &::-webkit-scrollbar {
+        width: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+        background: #E7E7E7;
+        border-radius: 1000px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+        background-color: #ffffff;
+        border-radius: 20px;
+        }
 `;
 
 const ResultsStyled = styled.div `
@@ -130,6 +145,9 @@ const ImageStyled = styled.img`
 const UsernameStyled = styled.p`
     margin: 20px 10px 0 2px;
     color: #515151;
+    width: 100%;
+    overflow: hidden;         
+    text-overflow: ellipsis;
 `;
 
 const SearchandResultsStyled = styled.div `
