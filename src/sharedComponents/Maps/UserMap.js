@@ -2,6 +2,8 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { useRef } from 'react';
 import { useState } from 'react/cjs/react.development';
+import { Marker } from '@react-google-maps/api';
+
 const containerStyle = {
   width: '100%',
   height: '100%'
@@ -28,9 +30,6 @@ function UserMap({latitude, longitude}) {
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map);
     mapRef.current = map;
   }, [])
 
@@ -46,8 +45,11 @@ function UserMap({latitude, longitude}) {
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        <>
-        </>
+      <Marker
+        onLoad={onLoad}
+        position={center}
+      />
+
       </GoogleMap>
   ) : <></>
 }
