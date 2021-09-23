@@ -2,7 +2,7 @@ import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleSty
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getAnUserPosts} from "../../Service";
+import { getAnUserPosts, getInfoUser} from "../../Service";
 import styled from "styled-components"; 
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
@@ -30,11 +30,17 @@ export default function UserPage(){
 
 
     function getUserPosts(){
+        const promiseUser = getInfoUser(user.token, id);
+            promiseUser.then((resp)=>{
+                console.log(resp.data)
+                setName(resp.data.user.username)
+            })
+
         const promise = getAnUserPosts(user.token, id);
             promise.then((resp)=>{
                 setLoading(false)
                 setPosts(resp.data.posts) 
-                setName(resp.data.posts[0].user.username)
+                
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
