@@ -37,6 +37,8 @@ function UserMap({latitude, longitude}) {
     setMap(null)
   }, [])
 
+  console.log(map);
+  
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
