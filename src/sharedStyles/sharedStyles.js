@@ -12,7 +12,7 @@ const ContainerCenterStyle = styled.div`
     width: 937px;
     @media (max-width: 600px) {
         width: 100%;
-        margin: 0px;
+        margin: 100px 0px;
         padding: 17px 0;
        
     }
@@ -33,6 +33,7 @@ const PageTitleStyle = styled.h2`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    word-break: break-all;
     
     @media (max-width: 600px){
         margin-left: 17px;
