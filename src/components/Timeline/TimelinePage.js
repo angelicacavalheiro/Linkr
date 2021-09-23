@@ -19,25 +19,22 @@ export default function TimelinePage () {
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
     const [noFollow, setNoFollow] = useState(false);
-    const [lastPostId, setLastPostId] = useState(0);
     const [hasMore, setHasMore] = useState(true)
-    
    
     function getFollowersPosts(numFollow) {
-        
         getTimelinePosts(user.token)
         .then((res)=> {
             
             if(res.data.posts.length === 0 && numFollow > 0){
                 setNoPosts(true);
             }
-            if(postsList.length<10) {
-            //    setLastPostId(res.data.posts[res.data.posts.length-1].id);
+            if(postsList.length <= 10) {
+                setHasMore(true)  
             }
-            
-            setPostsList(res.data.posts);
+
+            setPostsList([...res.data.posts]);
+          
             ReactTooltip.rebuild();  
-            console.log(lastPostId);
             setLoading(false);
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
@@ -48,10 +45,10 @@ export default function TimelinePage () {
         getFollowingUsers(user.token)
         .then(res => {
 
-            
             if(res.data.users.length < 1) {
                 setNoFollow(true);
             };
+
             getFollowersPosts(res.data.users.length)
         })
     }
@@ -59,27 +56,26 @@ export default function TimelinePage () {
     useEffect(()=> {
         loadPosts()
         const intervalRerenderId = setInterval(() => {
-          //  renderMorePosts();
+         loadPosts()
         }, 15000);
  
         return () => clearInterval(intervalRerenderId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
    
-    function renderMorePosts() {
+    function renderMorePosts(lastPostId) {
         
-        console.log({lastPostId});
         getOlderPosts(user.token, lastPostId)
         .then(res=> {
+           
             setPostsList([...postsList, ...res.data.posts]);
-            //setLastPostId(res.data.posts[res.data.posts.length-1].id);
-            setHasMore(false);
-            console.log(postsList)
+            
+            if(res.data.posts.length < 10) {
+                setHasMore(false);
+            }else{setHasMore(true)}
         })
         .catch(err => alert('Nao foi possivel carregar mais posts'))
-        
     }
-
 
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
@@ -96,15 +92,15 @@ export default function TimelinePage () {
                         
                          <InfiniteScroll
                             pageStart={0}
-                            loadMore={renderMorePosts}
-                            hasMore={true}
+                            loadMore={()=>renderMorePosts(postsList[postsList.length-1].id)}
+                            hasMore={hasMore}
                             loader={<LoadingStyle>Loading...</LoadingStyle>}
                             
                         >
                             {postsList.length>0 &&
                             <>{postsList.map((post)=> {
                             return(   
-                                <Post key={post.id} postInfo={post} renderPage={loadPosts} setLastPostId={setLastPostId}></Post>
+                                <Post key={post.id} postInfo={post} renderPage={loadPosts} ></Post>
                             )
                         })}</>}
                         </InfiniteScroll>

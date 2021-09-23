@@ -13,7 +13,7 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 
 
-export default function Post ({postInfo, setPostsList, renderPage, setLastPostId}) {
+export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -25,7 +25,7 @@ export default function Post ({postInfo, setPostsList, renderPage, setLastPostId
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
 
-    setLastPostId(postInfo.id)
+    
     useEffect(()=>{
         
         setSending(false)
