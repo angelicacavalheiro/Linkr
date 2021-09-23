@@ -18,7 +18,7 @@ export default function App() {
   const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState(storedUser);  
   const [following, setFollowing]=useState([])
-
+console.log(following)
   function disappearMenu() { 
     if(showMenu === true){
       setShowMenu(!showMenu);

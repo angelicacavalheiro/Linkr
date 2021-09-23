@@ -30,6 +30,9 @@ const PageTitleStyle = styled.h2`
     color: white;
     font-size: 43px;
     margin-bottom: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     
     @media (max-width: 600px){
         margin-left: 17px;
