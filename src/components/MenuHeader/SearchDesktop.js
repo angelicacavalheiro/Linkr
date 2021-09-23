@@ -21,26 +21,28 @@ export default function SearchDesktop(){
         }
     }
 
-    function search(){        
-        if (usersSearch !== "") {
+    function search(){   
+        
+        if (usersSearch !== ""){
             getUsers(user.token, usersSearch)
-            .then((res) => {    
+        .then((res) => {    
             sortUsers(res.data.users)                               
-            }) 
-            .catch((res) => {     
+        }) 
+        .catch((res) => {     
             setUsersFound("")                                
-            }); 
-        }                         
+        });
+        }
+        
+
+                                                        
     } 
 
     function sortUsers(dataUser){
 
         const sortUsersFound = dataUser.sort((x, y) =>
-
         (x.isFollowingLoggedUser === y.isFollowingLoggedUser) ? 0 : x.isFollowingLoggedUser ? -1 : 1)
 
-        setUsersFound(sortUsersFound)    
-
+        setUsersFound(sortUsersFound)   
     }
         
     return (
@@ -53,12 +55,12 @@ export default function SearchDesktop(){
                 type="text" 
                 placeholder="Search for people and friends"
                 value={usersSearch}
-                onChange={(e) => setUsersSearch(e.target.value)} 
+                onChange={(e) => setUsersSearch(e.target.value)}
                 onInput={search()}/>
                 <Icon onClick={search}/>                 
                 </RelativeStyled>
-               < BlockStyled >
-                   {usersFound !== ""  ? 
+                <BlockStyled >
+                   {usersFound && usersSearch !== ""  ? 
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
@@ -73,9 +75,7 @@ export default function SearchDesktop(){
                         : 
                         null
                     }
-                </BlockStyled>  
-                            
-                                      
+                </BlockStyled>        
             </SearchandResultsStyled>
         </>          
     )
@@ -85,7 +85,6 @@ const BlockStyled = styled.div`
     border-radius: 8px;
     background: #E7E7E7;
     overflow-x: hidden;
-    height: auto;
     width: 585px;
     margin: 0px auto 0 auto;
 

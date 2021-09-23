@@ -22,15 +22,17 @@ export default function SearchMobile(){
     }
 
     function search(){        
-        if (usersSearch !== "") {
+        
+        if (usersSearch !== ""){
             getUsers(user.token, usersSearch)
             .then((res) => {    
-            sortUsers(res.data.users)                               
+                sortUsers(res.data.users)                               
             }) 
             .catch((res) => {     
             setUsersFound("")                                
-            }); 
-        }                         
+            });
+        }
+                                 
     } 
 
     function sortUsers(dataUser){
@@ -56,7 +58,7 @@ export default function SearchMobile(){
                     <Icon onClick={search} />      
                 </RelativeStyled>
                 <BlockStyled >
-                   {usersFound !== ""  ? 
+                   {usersFound && usersSearch !== "" ?
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
