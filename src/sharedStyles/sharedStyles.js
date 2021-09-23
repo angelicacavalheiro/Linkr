@@ -12,7 +12,7 @@ const ContainerCenterStyle = styled.div`
     width: 937px;
     @media (max-width: 600px) {
         width: 100%;
-        margin: 100px 0px;
+        margin: 0px;
         padding: 17px 0;
        
     }

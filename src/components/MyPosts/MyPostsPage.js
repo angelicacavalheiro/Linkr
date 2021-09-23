@@ -6,7 +6,6 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
-import ReactTooltip from 'react-tooltip';
 
 export default function MyPostPage(){
 
@@ -30,7 +29,6 @@ export default function MyPostPage(){
             promise.then((resp)=>{
                 setLoading(false)
                 setPosts(resp.data.posts) 
-                ReactTooltip.rebuild();  
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
