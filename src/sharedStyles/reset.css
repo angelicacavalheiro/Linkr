@@ -68,3 +68,10 @@ h2{
 *{
     box-sizing: border-box;
 }
+
+textarea:focus{
+     outline: none; 
+}
+input:focus{
+    outline: none; 
+}

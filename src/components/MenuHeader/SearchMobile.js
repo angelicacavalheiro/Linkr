@@ -5,7 +5,7 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 import UserContext from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import {DebounceInput} from 'react-debounce-input';
-import axios from "axios";
+import { getUsers } from '../../Service';
 
 export default function SearchMobile(){
 
@@ -25,54 +25,40 @@ export default function SearchMobile(){
 
     function search(){
 
-       const config = {
-        headers: {
-            "Authorization": `Bearer ${user.token}`
-            }
-        }
-    
-        const promisse = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/users/search?username=${usersSearch}`, config)
-        promisse.then((res) => {    
+        getUsers(user.token, usersSearch)
+        .then((res) => {    
             sortUsers(res.data.users)                               
-            }); 
-        promisse.catch((res) => {     
+            }) 
+        .catch((res) => {     
         setUsersFound("")                                
-            });              
+            });                  
     } 
 
     function sortUsers(dataUser){
 
         const sortUsersFound = dataUser.sort((x, y) =>
-
         (x.isFollowingLoggedUser === y.isFollowingLoggedUser) ? 0 : x.isFollowingLoggedUser ? -1 : 1)
 
-        setUsersFound(sortUsersFound)    
-
+        setUsersFound(sortUsersFound)  
     }
 
     return (
         <>
-
             <SearchandResultsStyled onClick={toggleMenu}>
-                <RelativeStyled>
-                           
+                <RelativeStyled>    
                     <DebounceInputStyled
-                    minLength={1}
+                    minLength={3}
                     debounceTimeout={300}
                     type="text" 
                     placeholder="Search for people and friends"
                     value={usersSearch}
                     onChange={(e) => setUsersSearch(e.target.value)} 
                     onInput={search()}/>
-
                     <Icon onClick={search} />      
-
                 </RelativeStyled>
-
                { usersFound.length > 4 ? 
                < BlockStyled value={"scroll"} >
                    {usersFound !== ""  ?
-                        
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
@@ -91,7 +77,6 @@ export default function SearchMobile(){
                : 
                 < BlockStyled value={"visible"} >
                     {usersFound !== ""  ?                       
-                        
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
@@ -120,7 +105,6 @@ const BlockStyled = styled.div`
     height: ${(props) => props.value === "visible" ? "auto" : "30vh"};
     width: 350px;
     margin: 0px auto 0 auto;
-
 `;
 
 const ResultsStyled = styled.div `
@@ -152,7 +136,6 @@ const SearchandResultsStyled = styled.div `
     @media(min-width: 800px){
         display:none
     }
-
 `;
 
 const Icon = styled(AiOutlineSearch)`
@@ -186,7 +169,6 @@ const DebounceInputStyled = styled(DebounceInput) `
         line-height: 23px;
         color: #C6C6C6;
     }
-
 `;
 
 const RelativeStyled = styled.div `

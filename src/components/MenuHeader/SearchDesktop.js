@@ -5,7 +5,7 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 import UserContext from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import {DebounceInput} from 'react-debounce-input';
-import axios from "axios";
+import { getUsers } from '../../Service';
 
 export default function SearchDesktop(){
 
@@ -24,20 +24,14 @@ export default function SearchDesktop(){
     }
 
     function search(){
-
-       const config = {
-        headers: {
-            "Authorization": `Bearer ${user.token}`
-            }
-        }
-    
-        const promisse = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/users/search?username=${usersSearch}`, config)
-        promisse.then((res) => {    
+        
+        getUsers(user.token, usersSearch)
+        .then((res) => {    
             sortUsers(res.data.users)                               
-            }); 
-        promisse.catch((res) => {     
+            }) 
+        .catch((res) => {     
         setUsersFound("")                                
-            });              
+            });                  
     } 
 
     function sortUsers(dataUser){
@@ -52,26 +46,21 @@ export default function SearchDesktop(){
         
     return (
         <>
-
             <SearchandResultsStyled onClick={toggleMenu}>
-                <RelativeStyled>
-                           
+                <RelativeStyled>      
                 <DebounceInputStyled
-                minLength={1}
+                minLength={3}
                 debounceTimeout={300}
                 type="text" 
                 placeholder="Search for people and friends"
                 value={usersSearch}
                 onChange={(e) => setUsersSearch(e.target.value)} 
                 onInput={search()}/>
-
-                <Icon />                 
+                <Icon onClick={search}/>                 
                 </RelativeStyled>
-
                { usersFound.length > 4 ? 
                < BlockStyled value={"scroll"} >
                    {usersFound !== ""  ? 
-
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
@@ -147,7 +136,6 @@ const SearchandResultsStyled = styled.div `
     @media(max-width: 800px){
         display:none
     }
-
 `;
 
 const Icon = styled(AiOutlineSearch)`
