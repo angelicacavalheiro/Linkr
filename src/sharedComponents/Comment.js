@@ -58,6 +58,7 @@ const CommentStyled = styled.div`
         color: #ACACAC;
         font-size: 14px;
         margin-right: 13px;
+        word-break: break-all;
     }
    
 `
@@ -71,6 +72,7 @@ const UserInfo = styled.div`
         h5{
             color: #F3F3F3;
             font-weight: 700;
+            word-break: break-all;
         }
         span{
             color: #565656;

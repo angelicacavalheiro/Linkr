@@ -148,6 +148,15 @@ function getFollowingUsers(token) {
     const promise = axios.get(`${URL}/users/follows`, config);
     return promise
 }
+function postUnfollowOrFollow(token, id, action){
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/users/${id}/${action}`, {} ,config);  
+    return promise
+}
 
 export {
     getTimelinePosts,
@@ -164,5 +173,6 @@ export {
     getLikes,
     getComments,
     postComment,
-    getFollowingUsers
+    getFollowingUsers,
+    postUnfollowOrFollow
 }

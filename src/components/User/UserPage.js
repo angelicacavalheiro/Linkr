@@ -7,6 +7,7 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import FollowButton from "./FollowButton";
 
 export default function UserPage(){
     
@@ -61,7 +62,10 @@ export default function UserPage(){
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
-                {loading ? "" :<PageTitleStyle>{nameUser}'s posts</PageTitleStyle>}
+                {loading ? "" : <PageTitleStyle>
+                                    {nameUser}'s posts
+                                    <FollowButton id={id}/>
+                                </PageTitleStyle>}
                 <PostsAndTrendingStyle>
                     <ColunaPostsStyle>
                     
