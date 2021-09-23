@@ -32,7 +32,7 @@ export default function TimelinePage () {
                 setHasMore(true)  
             }
 
-            setPostsList([...res.data.posts]);
+            setPostsList(res.data.posts);
           
             ReactTooltip.rebuild();  
             setLoading(false);
@@ -70,7 +70,7 @@ export default function TimelinePage () {
            
             setPostsList([...postsList, ...res.data.posts]);
             
-            if(res.data.posts.length < 10) {
+            if(res.data.posts.length === 0) {
                 setHasMore(false);
             }else{setHasMore(true)}
         })

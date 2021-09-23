@@ -2,12 +2,13 @@ import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleSty
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getHashtagPosts} from "../../Service";
+import { getHashtagPosts, getOlderHashtags} from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import ReactTooltip from 'react-tooltip';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export default function HashtagPage(){
 
@@ -18,7 +19,7 @@ export default function HashtagPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Não há posts com esta #hashtag ")
     const {disappearMenu} = useContext(ShowMenuContext);
-  
+   const [hasMore, setHasMore] = useState(true)
     useEffect(()=>{
         setNoPosts(false)
         getPosts()
@@ -29,12 +30,13 @@ export default function HashtagPage(){
     function getPosts(){
         const promise = getHashtagPosts(user.token, hashtag);
             promise.then((resp)=>{
-                setLoading(false)
                 setPosts(resp.data.posts) 
                 ReactTooltip.rebuild()
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }
+                setHasMore(true)
+                setLoading(false)
             })
             promise.catch(Erro);
         }
@@ -54,6 +56,19 @@ export default function HashtagPage(){
         setLoading(false);
     
      }
+     function renderMorePosts(lastPostId) {
+        
+        getOlderHashtags(user.token, hashtag, lastPostId)
+        .then(res=> {
+           
+            setPosts([...posts, ...res.data.posts]);
+            
+            if(res.data.posts.length === 0) {
+                setHasMore(false);
+            }else{setHasMore(true)}
+        })
+        .catch(err => alert('Nao foi possivel carregar mais posts'))
+    }
 
     return(  
     <ContainerBoxStyle onClick={disappearMenu}>
@@ -61,12 +76,24 @@ export default function HashtagPage(){
             <PageTitleStyle># {hashtag}</PageTitleStyle>
             <PostsAndTrendingStyle>
                 <ColunaPostsStyle>
-                
-                {posts.map((postInfo)=>
-                    <Post key={postInfo.id} postInfo={postInfo} renderPage={getPosts}/>
-                )}
-                {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""}
-                {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                {loading ? <LoadingStyle>Loading...</LoadingStyle> 
+                 : 
+                 noPosts? <NoPostsStyle>{message} </NoPostsStyle> 
+                 : 
+                 <InfiniteScroll
+                            pageStart={0}
+                            loadMore={()=>renderMorePosts(posts[posts.length-1].id)}
+                            hasMore={hasMore}
+                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                        >
+                            {posts.length>0 &&
+                            <>{posts.map((post)=> {
+                            return(   
+                                <Post key={post.id} postInfo={post} renderPage={getPosts} ></Post>
+                            )
+                        })}</>}
+                </InfiniteScroll>
+                 } 
             </ColunaPostsStyle>
             
            <Trending />

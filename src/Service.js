@@ -144,6 +144,43 @@ function getOlderPosts (token, lastPostId) {
     return promise;
 }
 
+function getOlderMyPosts (token, id, lastPostId) {
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
+    const promise = axios.get(`${URL}/users/${id}/posts?olderThan=${lastPostId}`, config)
+    return promise;
+}
+
+function getOlderLikes (token, lastPostId) {
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
+    const promise = axios.get(`${URL}/posts/liked?olderThan=${lastPostId}`, config)
+    return promise;
+}
+
+function getOlderHashtags (token, hashtag, lastPostId) {
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
+    const promise = axios.get(`${URL}/hashtags/${hashtag}/posts?olderThan=${lastPostId}`, config)
+    return promise;
+}
+
+
 export {
     getTimelinePosts,
     getAnUserPosts,
@@ -158,5 +195,8 @@ export {
     postUnlike,
     getLikes,
     getFollowingUsers,
-    getOlderPosts
+    getOlderPosts,
+    getOlderMyPosts,
+    getOlderLikes,
+    getOlderHashtags
 }

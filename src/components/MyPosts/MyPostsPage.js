@@ -1,12 +1,13 @@
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
-import { getAnUserPosts} from "../../Service";
+import { getAnUserPosts, getOlderMyPosts} from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import ReactTooltip from 'react-tooltip';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export default function MyPostPage(){
 
@@ -16,7 +17,7 @@ export default function MyPostPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Você ainda não tem posts")
     const {disappearMenu} = useContext(ShowMenuContext);
-    
+    const [hasMore, setHasMore] = useState(true)
    
 
     useEffect(()=>{
@@ -28,13 +29,15 @@ export default function MyPostPage(){
     function getMyPosts(){
         const promise = getAnUserPosts(user.token, user.id);
             promise.then((resp)=>{
-                setLoading(false)
+                
                 setPosts(resp.data.posts) 
                 ReactTooltip.rebuild();  
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }
+                setHasMore(true)
+                setLoading(false)
             })
             promise.catch(Erro);
     }
@@ -54,20 +57,47 @@ export default function MyPostPage(){
         setLoading(false);
     }
 
+    function renderMorePosts(lastPostId) {
+        
+        getOlderMyPosts(user.token,user.id, lastPostId)
+        .then(res=> {
+           
+            setPosts([...posts, ...res.data.posts]);
+            
+            if(res.data.posts.length === 0) {
+                setHasMore(false);
+            }else{setHasMore(true)}
+        })
+        .catch(err => alert('Nao foi possivel carregar mais posts'))
+    }
+
     return(
     <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
              <PageTitleStyle>my posts</PageTitleStyle>
              <PostsAndTrendingStyle>
                  <ColunaPostsStyle>
-               
-                {posts.map((postInfo,index)=>
-                    <Post key={postInfo.id} postInfo={postInfo} renderPage ={getMyPosts}/>
-                )}
-                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                 {loading ? <LoadingStyle>Loading...</LoadingStyle> 
+                 : 
+                 noPosts? <NoPostsStyle>{message} </NoPostsStyle> 
+                 : 
+                 <InfiniteScroll
+                            pageStart={0}
+                            loadMore={()=>renderMorePosts(posts[posts.length-1].id)}
+                            hasMore={hasMore}
+                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                            
+                        >
+                            {posts.length>0 &&
+                            <>{posts.map((post)=> {
+                            return(   
+                                <Post key={post.id} postInfo={post} renderPage={getMyPosts} ></Post>
+                            )
+                        })}</>}
+                </InfiniteScroll>
+                 } 
+
                 </ColunaPostsStyle>
-                
                 <Trending />
              </PostsAndTrendingStyle>
             

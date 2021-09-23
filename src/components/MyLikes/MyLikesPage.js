@@ -1,11 +1,12 @@
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
-import { getLikes } from "../../Service";
+import { getLikes, getOlderLikes } from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export default function MyLikePage(){
 
@@ -15,7 +16,7 @@ export default function MyLikePage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Você ainda não deu like")
     const {disappearMenu} = useContext(ShowMenuContext);
-    
+    const [hasMore, setHasMore] = useState(true)
 
     useEffect(()=>{
         getPostsLikeAUser()
@@ -26,12 +27,14 @@ export default function MyLikePage(){
     function getPostsLikeAUser(){
         const promise = getLikes(user.token);
             promise.then((resp)=>{
-                setLoading(false)
+                
                 setLikes(resp.data.posts) 
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }
+                setHasMore(true)
+                setLoading(false)
             })
             promise.catch(Erro);
     }
@@ -50,6 +53,19 @@ export default function MyLikePage(){
         setNoPosts(true);
         setLoading(false);
     }
+    function renderMorePosts(lastPostId) {
+        
+        getOlderLikes(user.token, lastPostId)
+        .then(res=> {
+           
+            setLikes([...likes, ...res.data.posts]);
+            
+            if(res.data.posts.length === 0 ) {
+                setHasMore(false);
+            }else{setHasMore(true)}
+        })
+        .catch(err => alert('Nao foi possivel carregar mais posts'))
+    }
 
     return(
     <ContainerBoxStyle onClick={disappearMenu}>
@@ -58,11 +74,25 @@ export default function MyLikePage(){
              <PostsAndTrendingStyle>
                  <ColunaPostsStyle>
                
-                {likes.map((postInfo)=>
-                    <Post key={postInfo.id} postInfo={postInfo} renderPage={getPostsLikeAUser}/>
-                )}
-                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                 {loading ? <LoadingStyle>Loading...</LoadingStyle> 
+                 : 
+                 noPosts? <NoPostsStyle>{message} </NoPostsStyle> 
+                 : 
+                 <InfiniteScroll
+                            pageStart={0}
+                            loadMore={()=>renderMorePosts(likes[likes.length-1].id)}
+                            hasMore={hasMore}
+                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                            
+                        >
+                            {likes.length>0 &&
+                            <>{likes.map((post)=> {
+                            return(   
+                                <Post key={post.id} postInfo={post} renderPage={getPostsLikeAUser} ></Post>
+                            )
+                        })}</>}
+                </InfiniteScroll>
+                 } 
                 </ColunaPostsStyle>
                 
                 <Trending />
