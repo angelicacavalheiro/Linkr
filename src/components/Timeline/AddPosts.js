@@ -73,12 +73,18 @@ function PostArea(props){
    
     function getUserLocation(){
 
-        function setUserPosition(position){
+        function defineUserPosition(position){
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
         }
 
-        geo.getCurrentPosition(setUserPosition);
+        function positionError (){
+            alert(`Erro ao obter localização, verifique se a permissão de acesso foi concedida ao navegador`);
+            setLocationStatus('Localização desativada');
+            setLocationColor('#707070');
+        }
+
+        geo.getCurrentPosition(defineUserPosition, positionError);
     }
     
 
