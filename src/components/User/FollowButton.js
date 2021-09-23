@@ -1,40 +1,55 @@
 import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
-import ShowMenuContext from '../../contexts/ShowMenuContext';
 import UserContext from "../../contexts/UserContext";
-import {getFollowingUsers} from "../../Service"
+import { getFollowingUsers, postUnfollowOrFollow } from "../../Service"
 
 export default function FollowButton({id}){
     const [isFollowing, setIsFollowing] = useState(false);
     const [isLoading, setIsLoading]= useState(false);
-    // const {following, setFollowing} = useContext(ShowMenuContext);
+    const [apperButton, setApperButton] = useState(false)
     const {user} = useContext(UserContext);
 
     useEffect(()=>{
        const promisse = getFollowingUsers(user.token)
        promisse.then((resp)=>{
-            const array =  resp.data.users.filter((user)=> user.id == id);
+            const array =  resp.data.users.filter((user)=> parseInt(user.id) === parseInt(id));
                     if(array.length !== 0){
                         setIsFollowing(true);
                     }
                     else{ setIsFollowing(false)}  
+            setApperButton(true)  
        })
-      
-            
+      promisse.catch(()=>alert("Erro: não foi possível executar a operação"))
+       // eslint-disable-next-line react-hooks/exhaustive-deps     
     },[id])
     
-    
+ 
 
     function followOrUnfollow(){
-        // if(following){
+        setIsLoading(true)
+        let action ="";
+        if(isFollowing){
+            action = "unfollow"
+         }
+         else{
+             action = "follow"
+         }
 
-        // }
+         const promise = postUnfollowOrFollow(user.token, id, action);
+         promise.then(()=>{
+             setIsLoading(false)
+             setIsFollowing(!isFollowing);
+             console.log("voltei")
+         })
     }
 
     return(
+        <>
+       {apperButton? 
         <ButtonStyle isFollowing={isFollowing} onClick={isLoading? "": followOrUnfollow}>
             {isFollowing? "Unfollow":"Follow"} 
-        </ButtonStyle>
+        </ButtonStyle> : ""}
+        </>
     );
 }
 
