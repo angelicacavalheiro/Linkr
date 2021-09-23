@@ -43,12 +43,12 @@ export default function FollowButton({id}){
     }
 
     return(
-        <>
+        <ButtonDiv>
        {apperButton? 
         <ButtonStyle isFollowing={isFollowing} onClick={isLoading? "": followOrUnfollow}>
             {isFollowing? "Unfollow":"Follow"} 
         </ButtonStyle> : ""}
-        </>
+        </ButtonDiv>
     );
 }
 
@@ -61,6 +61,12 @@ const ButtonStyle = styled.button`
     height: 31px;
     @media (max-width: 600px){
         margin-top: 20px;
-        margin-right: -55%;
 }  
+`
+const ButtonDiv = styled.div`
+    @media (max-width: 600px){
+            width: 90%;
+            display: flex;
+            justify-content: flex-end;
+    } 
 `

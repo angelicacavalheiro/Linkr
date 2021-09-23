@@ -37,6 +37,7 @@ const PageTitleStyle = styled.h2`
     @media (max-width: 600px){
         margin-left: 17px;
         flex-direction: column;
+        align-items: flex-start;
         width: 90%;
     }
 `
