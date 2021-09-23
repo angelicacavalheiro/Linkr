@@ -4,8 +4,10 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 import Arrow from './Arrow'
 import UserImage from './UserImage'
 import Menu from './Menu'
-import Search from './Search'
+import SearchDesktop from './SearchDesktop'
 import { Link } from 'react-router-dom';
+
+
 export default function MenuHeaderPage(){
 
     const {disappearMenu} = useContext(ShowMenuContext);    
@@ -18,7 +20,7 @@ export default function MenuHeaderPage(){
                         linkr
                     </Link>
                 </TitleStyled> 
-                <Search />
+                <SearchDesktop/>
                 <RightHeaderStyled>                            
                     <Arrow />
                     <UserImage />                    
@@ -41,6 +43,11 @@ const TitleStyled = styled.title`
     justify-content: flex-start;
     align-items: center;
     padding-left: 28px;
+
+
+    @media(max-width: 800px){
+        width: 50%;
+    } 
    
 `;
 
@@ -54,12 +61,22 @@ const HeaderStyled = styled.header`
     left: 0px;
     z-index: 1;
     justify-content: space-between;
+
+    @media(max-width: 800px){
+        width: 100%;
+    } 
+   
 `;
 
 const RightHeaderStyled = styled.header`
+    width: 150px;
     display: flex;
     justify-content: flex-end;
     align-items: center;    
+
+    @media(max-width: 800px){
+        width: 50%;
+    } 
 `;
 
 

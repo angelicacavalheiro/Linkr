@@ -9,8 +9,10 @@ import UserPage from './components/User/UserPage'
 import HashtagPage from './components/Hashtag/HashtagPage'
 import MyLikesPage from './components/MyLikes/MyLikesPage'
 import MenuHeaderPage from './components/MenuHeader/MenuHeaderPage';
+import SearchMobile from './components/MenuHeader/SearchMobile';
 import ShowMenuContext from './contexts/ShowMenuContext';
 import UserContext from './contexts/UserContext';
+
 
 export default function App() {
 
@@ -42,26 +44,31 @@ export default function App() {
 
               <Route path="/timeline" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <TimelinePage />
               </ Route>  
 
               <Route path="/my-posts" exact>
-                <MenuHeaderPage />      
+                <MenuHeaderPage />    
+                <SearchMobile />  
                 <MyPostsPage />
               </ Route>
 
               <Route path="/user/:id" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <UserPage />
               </ Route>
 
               <Route path="/hashtag/:hashtag" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <HashtagPage />
               </ Route>
 
               <Route path="/my-likes" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <MyLikesPage />
               </ Route> 
 

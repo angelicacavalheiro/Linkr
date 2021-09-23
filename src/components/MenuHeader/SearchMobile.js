@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import {DebounceInput} from 'react-debounce-input';
 import axios from "axios";
 
-export default function Search(){
+export default function SearchMobile(){
 
     const {showMenu, setShowMenu} = useContext(ShowMenuContext);
     const {user} = useContext(UserContext);
@@ -33,12 +33,22 @@ export default function Search(){
     
         const promisse = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/linkr/users/search?username=${usersSearch}`, config)
         promisse.then((res) => {    
-            setUsersFound(res.data.users)                                
-             }); 
+            sortUsers(res.data.users)                               
+            }); 
         promisse.catch((res) => {     
         setUsersFound("")                                
             });              
     } 
+
+    function sortUsers(dataUser){
+
+        const sortUsersFound = dataUser.sort((x, y) =>
+
+        (x.isFollowingLoggedUser === y.isFollowingLoggedUser) ? 0 : x.isFollowingLoggedUser ? -1 : 1)
+
+        setUsersFound(sortUsersFound)    
+
+    }
 
     return (
         <>
@@ -46,24 +56,23 @@ export default function Search(){
             <SearchandResultsStyled onClick={toggleMenu}>
                 <RelativeStyled>
                            
-                <DebounceInputStyled
-                minLength={3}
-                debounceTimeout={300}
-                type="text" 
-                placeholder="Search for people and friends"
-                value={usersSearch}
-                onChange={(e) => setUsersSearch(e.target.value)} 
-                onInput={search()}/>
+                    <DebounceInputStyled
+                    minLength={1}
+                    debounceTimeout={300}
+                    type="text" 
+                    placeholder="Search for people and friends"
+                    value={usersSearch}
+                    onChange={(e) => setUsersSearch(e.target.value)} 
+                    onInput={search()}/>
 
-                <Icon onClick={search} />                 
+                    <Icon onClick={search} />      
+
                 </RelativeStyled>
 
                { usersFound.length > 4 ? 
                < BlockStyled value={"scroll"} >
                    {usersFound !== ""  ?
-                        // lista de usuários que eu sigo, criada com filter
-                        // map nessa lista
-                        // se não map na proxima lista
+                        
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
@@ -78,14 +87,11 @@ export default function Search(){
                         : 
                         null
                     }
-
                 </BlockStyled>  
                : 
                 < BlockStyled value={"visible"} >
-                    {usersFound !== ""  ?
-                        // lista de usuários que eu sigo, criada com filter
-                        // map nessa lista
-                        // se não map na proxima lista
+                    {usersFound !== ""  ?                       
+                        
                         (usersFound.map((u) => {
                             return(
                                 <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
@@ -100,26 +106,26 @@ export default function Search(){
                         : 
                         null
                     }
-
-                </BlockStyled>               
-                    
-               }         
-                               
+                </BlockStyled>             
+               }                        
             </SearchandResultsStyled>
         </>          
     )
 }
 
 const BlockStyled = styled.div`
-    border-radius: 8px 8px 8px 8px;
+    border-radius: 8px;
     background: #E7E7E7;
     overflow-y: ${(props) => props.value}; 
-    height: ${(props) => props.value === "visible" ? "auto" : "50vh"} ;
+    height: ${(props) => props.value === "visible" ? "auto" : "30vh"};
+    width: 350px;
+    margin: 0px auto 0 auto;
+
 `;
 
 const ResultsStyled = styled.div `
     display: flex;
-    width: 573px;
+    width: 350px;
     font-family: Lato;
     font-size: 19px;
     line-height: 23px;
@@ -143,6 +149,10 @@ const UsernameStyled = styled.p`
 `;
 
 const SearchandResultsStyled = styled.div `
+    @media(min-width: 800px){
+        display:none
+    }
+
 `;
 
 const Icon = styled(AiOutlineSearch)`
@@ -159,9 +169,8 @@ const Icon = styled(AiOutlineSearch)`
     cursor: pointer;
 `;
 
-
 const DebounceInputStyled = styled(DebounceInput) `
-    width: 553px;
+    width: 350px;
     height: 45px;
     background: #FFFFFF;
     border-color: #FFFFFF;
@@ -177,15 +186,17 @@ const DebounceInputStyled = styled(DebounceInput) `
         line-height: 23px;
         color: #C6C6C6;
     }
+
 `;
 
 const RelativeStyled = styled.div `
     display: flex;
     justify-content: center;
-    height: 45px;
-    margin-top: 13px;    
+    width: 350px;
+    height: 45px;  
     border-radius: 8px;    
     background-color: #FFFFFF;
+    margin: 100px auto 0px auto;     
 `;
 
 
