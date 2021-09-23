@@ -9,21 +9,20 @@ import UserMap from './UserMap';
 export default function LocationMap({latitude, longitude, username}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    
     return(
         <>
-        <LocationIconStyle onClick={()=> setModalIsOpen(true)}/>
-        <ModalQueryStyle isOpen={modalIsOpen} style={modalStyle} ariaHideApp={false}>
+            <LocationIconStyle onClick={()=> setModalIsOpen(true)}/>
+            <ModalQueryStyle isOpen={modalIsOpen} style={modalStyle} ariaHideApp={false}>
                 <>
                     <p>
-                    <span>{username}'s location</span><AiOutlineClose onClick={() => setModalIsOpen(false)}/>
+                        <span>{username}'s location</span>
+                        <AiOutlineClose onClick={() => setModalIsOpen(false)}/>
                     </p>
                     <MapContainerStyle>
                         <UserMap latitude={latitude} longitude={longitude}/>
                     </MapContainerStyle>
-                </>
-            
-        </ModalQueryStyle>
+                </>  
+            </ModalQueryStyle>
         </>
     )
 }

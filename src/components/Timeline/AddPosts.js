@@ -27,8 +27,7 @@ function PostArea(props){
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [locationStatus, setLocationStatus] = useState('Localização desativada');
-    const [locationColor, setLocationColor] = useState('#707070')
+    const [sharingLocation, setSharingLocation] = useState(false);
     const token = props.token;
     const geo = navigator.geolocation;
     
@@ -36,7 +35,7 @@ function PostArea(props){
         event.preventDefault();
         let body;
 
-        locationStatus === 'Localização ativada' ? 
+        sharingLocation ? 
         body = {text, link, geolocation:{latitude, longitude}} :
         body = {text, link};
         
@@ -56,18 +55,15 @@ function PostArea(props){
     }
 
     function toggleLocation(){
-        locationStatus === 'Localização desativada' ? 
-            setLocationStatus('Localização ativada') :
-            setLocationStatus('Localização desativada');
 
-        locationColor === '#707070' ? 
-            setLocationColor('#238700') :
-            setLocationColor('#707070');
-
-        if (locationStatus === 'Localização desativada'){
+        if (sharingLocation){
+            setSharingLocation(false);
+        }
+        else{
+            setSharingLocation(true);
             getUserLocation();
         }
-        }
+    }
 
     
    
@@ -80,8 +76,7 @@ function PostArea(props){
 
         function positionError (){
             alert(`Erro ao obter localização, verifique se a permissão de acesso foi concedida ao navegador`);
-            setLocationStatus('Localização desativada');
-            setLocationColor('#707070');
+            setSharingLocation(false);
         }
 
         geo.getCurrentPosition(defineUserPosition, positionError);
@@ -107,9 +102,9 @@ function PostArea(props){
                 onChange={(e) => setText(e.target.value)}
             />
             <ButtonContainerStyle>
-                <LocationStyle color={locationColor} onClick={toggleLocation}>
-                    <LocationIcon/>
-                    <span>{locationStatus}</span>
+                <LocationStyle sharingLocation={sharingLocation} onClick={toggleLocation}>
+                    <LocationIcon sharingLocation={sharingLocation} />
+                    <span>{sharingLocation ? 'Localização ativada' : 'Localização desativada'}</span>
                 </LocationStyle>
                 <PublishButtonStyle 
                 type="submit" disabled={isLoading ? true : false}>
@@ -243,7 +238,7 @@ const PublishButtonStyle = styled.button`
 `;
 
 const LocationStyle = styled.div`
-    color: ${(props) => props.color};
+    color: ${(props) => props.sharingLocation ? '#238700' : '#707070'};
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 13px;
@@ -257,7 +252,7 @@ const LocationStyle = styled.div`
 `;
 
 const LocationIcon = styled(IoLocationOutline)`
-    color: ${(props) => props.color};
+    color: ${(props) => props.sharingLocation ? '#238700' : '#707070'};
     margin-right: 5px;
     font-size: 16px;
 `;
