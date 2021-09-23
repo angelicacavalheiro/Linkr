@@ -7,7 +7,6 @@ import Trending from "../../sharedComponents/Trending";
 import UserContext from "../../contexts/UserContext";
 import AddPosts from "./AddPosts";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
-import ReactTooltip from 'react-tooltip';
 
 export default function TimelinePage () {
     
@@ -27,7 +26,6 @@ export default function TimelinePage () {
                 setNoPosts(true);
             }
             setPostsList(res.data);
-            ReactTooltip.rebuild();  
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 

@@ -15,7 +15,7 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import { getComments } from "../Service";
 
-export default function Post ({postInfo, setPostsList, renderPage}) {
+export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -92,7 +92,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-            <Likes postInfo={postInfo} renderPage={renderPage} />
+            <Likes postInfo={postInfo} />
             <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>

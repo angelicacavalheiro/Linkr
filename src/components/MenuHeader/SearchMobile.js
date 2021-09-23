@@ -21,9 +21,8 @@ export default function SearchMobile(){
         }
     }
 
-    function search(){        
-        
-        if (usersSearch !== ""){
+    function search(){       
+        if(usersSearch !== ""){
             getUsers(user.token, usersSearch)
             .then((res) => {    
                 sortUsers(res.data.users)                               
@@ -31,8 +30,7 @@ export default function SearchMobile(){
             .catch((res) => {     
             setUsersFound("")                                
             });
-        }
-                                 
+        }                               
     } 
 
     function sortUsers(dataUser){
@@ -54,7 +52,7 @@ export default function SearchMobile(){
                     placeholder="Search for people and friends"
                     value={usersSearch}
                     onChange={(e) => setUsersSearch(e.target.value)} 
-                    onInput={search()}/>
+                    onInput={() => search()}/>
                     <Icon onClick={search} />      
                 </RelativeStyled>
                 <BlockStyled >
@@ -85,25 +83,22 @@ const BlockStyled = styled.div`
     overflow-x: hidden;
     width: 350px;
     margin: 0px auto 0 auto;
-
-    @media(max-height: 30vh){
-        overflow-y: scroll;
-        height: 30vh;
+    max-height: 30vh;
+    overflow-y: scroll;    
+    
+    &::-webkit-scrollbar {
+    width: 10px;
     }
 
-        &::-webkit-scrollbar {
-        width: 10px;
-        }
+    &::-webkit-scrollbar-track {
+    background: #E7E7E7;
+    border-radius: 1000px;
+    }
 
-        &::-webkit-scrollbar-track {
-        background: #E7E7E7;
-        border-radius: 1000px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-        background-color: #ffffff;
-        border-radius: 20px;
-        }
+    &::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 20px;
+    }
 `;
 
 const ResultsStyled = styled.div `

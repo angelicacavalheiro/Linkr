@@ -25,12 +25,12 @@ export default function SearchDesktop(){
         
         if (usersSearch !== ""){
             getUsers(user.token, usersSearch)
-        .then((res) => {    
-            sortUsers(res.data.users)                               
-        }) 
-        .catch((res) => {     
-            setUsersFound("")                                
-        });
+            .then((res) => {    
+                sortUsers(res.data.users)                               
+            }) 
+            .catch((res) => {     
+                setUsersFound("")                                
+            });
         }
         
 
@@ -85,27 +85,25 @@ const BlockStyled = styled.div`
     border-radius: 8px;
     background: #E7E7E7;
     overflow-x: hidden;
+    height: auto;
     width: 585px;
     margin: 0px auto 0 auto;
-
-    @media(max-height: 50vh){
-        overflow-y: scroll;
-        height: 50vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+    
+    &::-webkit-scrollbar {
+    width: 10px;
     }
 
-        &::-webkit-scrollbar {
-        width: 10px;
-        }
+    &::-webkit-scrollbar-track {
+    background: #E7E7E7;
+    border-radius: 1000px;
+    }
 
-        &::-webkit-scrollbar-track {
-        background: #E7E7E7;
-        border-radius: 1000px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-        background-color: #ffffff;
-        border-radius: 20px;
-        }
+    &::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 20px;
+    }
 `;
 
 const ResultsStyled = styled.div `
