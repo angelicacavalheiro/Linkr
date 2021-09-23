@@ -15,7 +15,7 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import { getComments } from "../Service";
 
-export default function Post ({postInfo, renderPage}) {
+export default function Post ({postInfo, setPostsList, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -42,8 +42,8 @@ export default function Post ({postInfo, renderPage}) {
       const promise = getComments(user.token, postInfo.id)
       promise.then((resp)=>{
           setComments(resp.data.comments)
-          
       })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing,comments])
 
     function checkYoutubeVideo(){
