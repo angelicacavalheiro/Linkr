@@ -270,9 +270,11 @@ color: #CECECE;
 
 const LinkStyle = styled(Link)`
     text-decoration: none; 
+    word-break: break-all;
 `
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
+    word-break: break-all;
 `
 const DiplayFlexBox =styled.div`
     display: flex;
