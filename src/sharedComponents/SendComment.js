@@ -4,7 +4,7 @@ import {postComment} from "../Service"
 import { useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
-export default function SendComment({id}){
+export default function SendComment({id, comments, setComments}){
     const [isSending, setIsSending] = useState(false);
     const [inputComment, setInputComment]= useState("");
     const {user} = useContext(UserContext)
@@ -22,9 +22,19 @@ export default function SendComment({id}){
             }
 
             const promise = postComment(user.token , id, body);
-            promise.then(()=> {
+            promise.then((resp)=> {
                 setIsSending(false)
                 setInputComment("");
+                const newcomment = {
+                    id: resp.data.comment.postId,
+                    text: resp.data.comment.text,
+                    user: {
+                        id: user.id,
+                        username: user.username,
+                        avatar: user.image
+                    } 
+                }
+                setComments([...comments,newcomment])
             })
         }
     }
