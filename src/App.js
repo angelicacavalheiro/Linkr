@@ -9,14 +9,17 @@ import UserPage from './components/User/UserPage'
 import HashtagPage from './components/Hashtag/HashtagPage'
 import MyLikesPage from './components/MyLikes/MyLikesPage'
 import MenuHeaderPage from './components/MenuHeader/MenuHeaderPage';
+import SearchMobile from './components/MenuHeader/SearchMobile';
 import ShowMenuContext from './contexts/ShowMenuContext';
 import UserContext from './contexts/UserContext';
+
 
 export default function App() {
 
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
   const [showMenu , setShowMenu] = useState(false)
   const [user, setUser] = useState(storedUser);  
+  const [following, setFollowing]=useState([])
 
   function disappearMenu() { 
     if(showMenu === true){
@@ -30,7 +33,7 @@ export default function App() {
         <UserContext.Provider value={{user, setUser}}>
           <Switch>
 
-          <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu}}>
+          <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu, setFollowing, following}}>
          
               <Route path="/sign-up" exact>
                 <SignUpPage />
@@ -42,26 +45,31 @@ export default function App() {
 
               <Route path="/timeline" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <TimelinePage />
               </ Route>  
 
               <Route path="/my-posts" exact>
-                <MenuHeaderPage />      
+                <MenuHeaderPage />    
+                <SearchMobile />  
                 <MyPostsPage />
               </ Route>
 
               <Route path="/user/:id" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <UserPage />
               </ Route>
 
               <Route path="/hashtag/:hashtag" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <HashtagPage />
               </ Route>
 
               <Route path="/my-likes" exact>
                 <MenuHeaderPage />
+                <SearchMobile />
                 <MyLikesPage />
               </ Route> 
 

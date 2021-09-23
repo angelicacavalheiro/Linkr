@@ -1,13 +1,14 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { postLike, postUnlike, getLikes} from "../Service";
 import ReactTooltip from 'react-tooltip';
 
-export default function Likes ({postInfo, renderPage}){
+export default function Likes ({postInfo}){
 
     const {user} = useContext(UserContext);
+    const [like, setLike] = useState(postInfo.likes)
     
     function getLike(id){
 
@@ -27,7 +28,8 @@ export default function Likes ({postInfo, renderPage}){
 
         postLike(user.token, id)
         .then(res => {   
-            renderPage()
+            setLike(res.data.post.likes)
+            ReactTooltip.rebuild();  
         }) 
     } 
        
@@ -35,38 +37,52 @@ export default function Likes ({postInfo, renderPage}){
 
         postUnlike(user.token, id)
         .then(res => {    
-            renderPage()                                 
+            setLike(res.data.post.likes)    
+            ReactTooltip.rebuild();                             
         })   
     }       
 
     function NumberofLikes(){
-        if (postInfo.likes.length === 0){
+        let userName = "";
+
+        if (like[0] !== undefined){
+            userName = like[0]["user.username"] !== undefined ? "user.username" : "username";
+        }
+
+        if (like.length === 0){
             return (null)
-        } else if (postInfo.likes.length === 1) {
-            return (postInfo.likes[0]["user.username"])
-        } else if   (postInfo.likes.length === 2) {            
-            return(`${postInfo.likes[0]["user.username"]}, ${postInfo.likes[1]["user.username"]}`)
-        } else if (postInfo.likes.length > 2){
-            return (`${postInfo.likes[0]["user.username"]}, ${postInfo.likes[1]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
+        } else if (like.length === 1) {
+            return (like[0][userName])
+        } else if   (like.length === 2) {            
+            return(`${like[0][userName]}, ${like[1][userName]}`)
+        } else if (like.length > 2){
+            return (`${like[0][userName]}, ${like[1][userName]} e outras ${(like.length)-2} pessoas`)
         }
     }
     
     function NumberofLikesIncludesMy(){
-    if (postInfo.likes.length === 0){
-        return (null)
-    } else if (postInfo.likes.length === 1) {
-        return ("Você curtiu")
-    } else if   (postInfo.likes.length === 2) {
-        return (`Você e ${postInfo.likes[0]["user.username"] === user.id ? postInfo.likes[1]["user.username"] : postInfo.likes[0]["user.username"]}  curtiram`)
-    } else if (postInfo.likes.length > 2){
-        const likeListExcludeMy = postInfo.likes.filter((l) => (l.userId !== user.id))
-        return (`Você, ${likeListExcludeMy[0]["user.username"]} e outras ${(postInfo.likes.length)-2} pessoas`)
+
+        let userName = "";
+
+        if (like[0] !== undefined){
+            userName = like[0]["user.username"] !== undefined ? "user.username" : "username";
+        }
+
+        if (like.length === 0){
+            return (null)
+        } else if (like.length === 1) {
+            return ("Você curtiu")
+        } else if   (like.length === 2) {
+            return (`Você e ${like[0][userName] === user.id ? like[1][userName] : like[0][userName]}  curtiram`)
+        } else if (like.length > 2){
+            const likeListExcludeMy = like.filter((l) => (l.userId !== user.id))
+            return (`Você, ${likeListExcludeMy[0][userName]} e outras ${(like.length)-2} pessoas`)
+        }
     }
-}
 
     return(
        <>
-            {postInfo.likes.filter((l) => (l.userId === user.id)).length !== 0 ?
+            {like.filter((l) => (l.userId === user.id)).length !== 0 ?
                 <IconAiFillHeart style={{color:"#AC0000"}} 
                 onClick={() => getLike(postInfo.id)} 
                 data-tip={NumberofLikesIncludesMy()}/>
@@ -78,7 +94,7 @@ export default function Likes ({postInfo, renderPage}){
         
             <ReactTooltip />
     
-            <p>{`${postInfo.likes.length} ${postInfo.likes.length > 1 ? 'likes' : 'like'}`}</p>
+            <p>{`${like.length} ${like.length > 1 ? 'likes' : 'like'}`}</p>
        </>
     )
 }
@@ -87,10 +103,12 @@ const IconAiFillHeart = styled(AiFillHeart)`
     font-size: 20px;
     margin-top: 19px;
     font-weight: 700;
+    outline: 0;
 `; 
 
 const IconOutlineHeart = styled(AiOutlineHeart)`
     font-size: 20px;
     margin-top: 19px;
     font-weight: 700;
+    outline: 0;
 `; 

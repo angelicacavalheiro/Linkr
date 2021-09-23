@@ -84,7 +84,7 @@ export default function HashtagPage(){
                             pageStart={0}
                             loadMore={()=>renderMorePosts(posts[posts.length-1].id)}
                             hasMore={hasMore}
-                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                            loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                         >
                             {posts.length>0 &&
                             <>{posts.map((post)=> {

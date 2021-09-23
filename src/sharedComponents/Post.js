@@ -6,25 +6,29 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import Trash from "./Trash";
 import UserContext from "../contexts/UserContext";
-import React, { useRef } from "react";
+import React, { useRef} from "react";
 import { TiPencil } from "react-icons/ti";
 import { putEditPost } from "../Service";
+import CommentsIcon from "./CommentsIcon";
+import Comments from "./Comments";
 import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
+import LocationMap from "./Maps/LocationMap";
+import { getComments } from "../Service";
 
-
-export default function Post ({postInfo, setPostsList, renderPage}) {
+export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
     const [isMyPost , setIsMyPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [sending, setSending] = useState(false);
-    const [postText, setPostText]=useState(postInfo.text)
+    const [postText, setPostText] = useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
+    const [seeComments, setSeeComments] = useState(false)
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
-
+    const [comments, setComments] = useState([]);
     
     useEffect(()=>{
         
@@ -36,6 +40,11 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             editPost();
         }
        checkYoutubeVideo()
+
+      const promise = getComments(user.token, postInfo.id)
+      promise.then((resp)=>{
+          setComments(resp.data.comments)
+      })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing])
 
@@ -81,14 +90,25 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
     }
 
     return(
+        <CommentContainerStyle>
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-            <Likes postInfo={postInfo} renderPage={renderPage} />
+            <Likes postInfo={postInfo} />
+            <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
-                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                    <UserDataContainerStyle>
+                        <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                        {postInfo.hasOwnProperty('geolocation') ? 
+                            <LocationMap latitude={postInfo.geolocation.latitude} 
+                                    longitude={postInfo.geolocation.longitude}
+                                    username={postInfo.user.username}
+                            /> 
+                            : <div/>
+                        }
+                    </UserDataContainerStyle>
                    {isMyPost? 
                    <TrashAndEditStyle>
                    <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> 
@@ -96,7 +116,18 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                     </TrashAndEditStyle>
                    : ""}
                 </DiplayFlexBox>
-                {isEditing? <textarea type="text" value={inputValue} onChange={(e)=> setInputValue(e.target.value)} ref={focusHere} onKeyUp={(e)=>keyPrees(e)} disabled={sending}></textarea> : <p><HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>{postText}</HashTagStyle></p>}
+                {isEditing? 
+                    <textarea type="text" 
+                              value={inputValue} 
+                              onChange={(e)=> setInputValue(e.target.value)} 
+                              ref={focusHere} onKeyUp={(e)=>keyPrees(e)} 
+                              disabled={sending}>
+                    </textarea> : 
+                    <BreackHashtag>
+                        <HashTagStyle onHashtagClick={val => redirectToHashTag(val)}>
+                            {postText}
+                        </HashTagStyle>
+                    </BreackHashtag>}
                 <Iframe displayIframe={displayIframe} postInfo={postInfo} setDisplayIframe={setDisplayIframe}></Iframe>
                 {isYoutubeVideo? <YoutubeVideo link={postInfo.link}/> : <LinkBoxStyle onClick={()=> setDisplayIframe(true)}>
                     <LinkInfoStyle>
@@ -110,17 +141,18 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
                 </LinkBoxStyle>}
             </ContentBoxStyle>
         </BlackBoxStyle>
-        
+             <Comments comments={comments} setComments={setComments} id={postInfo.id} seeComments={seeComments} />
+        </CommentContainerStyle>
     )
 }
 
 const BlackBoxStyle = styled.div`
     background-color: #171717;
     width: 100%;
+    height: auto;
     border-radius: 16px;
     margin-top:16px;
     display: flex;  
-
     @media (max-width: 600px){
         border-radius: 0;
 }  
@@ -149,7 +181,6 @@ text-align: center;
 const PencilIcon =styled(TiPencil)`
 color: #ffffff;
 font-size: 20px;
-
 :hover{
     cursor: pointer;
     filter: brightness(0.7);
@@ -182,7 +213,6 @@ width: 500px;
         padding: 7px;
         font-size: 14px;
     }
-
     @media(max-width: 600px){
         word-break:break-all;
     }
@@ -208,15 +238,12 @@ img{
     @media(max-width: 600px) {
         width: 95px;
         height: 100%;
-
     }
-
 }
     @media(max-width: 600px) {
         word-break: break-all;
         width: 75vw;
     }
-
 `
 const LinkInfoStyle = styled.div`
 display: flex;
@@ -233,11 +260,9 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
-
     @media(max-width: 600px) {
        font-size: 11px;
     }
-
 `
 const LinkDescriptionStyle = styled.div`
 display: flex;
@@ -246,11 +271,9 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
-
     @media(max-width: 600px) {
        font-size: 8px;
     }
-
 `
 const LinkUrlStyle = styled.h4`
 display: flex;
@@ -265,9 +288,13 @@ color: #CECECE;
        font-size: 9px;
     }
 `
+const UserDataContainerStyle = styled.div`
+    display: flex;
+`;
 
 const LinkStyle = styled(Link)`
     text-decoration: none; 
+    word-break: break-all;
 `
 const HashTagStyle = styled(ReactHashtag)`
     cursor: 'pointer';
@@ -275,10 +302,23 @@ const HashTagStyle = styled(ReactHashtag)`
 const DiplayFlexBox =styled.div`
     display: flex;
     justify-content: space-between;
-
 `
 const TrashAndEditStyle = styled.div`
     display: flex;
     justify-content: space-between;
     
+`
+const CommentContainerStyle = styled.div`
+    width: auto;
+    height: auto;
+    background-color: #1E1E1E;
+    border-radius: 16px;
+
+    @media (max-width: 600px){
+        border-radius: 0;
+    }
+`
+const BreackHashtag = styled.div`
+word-break: break-all;
+
 `

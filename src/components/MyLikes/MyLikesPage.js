@@ -82,7 +82,7 @@ export default function MyLikePage(){
                             pageStart={0}
                             loadMore={()=>renderMorePosts(likes[likes.length-1].id)}
                             hasMore={hasMore}
-                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                            loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                             
                         >
                             {likes.length>0 &&

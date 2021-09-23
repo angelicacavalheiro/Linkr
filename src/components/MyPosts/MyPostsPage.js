@@ -6,7 +6,6 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
-import ReactTooltip from 'react-tooltip';
 import InfiniteScroll from 'react-infinite-scroller';
 
 export default function MyPostPage(){
@@ -31,7 +30,6 @@ export default function MyPostPage(){
             promise.then((resp)=>{
                 
                 setPosts(resp.data.posts) 
-                ReactTooltip.rebuild();  
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
@@ -85,7 +83,7 @@ export default function MyPostPage(){
                             pageStart={0}
                             loadMore={()=>renderMorePosts(posts[posts.length-1].id)}
                             hasMore={hasMore}
-                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                            loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                             
                         >
                             {posts.length>0 &&

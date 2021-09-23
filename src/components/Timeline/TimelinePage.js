@@ -77,6 +77,8 @@ export default function TimelinePage () {
         .catch(err => alert('Nao foi possivel carregar mais posts'))
     }
 
+  
+
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
@@ -89,12 +91,12 @@ export default function TimelinePage () {
                         <AddPosts loadPosts={loadPosts}/>
                         <NoPostsStyle appear={noPosts}><p>Nenhum post encontrado</p></NoPostsStyle>
                         <NoFollowersStyle appearNoFollow={noFollow}><p>Você não segue ninguém ainda, procure por perfis na busca</p></NoFollowersStyle>
-                        
-                         <InfiniteScroll
+                        {postsList.length !== 0 ? 
+                        <InfiniteScroll
                             pageStart={0}
                             loadMore={()=>renderMorePosts(postsList[postsList.length-1].id)}
                             hasMore={hasMore}
-                            loader={<LoadingStyle>Loading...</LoadingStyle>}
+                            loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                             
                         >
                             {postsList.length>0 &&
@@ -104,7 +106,7 @@ export default function TimelinePage () {
                             )
                         })}</>}
                         </InfiniteScroll>
-                         
+                        :``}
                         </>}
                         
                     </ColunaPostsStyle>

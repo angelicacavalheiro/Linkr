@@ -97,7 +97,6 @@ function postLike (token, id) {
     }
     const promise = axios.post(`${URL}/posts/${id}/like`, {}, config);    
     return promise
-
 }
 
 function postUnlike (token, id) {
@@ -108,7 +107,6 @@ function postUnlike (token, id) {
     }
     const promise = axios.post(`${URL}/posts/${id}/dislike`, {}, config);    
     return promise
-
 }
 
 function getLikes (token) {
@@ -119,9 +117,25 @@ function getLikes (token) {
     }
     const promise = axios.get(`${URL}/posts/liked`, config);    
     return promise
-
 }
-
+function getComments(token, id){
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/posts/${id}/comments`, config);    
+    return promise
+}
+function postComment(token, id, body){
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/posts/${id}/comment`,body, config);    
+    return promise
+}
 function getFollowingUsers(token) {
     const config = {
         headers: {
@@ -129,6 +143,27 @@ function getFollowingUsers(token) {
         }
     }
     const promise = axios.get(`${URL}/users/follows`, config);
+    return promise
+}
+function getUsers (token, usersSearch) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/users/search?username=${usersSearch}`, config)  
+    return promise
+}
+
+    
+function postUnfollowOrFollow(token, id, action){
+    
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/users/${id}/${action}`, {} ,config);  
     return promise
 }
 
@@ -194,9 +229,13 @@ export {
     postLike,
     postUnlike,
     getLikes,
-    getFollowingUsers,
     getOlderPosts,
     getOlderMyPosts,
     getOlderLikes,
-    getOlderHashtags
+    getOlderHashtags,
+    getComments,
+    postComment,
+    getFollowingUsers,
+    getUsers,
+    postUnfollowOrFollow
 }
