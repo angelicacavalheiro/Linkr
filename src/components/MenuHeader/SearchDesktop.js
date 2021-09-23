@@ -21,7 +21,7 @@ export default function SearchDesktop(){
         }
     }
 
-    function search(){   
+    function search(){  
         
         if (usersSearch !== ""){
             getUsers(user.token, usersSearch)
@@ -31,10 +31,7 @@ export default function SearchDesktop(){
             .catch((res) => {     
                 setUsersFound("")                                
             });
-        }
-        
-
-                                                        
+        }                                                 
     } 
 
     function sortUsers(dataUser){
@@ -43,6 +40,10 @@ export default function SearchDesktop(){
         (x.isFollowingLoggedUser === y.isFollowingLoggedUser) ? 0 : x.isFollowingLoggedUser ? -1 : 1)
 
         setUsersFound(sortUsersFound)   
+    }
+
+    function clean(){        
+        setUsersSearch("")
     }
         
     return (
@@ -59,7 +60,7 @@ export default function SearchDesktop(){
                 onInput={search()}/>
                 <Icon onClick={search}/>                 
                 </RelativeStyled>
-                <BlockStyled >
+                <BlockStyled onClick={clean}>
                    {usersFound && usersSearch !== ""  ? 
                         (usersFound.map((u) => {
                             return(

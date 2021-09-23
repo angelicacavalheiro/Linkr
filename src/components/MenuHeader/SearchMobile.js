@@ -21,7 +21,8 @@ export default function SearchMobile(){
         }
     }
 
-    function search(){       
+    function search(){    
+
         if(usersSearch !== ""){
             getUsers(user.token, usersSearch)
             .then((res) => {    
@@ -41,30 +42,29 @@ export default function SearchMobile(){
         setUsersFound(sortUsersFound)  
     }
 
-    function clean(){
-
-        setUsersFound("")  
+    function clean(){        
+        setUsersSearch("")
     }
 
     return (
         <>
             <SearchandResultsStyled onClick={toggleMenu}>
                 <RelativeStyled>    
-                    <DebounceInputStyled
-                    minLength={3}
-                    debounceTimeout={300}
-                    type="text" 
-                    placeholder="Search for people and friends"
-                    value={usersSearch}
-                    onChange={(e) => setUsersSearch(e.target.value)} 
-                    onInput={() => search()}/>
-                    <Icon onClick={search} />      
+                <DebounceInputStyled
+                minLength={3}
+                debounceTimeout={300}
+                type="text" 
+                placeholder="Search for people and friends"
+                value={usersSearch}
+                onChange={(e) => setUsersSearch(e.target.value)} 
+                onInput={search()}/>
+                <Icon onClick={search} />      
                 </RelativeStyled>
-                <BlockStyled >
+                <BlockStyled onClick={clean}>
                    {usersFound && usersSearch !== "" ?
                         (usersFound.map((u) => {
                             return(
-                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}} onClick={clean}> 
+                                <Link to={`/user/${u.id}`} style={{textDecoration: 'none'}}> 
                                     <ResultsStyled>
                                         <ImageStyled src={u.avatar} />   
                                         <UsernameStyled> {u.username} </UsernameStyled> 
