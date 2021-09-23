@@ -13,6 +13,7 @@ import CommentsIcon from "./CommentsIcon";
 import Comments from "./Comments";
 import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
+import LocationMap from "./Maps/LocationMap";
 import { getComments } from "../Service";
 
 export default function Post ({postInfo, setPostsList, renderPage}) {
@@ -98,7 +99,16 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
-                    <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                    <UserDataContainerStyle>
+                        <LinkStyle to={`/user/${postInfo.user.id}`}><h3>{postInfo.user.username}</h3></LinkStyle>
+                        {postInfo.hasOwnProperty('geolocation') ? 
+                            <LocationMap latitude={postInfo.geolocation.latitude} 
+                                    longitude={postInfo.geolocation.longitude}
+                                    username={postInfo.user.username}
+                            /> 
+                            : <div/>
+                        }
+                    </UserDataContainerStyle>
                    {isMyPost? 
                    <TrashAndEditStyle>
                    <PencilIcon onClick={()=> setIsEditing(!isEditing)}/> 
@@ -267,6 +277,9 @@ color: #CECECE;
        font-size: 9px;
     }
 `
+const UserDataContainerStyle = styled.div`
+    display: flex;
+`;
 
 const LinkStyle = styled(Link)`
     text-decoration: none; 
