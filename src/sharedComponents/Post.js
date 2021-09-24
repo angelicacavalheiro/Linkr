@@ -33,7 +33,6 @@ export default function Post ({postInfo, renderPage}) {
     const [comments, setComments] =useState([]);
     const wasReposted = postInfo.hasOwnProperty('repostedBy');
 
-
     useEffect(()=>{
         setSending(false)
         if(user.id === postInfo.user.id){

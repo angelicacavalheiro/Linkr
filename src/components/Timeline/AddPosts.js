@@ -64,8 +64,6 @@ function PostArea(props){
             getUserLocation();
         }
     }
-
-    
    
     function getUserLocation(){
 
@@ -82,7 +80,6 @@ function PostArea(props){
         geo.getCurrentPosition(defineUserPosition, positionError);
     }
     
-
     return(
         <PostAreaFormStyle onSubmit={publishPost}>
             <StatusQuestionStyle>

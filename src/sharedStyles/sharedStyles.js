@@ -42,10 +42,6 @@ const PageTitleStyle = styled.h2`
         width: 90%;
     }
 `
-// const ColunaTrendingStyle = styled.div`
-//     //nao sei se coloco ainda
-// `
-
 const SignUpOrLoginInputStyled = styled.input`
     width: 100%;
     height: 65px;
