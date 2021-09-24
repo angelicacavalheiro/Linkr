@@ -7,7 +7,6 @@ import Trending from "../../sharedComponents/Trending";
 import UserContext from "../../contexts/UserContext";
 import AddPosts from "./AddPosts";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
-import ReactTooltip from 'react-tooltip';
 
 export default function TimelinePage () {
     
@@ -23,15 +22,13 @@ export default function TimelinePage () {
             setLoading(false);
             postsList.length === 0 ? setNoPosts(true) : setNoPosts(false);
             setPostsList(res.data);
-            ReactTooltip.rebuild();
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 
     }
 
     useEffect(()=> {
-        loadPosts()
-       
+        loadPosts()       
 
         const intervalRerenderId = setInterval(() => {
             loadPosts();

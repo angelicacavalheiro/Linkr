@@ -16,7 +16,7 @@ import YoutubeVideo from "./YoutubeVideo";
 import LocationMap from "./Maps/LocationMap";
 import { getComments } from "../Service";
 
-export default function Post ({postInfo, setPostsList, renderPage}) {
+export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
     const focusHere = useRef();
     const { user } = useContext(UserContext);
@@ -43,7 +43,6 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
       const promise = getComments(user.token, postInfo.id)
       promise.then((resp)=>{
           setComments(resp.data.comments)
-          
       })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditing])
@@ -94,7 +93,7 @@ export default function Post ({postInfo, setPostsList, renderPage}) {
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
-            <Likes postInfo={postInfo} renderPage={renderPage} />
+            <Likes postInfo={postInfo} />
             <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
@@ -320,5 +319,7 @@ const CommentContainerStyle = styled.div`
 `
 const BreackHashtag = styled.div`
 word-break: break-all;
-
+color: #B7B7B7;
+font-size: 17px;
+margin-top: 10px;
 `

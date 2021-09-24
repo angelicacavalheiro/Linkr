@@ -33,6 +33,7 @@ const PageTitleStyle = styled.h2`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    word-break: break-all;
     
     @media (max-width: 600px){
         margin-left: 17px;

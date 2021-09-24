@@ -97,7 +97,6 @@ function postLike (token, id) {
     }
     const promise = axios.post(`${URL}/posts/${id}/like`, {}, config);    
     return promise
-
 }
 
 function postUnlike (token, id) {
@@ -108,7 +107,6 @@ function postUnlike (token, id) {
     }
     const promise = axios.post(`${URL}/posts/${id}/dislike`, {}, config);    
     return promise
-
 }
 
 function getLikes (token) {
@@ -119,7 +117,6 @@ function getLikes (token) {
     }
     const promise = axios.get(`${URL}/posts/liked`, config);    
     return promise
-
 }
 function getComments(token, id){
     const config = {
@@ -148,13 +145,34 @@ function getFollowingUsers(token) {
     const promise = axios.get(`${URL}/users/follows`, config);
     return promise
 }
+function getUsers (token, usersSearch) {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/users/search?username=${usersSearch}`, config)  
+    return promise
+}
+
+    
 function postUnfollowOrFollow(token, id, action){
+    
     const config = {
         headers: {
             "Authorization": `Bearer ${token}`
         }
     }
     const promise = axios.post(`${URL}/users/${id}/${action}`, {} ,config);  
+    return promise
+}
+function getInfoUser(token, id){
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.get(`${URL}/users/${id}`, config)
     return promise
 }
 
@@ -174,5 +192,7 @@ export {
     getComments,
     postComment,
     getFollowingUsers,
-    postUnfollowOrFollow
+    getUsers,
+    postUnfollowOrFollow,
+    getInfoUser
 }
