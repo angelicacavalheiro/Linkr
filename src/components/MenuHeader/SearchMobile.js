@@ -135,7 +135,7 @@ const UsernameStyled = styled.p`
 `;
 
 const SearchandResultsStyled = styled.div `
-    @media(min-width: 800px){
+    @media(min-width: 600px){
         display:none
     }
 `;

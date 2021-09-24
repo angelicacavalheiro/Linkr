@@ -10,7 +10,7 @@ const ContainerCenterStyle = styled.div`
     margin: 160px auto 0px auto;
     justify-content: space-between;
     width: 937px;
-    @media (max-width: 600px) {
+    @media (max-width: 937px) {
         width: 100%;
         margin: 0px;
         padding: 17px 0;
@@ -20,7 +20,7 @@ const ContainerCenterStyle = styled.div`
 const ColunaPostsStyle = styled.div`
     width: 611px;
     
-    @media (max-width: 600px) {
+    @media (max-width: 937px) {
         width: 100%;
         
     }
@@ -34,7 +34,7 @@ const PageTitleStyle = styled.h2`
     align-items: center;
     justify-content: space-between;
     
-    @media (max-width: 600px){
+    @media (max-width: 937px){
         margin-left: 17px;
         flex-direction: column;
         align-items: flex-start;
@@ -80,7 +80,7 @@ const SignUpOrLoginButtonStyled = styled.button`
         filter: brightness(1.2);
     }
 
-    @media(max-width: 614px){
+    @media(max-width: 937px){
         width: 100%;
     }
 `
@@ -97,7 +97,7 @@ const SwitchSignUpLoginLinkStyled = styled.p`
 const PostsAndTrendingStyle = styled.div`
     display: flex;
     justify-content: space-between;
-    @media(max-width:600px) {
+    @media(max-width:937px) {
         width:100%;
     }
 `

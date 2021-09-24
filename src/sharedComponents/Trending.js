@@ -27,15 +27,9 @@ export default function Trending () {
     }  
 
     function search(e){
-
         if(e.keyCode === 13) {
-
-            history.push(`/hashtag/${searchHashtag}`)
-    
-        }
-        
-        
-    
+            history.push(`/hashtag/${searchHashtag}`)    
+        }      
     }
     
     return(
@@ -107,7 +101,7 @@ const TrendingStyle = styled.div`
     border-radius: 16px;
     color: white;
 
-    @media(max-width:600px) {
+    @media(max-width:937px) {
         display: none;
     }
 `
