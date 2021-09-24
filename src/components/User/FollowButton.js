@@ -59,6 +59,11 @@ const ButtonStyle = styled.button`
     border: none;
     width: 112px;
     height: 31px;
+
+    :hover{
+        filter: brightness(1.2);
+        cursor: pointer;
+    }
     @media (max-width: 600px){
         margin-top: 20px;
 }  

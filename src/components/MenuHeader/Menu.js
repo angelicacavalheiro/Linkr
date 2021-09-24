@@ -62,6 +62,11 @@ const OptionsStyled = styled.div`
         color: #FFFFFF;
         margin: 5px auto 5px auto;
         cursor: pointer;
+        
+        :hover{
+            filter: brightness(0.7);
+            cursor: pointer;
+        }
     }
 `;
 

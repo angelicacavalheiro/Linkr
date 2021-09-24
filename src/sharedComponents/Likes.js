@@ -104,6 +104,10 @@ const IconAiFillHeart = styled(AiFillHeart)`
     margin-top: 19px;
     font-weight: 700;
     outline: 0;
+    :hover{
+        cursor: pointer;
+        filter: brightness(1.2);
+    }
 `; 
 
 const IconOutlineHeart = styled(AiOutlineHeart)`
@@ -111,4 +115,9 @@ const IconOutlineHeart = styled(AiOutlineHeart)`
     margin-top: 19px;
     font-weight: 700;
     outline: 0;
+    
+    :hover{
+        cursor: pointer;
+        filter: brightness(0.7);
+    }
 `; 

@@ -194,6 +194,10 @@ width: 500px;
     h3{
         color: #ffffff;
         font-size: 19px;
+        
+        :hover{
+            filter: brightness(0.7);
+        }
     }
     p{
         font-size: 17px;
