@@ -10,7 +10,7 @@ export default function Repost({postInfo}){
 
     const postId = postInfo.id;
     const { user } = useContext(UserContext);
-    const [colorIntensityCounter, setColorIntensityCounter] = useState(9);
+    const [colorIntensityCounter, setColorIntensityCounter] = useState(1);
     const [repostCount, setRepostCount] = useState(postInfo.repostCount)
 
     let reposted;
@@ -28,12 +28,7 @@ export default function Repost({postInfo}){
         postRepost(user.token, postId)
             .then(() => {
                 setWasReposted(true);
-                if(colorIntensityCounter === 1){
-                    setColorIntensityCounter(1);
-                }
-                else{
-                    setColorIntensityCounter(colorIntensityCounter-1);
-                }
+                setColorIntensityCounter(colorIntensityCounter + 0.4);
                 
                 setRepostCount(repostCount + 1);
             })
@@ -54,12 +49,15 @@ export default function Repost({postInfo}){
 }
 
 const RepostIcon = styled(BiRepost)`
-    color: ${(props) => props.wasReposted ? `#5AFF${props.colorIntensity}2` : '#FFF'};
+    color: ${(props) => props.wasReposted ? `#5AFF92` : '#FFF'};
+    filter: saturate(${(props) => props.colorIntensity});
     margin-top: 8px;
 `;
 
 const RepostCountStyle = styled.div`
-    color: ${(props) => props.wasReposted ? `#5AFF${props.colorIntensity}2` : '#FFF'};
+    color: ${(props) => props.wasReposted ? `#5AFF92` : '#FFF'};
+    filter: saturate(${(props) => props.colorIntensity});
     font-size: 11px;
     flex-wrap: wrap;
+    padding-bottom: 20px;
 `;
