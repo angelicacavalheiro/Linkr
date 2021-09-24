@@ -129,13 +129,13 @@ const ImageStyled = styled.img`
 const UsernameStyled = styled.p`
     margin: 20px 10px 0 2px;
     color: #515151;
-    width: 100%;
+    width: 40%;
     overflow: hidden;         
     text-overflow: ellipsis;
 `;
 
 const SearchandResultsStyled = styled.div `
-    @media(min-width: 800px){
+    @media(min-width: 600px){
         display:none
     }
 `;

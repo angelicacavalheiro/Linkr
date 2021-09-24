@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import { getTimelinePosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
+import TrendingMobile from "../../sharedComponents/TrendingMobile";
 import UserContext from "../../contexts/UserContext";
 import AddPosts from "./AddPosts";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
@@ -44,6 +45,7 @@ export default function TimelinePage () {
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 <PageTitleStyle>timeline</PageTitleStyle>
+                <TrendingMobile/>
                 <PostsAndTrendingStyle>
                     <ColunaPostsStyle>
                         {loading ? <LoadingStyle>Loading...</LoadingStyle>
