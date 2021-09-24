@@ -174,7 +174,10 @@ text-align: center;
         color: #ffffff;
         
     }
-   
+    @media(max-width: 600px){
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 `
 
 const PencilIcon =styled(TiPencil)`
@@ -242,6 +245,7 @@ img{
     @media(max-width: 600px) {
         word-break: break-all;
         width: 75vw;
+        min-height: 80px;
     }
 `
 const LinkInfoStyle = styled.div`
@@ -272,6 +276,8 @@ margin-top: 5px;
 line-height: 13px;
     @media(max-width: 600px) {
        font-size: 8px;
+       max-height:90px; 
+     overflow-y: scroll; 
     }
 `
 const LinkUrlStyle = styled.h4`
