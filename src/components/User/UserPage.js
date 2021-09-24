@@ -32,7 +32,6 @@ export default function UserPage(){
     function getUserPosts(){
         const promiseUser = getInfoUser(user.token, id);
             promiseUser.then((resp)=>{
-                console.log(resp.data)
                 setName(resp.data.user.username)
             })
 
