@@ -183,8 +183,9 @@ function postRepost(token, id){
             "Authorization": `Bearer ${token}`
         }
     }
-    const promise = axios.post(`${URL}/posts/${id}share`, config);  
-    return promise
+    const promise = axios.post(`${URL}/posts/${id}/share`, {}, config);
+
+    return promise;
 }
 
 export {
