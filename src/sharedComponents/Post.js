@@ -15,6 +15,7 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import LocationMap from "./Maps/LocationMap";
 import { getComments } from "../Service";
+import Repost from "./Repost";
 
 export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
@@ -87,6 +88,7 @@ export default function Post ({postInfo, renderPage}) {
             })
         }
     }
+    console.log(postInfo)
 
     return(
         <CommentContainerStyle>
@@ -94,7 +96,8 @@ export default function Post ({postInfo, renderPage}) {
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} />
-            <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
+            <CommentsIcon seeCommeCnts={setSeeComments} howManyComments={comments.length}/>
+            <Repost postInfo={postInfo}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
@@ -153,7 +156,7 @@ const BlackBoxStyle = styled.div`
     margin-top:16px;
     display: flex;  
     @media (max-width: 600px){
-        border-radius: 0;
+        border-radius: 0;   
 }  
 `
 const PhotoAndLikeBoxStyle = styled.div`
