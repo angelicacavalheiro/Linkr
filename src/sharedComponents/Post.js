@@ -326,6 +326,7 @@ const CommentContainerStyle = styled.div`
     height: auto;
     background-color: #1E1E1E;
     border-radius: 16px;
+    margin-top: 15px;
 
     @media (max-width: 600px){
         border-radius: 0;
