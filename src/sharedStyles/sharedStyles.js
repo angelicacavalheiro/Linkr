@@ -54,7 +54,6 @@ const SignUpOrLoginInputStyled = styled.input`
     border-radius: 6px;
     border: none;
     padding-left: 17px;
-
     font-family: 'Oswald', sans-serif;
     font-size: 27px;
     font-weight: 700;
@@ -75,12 +74,10 @@ const SignUpOrLoginButtonStyled = styled.button`
     font-size: 27px;
     font-weight: 700;
     color: #FFF;
-
     &:hover{
         cursor: pointer;
         filter: brightness(1.2);
     }
-
     @media(max-width: 614px){
         width: 100%;
     }
@@ -92,7 +89,6 @@ const SwitchSignUpLoginLinkStyled = styled.p`
     text-align: center;
     text-decoration: underline;
     margin-bottom: 30px;
-
 `
 
 const PostsAndTrendingStyle = styled.div`

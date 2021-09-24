@@ -91,14 +91,13 @@ export default function Post ({postInfo, renderPage}) {
             })
         }
     }
-    console.log(postInfo)
 
     return(
         <CommentContainerStyle>
             {wasReposted ? 
                 <RepostedByStyle>
                     <LinkRepostStyle style={{textDecoration:"none", color:'lightgray'}} to={`/user/${postInfo.repostedBy.id}`}>
-                        <img src={postInfo.repostedBy.avatar}/>
+                        <img src={postInfo.repostedBy.avatar} alt="profile"/>
                         <span>{postInfo.repostedBy.username} reposted</span>
                         <BiRepost/>
                     </LinkRepostStyle>

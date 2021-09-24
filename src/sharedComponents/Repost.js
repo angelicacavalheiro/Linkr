@@ -4,8 +4,6 @@ import { postRepost } from "../Service";
 import React, { useContext, useState } from "react";
 import UserContext from "../contexts/UserContext";
 
-
-
 export default function Repost({postInfo}){
 
     const postId = postInfo.id;
@@ -32,7 +30,7 @@ export default function Repost({postInfo}){
                 
                 setRepostCount(repostCount + 1);
             })
-            .catch((err) => console.log('erro', err));
+            .catch(() => alert('Erro ao repostar.'));
     }
     
     return(
