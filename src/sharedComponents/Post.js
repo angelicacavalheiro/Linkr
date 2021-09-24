@@ -27,7 +27,7 @@ export default function Post ({postInfo, renderPage}) {
     const [sending, setSending] = useState(false);
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
-    const [seeComments, setSeeComments] = useState(false)
+    const [seeComments, setSeeComments] = useState(false);
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
     const [comments, setComments] =useState([]);
@@ -107,7 +107,7 @@ export default function Post ({postInfo, renderPage}) {
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} />
-            <CommentsIcon seeCommeCnts={setSeeComments} howManyComments={comments.length}/>
+            <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
             <Repost postInfo={postInfo}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
