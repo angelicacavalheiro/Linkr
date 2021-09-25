@@ -320,5 +320,7 @@ const CommentContainerStyle = styled.div`
 `
 const BreackHashtag = styled.div`
 word-break: break-all;
-
+color: #B7B7B7;
+font-size: 17px;
+margin-top: 10px;
 `

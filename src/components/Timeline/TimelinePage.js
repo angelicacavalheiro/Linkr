@@ -4,12 +4,12 @@ import { useContext, useEffect, useState } from "react"
 import { getTimelinePosts, getFollowingUsers,getOlderPosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
+import TrendingMobile from "../../sharedComponents/TrendingMobile";
 import UserContext from "../../contexts/UserContext";
 import AddPosts from "./AddPosts";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import ReactTooltip from 'react-tooltip';
 import InfiniteScroll from 'react-infinite-scroller';
-
 
 export default function TimelinePage () {
     
@@ -52,7 +52,6 @@ export default function TimelinePage () {
             getFollowersPosts(res.data.users.length)
         })
     }
-
     useEffect(()=> {
         loadPosts()
         const intervalRerenderId = setInterval(() => {
@@ -77,12 +76,11 @@ export default function TimelinePage () {
         .catch(err => alert('Nao foi possivel carregar mais posts'))
     }
 
-  
-
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 <PageTitleStyle>timeline</PageTitleStyle>
+                <TrendingMobile/>
                 <PostsAndTrendingStyle>
                     <ColunaPostsStyle>
                         {loading ? <LoadingStyle>Loading...</LoadingStyle>
