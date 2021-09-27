@@ -16,9 +16,9 @@ export default function MenuHeaderPage(){
         <> 
             <HeaderStyled onClick={disappearMenu}>  
                 <TitleStyled>
-                    <Link style={{textDecoration:'none', color:'#FFF'}} to="/timeline">
+                    <LinkStyle style={{textDecoration:'none', color:'#FFF'}} to="/timeline">
                         linkr
-                    </Link>
+                    </LinkStyle>
                 </TitleStyled> 
                 <SearchDesktop/>
                 <RightHeaderStyled>                            
@@ -65,6 +65,8 @@ const RightHeaderStyled = styled.header`
     align-items: center;  
 `;
 
-
-
-
+const LinkStyle = styled(Link)`
+    :hover{
+        filter: brightness(0.9);
+    }
+`;

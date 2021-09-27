@@ -125,4 +125,10 @@ const LinkStyle = styled(Link)`
     font-size: 19px;
     color: white;
     text-decoration:none;
+
+    p{
+        :hover{
+        filter: brightness(0.8);
+    }
+    }
 `

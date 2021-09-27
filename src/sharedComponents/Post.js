@@ -97,9 +97,9 @@ export default function Post ({postInfo, renderPage}) {
             {wasReposted ? 
                 <RepostedByStyle>
                     <LinkRepostStyle style={{textDecoration:"none", color:'lightgray'}} to={`/user/${postInfo.repostedBy.id}`}>
-                        <img src={postInfo.repostedBy.avatar} alt="profile"/>
-                        <span>{postInfo.repostedBy.username} reposted</span>
-                        <BiRepost/>
+                       
+                        <div> <img src={postInfo.repostedBy.avatar} alt="profile"/>{postInfo.repostedBy.username} reposted <BiRepost/></div>
+                        
                     </LinkRepostStyle>
                 </RepostedByStyle> 
             : 
@@ -212,6 +212,10 @@ width: 500px;
     h3{
         color: #ffffff;
         font-size: 19px;
+        
+        :hover{
+            filter: brightness(0.7);
+        }
     }
     p{
         font-size: 17px;
@@ -244,7 +248,7 @@ border-right: none;
 text-decoration: none;
 word-wrap: break-word;
 :hover{
-    cursor: pointer;
+    cursor: pointer;width: 40%;
 }
 img{
     width: 153px;
@@ -355,7 +359,15 @@ const RepostedByStyle = styled.div`
     padding-top: 10px;
     flex-wrap: wrap;
     margin: 10px 0 -5px 0;
-    span{
+
+    
+    div{
+        width: 350px;
+        flex-wrap: wrap;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-align: center;
+
         margin-right: 5px;
         :hover{
             filter: brightness(1.2);
