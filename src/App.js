@@ -15,8 +15,6 @@ import UserContext from './contexts/UserContext';
 import { AnimatePresence } from 'framer-motion';
 import AnimationContext from './contexts/AnimationContext';
 
-
-
 export default function App() {
 
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
@@ -42,8 +40,7 @@ export default function App() {
     }
    }
 
-    return(     
-
+    return(    
 
         <UserContext.Provider value={{user, setUser}}>
           <AnimatePresence exitBeforeEnter>
