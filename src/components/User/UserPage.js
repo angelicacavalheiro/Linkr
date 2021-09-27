@@ -30,6 +30,7 @@ export default function UserPage(){
 
 
     function getUserPosts(){
+        setNoPosts(false)
         const promiseUser = getInfoUser(user.token, id);
             promiseUser.then((resp)=>{
                 setName(resp.data.user.username)
@@ -38,7 +39,16 @@ export default function UserPage(){
         const promise = getAnUserPosts(user.token, id);
             promise.then((resp)=>{
                 setLoading(false)
-                setPosts(resp.data.posts) 
+            if(resp.data.posts.length !== 0){
+                let norepeatedposts = []
+                norepeatedposts.push(resp.data.posts[0])
+                for(let i=1; i<resp.data.posts.length; i++){
+                    if(resp.data.posts[i].id !== resp.data.posts[i-1].id){
+                        norepeatedposts.push(resp.data.posts[i])
+                    }
+                }
+                setPosts(norepeatedposts) 
+            }
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
