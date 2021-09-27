@@ -15,8 +15,6 @@ import UserContext from './contexts/UserContext';
 import { AnimatePresence } from 'framer-motion';
 import AnimationContext from './contexts/AnimationContext';
 
-
-
 export default function App() {
 
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
@@ -25,7 +23,7 @@ export default function App() {
   const [following, setFollowing]=useState([]);
   const location = useLocation();
   
-  const pageTransition = {
+  const pageVariants = {
     in:{
         opacity: 1,
         y: 0
@@ -34,6 +32,11 @@ export default function App() {
         opacity: 0,
         y: '-100%'
     }
+}
+
+const pageTransition ={
+  type: "spring",
+  stiffness: 50
 }
   
   function disappearMenu() { 
@@ -44,11 +47,10 @@ export default function App() {
 
     return(     
 
-
         <UserContext.Provider value={{user, setUser}}>
           <AnimatePresence exitBeforeEnter>
               <Switch location={location} key={location.pathname}>
-                <AnimationContext.Provider value={{pageTransition}}>
+                <AnimationContext.Provider value={{pageVariants, pageTransition}}>
 
                   <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu, setFollowing, following}}>
          

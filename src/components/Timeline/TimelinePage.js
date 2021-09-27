@@ -22,7 +22,7 @@ export default function TimelinePage () {
     const [noPosts, setNoPosts] = useState(false);
     const [noFollow, setNoFollow] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    const {pageTransition} = useContext(AnimationContext);
+    const {pageTransition, pageVariants} = useContext(AnimationContext);
    
     function getFollowersPosts(numFollow) {
         getTimelinePosts(user.token)
@@ -95,7 +95,11 @@ export default function TimelinePage () {
     }
 
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='timeline-animation'>
+        <motion.div 
+            initial='out' animate='in' exit = 'out' 
+            variants={pageVariants} transition={pageTransition}
+            key='timeline-animation'
+        >
             <ContainerBoxStyle onClick={disappearMenu}>
                 <ContainerCenterStyle>
                     <PageTitleStyle>timeline</PageTitleStyle>
