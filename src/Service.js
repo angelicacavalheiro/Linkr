@@ -176,6 +176,18 @@ function getInfoUser(token, id){
     return promise
 }
 
+function postRepost(token, id){
+    
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(`${URL}/posts/${id}/share`, {}, config);
+
+    return promise;
+}
+
 export {
     getTimelinePosts,
     getAnUserPosts,
@@ -194,5 +206,6 @@ export {
     getFollowingUsers,
     getUsers,
     postUnfollowOrFollow,
-    getInfoUser
+    getInfoUser,
+    postRepost
 }
