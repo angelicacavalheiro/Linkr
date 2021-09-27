@@ -1,7 +1,7 @@
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles"
 import Post from "../../sharedComponents/Post"
 import { useContext, useEffect, useState } from "react"
-import { getTimelinePosts, getFollowingUsers,getOlderPosts } from "../../Service";
+import { getTimelinePosts, getFollowingUsers,getOlderPosts, getEarlierPosts } from "../../Service";
 import styled from "styled-components";
 import Trending from "../../sharedComponents/Trending";
 import TrendingMobile from "../../sharedComponents/TrendingMobile";
@@ -19,7 +19,7 @@ export default function TimelinePage () {
     const [loading, setLoading] = useState(true);
     const [noPosts, setNoPosts] = useState(false);
     const [noFollow, setNoFollow] = useState(false);
-    const [hasMore, setHasMore] = useState(true)
+    const [hasMore, setHasMore] = useState(true);
    
     function getFollowersPosts(numFollow) {
         getTimelinePosts(user.token)
@@ -31,9 +31,7 @@ export default function TimelinePage () {
             if(postsList.length <= 10) {
                 setHasMore(true)  
             }
-
             setPostsList(res.data.posts);
-          
             ReactTooltip.rebuild();  
             setLoading(false);
         })
@@ -48,27 +46,44 @@ export default function TimelinePage () {
             if(res.data.users.length < 1) {
                 setNoFollow(true);
             };
-
             getFollowersPosts(res.data.users.length)
         })
     }
     useEffect(()=> {
         loadPosts()
-        const intervalRerenderId = setInterval(() => {
-         loadPosts()
-        }, 15000);
- 
-        return () => clearInterval(intervalRerenderId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
-   
-    function renderMorePosts(lastPostId) {
+
+    useEffect(()=> {
+        if(postsList[0] !== undefined) {
+            const intervalRerenderId = setInterval(() => {
+                renderEarlierPosts()
+               }, 15000);
         
-        getOlderPosts(user.token, lastPostId)
+        return () => clearInterval(intervalRerenderId);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[postsList]);
+
+    function renderEarlierPosts() {
+
+        if(postsList[0] !== undefined){
+            const wasReposted = postsList[0].hasOwnProperty('repostedBy');
+            getEarlierPosts(user.token, wasReposted ? postsList[0].repostId : postsList[0].id)
+            .then((res)=> {
+                if(res.data.posts.length > 0) {
+                    setPostsList([...res.data.posts, ...postsList]);
+                }  
+            })
+            .catch(arr => alert('erro ao renderizar earlier Posts'))
+        }
+    }
+
+    function renderMorePosts(lastPost) {
+        const wasReposted = lastPost.hasOwnProperty('repostedBy');
+        getOlderPosts(user.token, wasReposted ? lastPost.repostId : lastPost.id)
         .then(res=> {
-           
             setPostsList([...postsList, ...res.data.posts]);
-            
             if(res.data.posts.length === 0) {
                 setHasMore(false);
             }else{setHasMore(true)}
@@ -92,21 +107,20 @@ export default function TimelinePage () {
                         {postsList.length !== 0 ? 
                         <InfiniteScroll
                             pageStart={0}
-                            loadMore={()=>renderMorePosts(postsList[postsList.length-1].id)}
+                            loadMore={()=>renderMorePosts(postsList[postsList.length-1])}
                             hasMore={hasMore}
-                            loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
-                            
+                            loader={<LoadingStyle key={0} >Loading...</LoadingStyle>}
                         >
                             {postsList.length>0 &&
                             <>{postsList.map((post)=> {
-                            return(   
-                                <Post key={post.id} postInfo={post} renderPage={loadPosts} ></Post>
+                                const wasReposted = post.hasOwnProperty('repostedBy');
+                            return(
+                                <Post key={wasReposted ? post.repostId : post.id} postInfo={post} renderPage={loadPosts}></Post>
                             )
                         })}</>}
                         </InfiniteScroll>
                         :``}
                         </>}
-                        
                     </ColunaPostsStyle>
                     <Trending/>
                 </PostsAndTrendingStyle>

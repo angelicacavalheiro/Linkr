@@ -71,6 +71,12 @@ const ModalQueryStyle = styled(ReactModal)`
         display: flex;
         justify-content: space-between;
         width: 100%;
+        
+        span{
+            width: 95%;
+            flex-wrap: wrap;
+            word-wrap: break-word;
+        }
     }
     
     @media(max-width: 600px) {

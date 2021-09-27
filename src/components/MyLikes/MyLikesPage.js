@@ -53,9 +53,9 @@ export default function MyLikePage(){
         setNoPosts(true);
         setLoading(false);
     }
-    function renderMorePosts(lastPostId) {
-        
-        getOlderLikes(user.token, lastPostId)
+    function renderMorePosts(lastPost) {
+        const wasReposted = lastPost.hasOwnProperty('repostedBy');
+        getOlderLikes(user.token, wasReposted ? lastPost.repostId : lastPost.id)
         .then(res=> {
            
             setLikes([...likes, ...res.data.posts]);
@@ -80,7 +80,7 @@ export default function MyLikePage(){
                  : 
                  <InfiniteScroll
                             pageStart={0}
-                            loadMore={()=>renderMorePosts(likes[likes.length-1].id)}
+                            loadMore={()=>renderMorePosts(likes[likes.length-1])}
                             hasMore={hasMore}
                             loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                             

@@ -56,9 +56,9 @@ export default function HashtagPage(){
         setLoading(false);
     
      }
-     function renderMorePosts(lastPostId) {
-        
-        getOlderHashtags(user.token, hashtag, lastPostId)
+     function renderMorePosts(lastPost) {
+        const wasReposted = lastPost.hasOwnProperty('repostedBy');
+        getOlderHashtags(user.token, hashtag, wasReposted ? lastPost.repostId : lastPost.id)
         .then(res=> {
            
             setPosts([...posts, ...res.data.posts]);
@@ -82,7 +82,7 @@ export default function HashtagPage(){
                  : 
                  <InfiniteScroll
                             pageStart={0}
-                            loadMore={()=>renderMorePosts(posts[posts.length-1].id)}
+                            loadMore={()=>renderMorePosts(posts[posts.length-1])}
                             hasMore={hasMore}
                             loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                         >

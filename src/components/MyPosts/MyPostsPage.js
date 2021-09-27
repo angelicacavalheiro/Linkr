@@ -28,9 +28,8 @@ export default function MyPostPage(){
     function getMyPosts(){
         const promise = getAnUserPosts(user.token, user.id);
             promise.then((resp)=>{
-                
-                setPosts(resp.data.posts) 
-
+                let justMyposts = resp.data.posts.filter((post)=> post.user.id === user.id)
+                setPosts(justMyposts) 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }
@@ -55,9 +54,9 @@ export default function MyPostPage(){
         setLoading(false);
     }
 
-    function renderMorePosts(lastPostId) {
-        
-        getOlderMyPosts(user.token,user.id, lastPostId)
+    function renderMorePosts(lastPost) {
+        const wasReposted = lastPost.hasOwnProperty('repostedBy');
+        getOlderMyPosts(user.token,user.id, wasReposted ? lastPost.repostId : lastPost.id)
         .then(res=> {
            
             setPosts([...posts, ...res.data.posts]);
@@ -81,7 +80,7 @@ export default function MyPostPage(){
                  : 
                  <InfiniteScroll
                             pageStart={0}
-                            loadMore={()=>renderMorePosts(posts[posts.length-1].id)}
+                            loadMore={()=>renderMorePosts(posts[posts.length-1])}
                             hasMore={hasMore}
                             loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
                             

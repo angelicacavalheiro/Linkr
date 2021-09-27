@@ -100,6 +100,11 @@ function getEarlierPosts (token, lastPostId) {
     return promise;
 }
 
+function postRepost(token, id){
+    const promise = axios.post(`${URL}/posts/${id}/share`, {}, createHeaders(token));
+    return promise;
+}
+
 export {
     getTimelinePosts,
     getAnUserPosts,
@@ -123,5 +128,6 @@ export {
     getUsers,
     postUnfollowOrFollow,
     getInfoUser,
-    getEarlierPosts
+    getEarlierPosts,
+    postRepost
 }
