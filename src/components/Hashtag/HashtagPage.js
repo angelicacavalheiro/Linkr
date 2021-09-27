@@ -33,6 +33,7 @@ export default function HashtagPage(){
     function getPosts(){
         const promise = getHashtagPosts(user.token, hashtag);
             promise.then((resp)=>{
+                window.scrollTo(0, 0);
                 setPosts(resp.data.posts) 
                 ReactTooltip.rebuild()
                 if(resp.data.posts.length === 0){

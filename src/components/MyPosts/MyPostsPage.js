@@ -31,6 +31,7 @@ export default function MyPostPage(){
     function getMyPosts(){
         const promise = getAnUserPosts(user.token, user.id);
             promise.then((resp)=>{
+                window.scrollTo(0, 0);
                 let justMyposts = resp.data.posts.filter((post)=> post.user.id === user.id)
                 setPosts(justMyposts) 
                 if(resp.data.posts.length === 0){

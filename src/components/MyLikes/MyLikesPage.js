@@ -31,7 +31,7 @@ export default function MyLikePage(){
     function getPostsLikeAUser(){
         const promise = getLikes(user.token);
             promise.then((resp)=>{
-                
+                window.scrollTo(0, 0);
                 setLikes(resp.data.posts) 
 
                 if(resp.data.posts.length === 0){

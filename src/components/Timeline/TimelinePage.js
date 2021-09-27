@@ -27,7 +27,7 @@ export default function TimelinePage () {
     function getFollowersPosts(numFollow) {
         getTimelinePosts(user.token)
         .then((res)=> {
-            
+            window.scrollTo(0, 0);
             if(res.data.posts.length === 0 && numFollow > 0){
                 setNoPosts(true);
             }
