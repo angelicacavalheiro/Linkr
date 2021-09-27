@@ -136,7 +136,7 @@ const UsernameStyled = styled.p`
 `;
 
 const SearchandResultsStyled = styled.div `
-    @media(max-width: 600px){
+    @media(max-width: 937px){
         display:none
     }
 `;

@@ -23,13 +23,10 @@ export default function UserPage(){
     const {disappearMenu} = useContext(ShowMenuContext);
     const {pageTransition} = useContext(AnimationContext)
     
-   
-
     useEffect(()=>{
         getUserPosts()
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
-
 
     function getUserPosts(){
         const promiseUser = getInfoUser(user.token, id);

@@ -167,7 +167,7 @@ const BlackBoxStyle = styled.div`
     border-radius: 16px;
     margin-top:16px;
     display: flex;  
-    @media (max-width: 600px){
+    @media (max-width: 937px){
         border-radius: 0;   
 }  
 `
@@ -189,7 +189,7 @@ text-align: center;
         color: #ffffff;
         
     }
-    @media(max-width: 600px){
+    @media(max-width: 937px){
         padding-left: 5px;
         padding-right: 5px;
     }
@@ -230,7 +230,7 @@ width: 500px;
         padding: 7px;
         font-size: 14px;
     }
-    @media(max-width: 600px){
+    @media(max-width: 937px){
         word-break:break-all;
     }
 `
@@ -252,12 +252,12 @@ img{
     border-radius: 0px 13px 13px 0px;
     margin-left: 10px;
     
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
         width: 95px;
         height: 100%;
     }
 }
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
         word-break: break-all;
         width: 75vw;
         min-height: 80px;
@@ -278,7 +278,7 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
        font-size: 11px;
     }
 `
@@ -289,7 +289,7 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
        font-size: 8px;
        max-height:90px; 
      overflow-y: scroll; 
@@ -304,7 +304,7 @@ margin-top: 10px;
 text-decoration: none;
 color: #CECECE;
     
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
        font-size: 9px;
     }
 `
@@ -335,15 +335,15 @@ const CommentContainerStyle = styled.div`
     border-radius: 16px;
     margin-top: 15px;
 
-    @media (max-width: 600px){
+    @media (max-width: 937px){
         border-radius: 0;
     }
 `
 const BreackHashtag = styled.div`
-word-break: break-all;
-color: #B7B7B7;
-font-size: 17px;
-margin-top: 10px;
+    word-break: break-all;
+    color: #B7B7B7;
+    font-size: 17px;
+    margin-top: 10px;
 `
 const RepostedByStyle = styled.div`
     display: flex;

@@ -44,9 +44,8 @@ const pageTransition ={
       setShowMenu(!showMenu);
     }
    }
-
-    return(     
-
+    
+    return(    
         <UserContext.Provider value={{user, setUser}}>
           <AnimatePresence exitBeforeEnter>
               <Switch location={location} key={location.pathname}>
