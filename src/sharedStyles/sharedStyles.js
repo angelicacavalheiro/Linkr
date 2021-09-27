@@ -4,6 +4,9 @@ const ContainerBoxStyle = styled.div`
     background-color: #333333;
     margin: 72px auto 0px auto;
     height:100vh;
+    @media(max-width: 937px){
+        margin-top: 25px;
+    }
 `
 
 const ContainerCenterStyle = styled.div`
@@ -14,6 +17,7 @@ const ContainerCenterStyle = styled.div`
         width: 100%;
         margin: 100px 0px;
         padding: 17px 0;
+        margin-top: 0px;
        
     }
 `
