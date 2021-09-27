@@ -10,6 +10,8 @@ import AddPosts from "./AddPosts";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import ReactTooltip from 'react-tooltip';
 import InfiniteScroll from 'react-infinite-scroller';
+import AnimationContext from "../../contexts/AnimationContext";
+import { motion } from "framer-motion";
 
 export default function TimelinePage () {
     
@@ -20,6 +22,7 @@ export default function TimelinePage () {
     const [noPosts, setNoPosts] = useState(false);
     const [noFollow, setNoFollow] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const {pageTransition} = useContext(AnimationContext);
    
     function getFollowersPosts(numFollow) {
         getTimelinePosts(user.token)
@@ -92,40 +95,42 @@ export default function TimelinePage () {
     }
 
     return(
-        <ContainerBoxStyle onClick={disappearMenu}>
-            <ContainerCenterStyle>
-                <PageTitleStyle>timeline</PageTitleStyle>
-                <TrendingMobile/>
-                <PostsAndTrendingStyle>
-                    <ColunaPostsStyle>
-                        {loading ? <LoadingStyle>Loading...</LoadingStyle>
-                        :
-                        <>
-                        <AddPosts loadPosts={loadPosts}/>
-                        <NoPostsStyle appear={noPosts}><p>Nenhum post encontrado</p></NoPostsStyle>
-                        <NoFollowersStyle appearNoFollow={noFollow}><p>Você não segue ninguém ainda, procure por perfis na busca</p></NoFollowersStyle>
-                        {postsList.length !== 0 ? 
-                        <InfiniteScroll
-                            pageStart={0}
-                            loadMore={()=>renderMorePosts(postsList[postsList.length-1])}
-                            hasMore={hasMore}
-                            loader={<LoadingStyle key={0} >Loading...</LoadingStyle>}
-                        >
-                            {postsList.length>0 &&
-                            <>{postsList.map((post)=> {
-                                const wasReposted = post.hasOwnProperty('repostedBy');
-                            return(
-                                <Post key={wasReposted ? post.repostId : post.id} postInfo={post} renderPage={loadPosts}></Post>
-                            )
-                        })}</>}
-                        </InfiniteScroll>
-                        :``}
-                        </>}
-                    </ColunaPostsStyle>
-                    <Trending/>
-                </PostsAndTrendingStyle>
-            </ContainerCenterStyle>    
-        </ContainerBoxStyle> 
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='timeline-animation'>
+            <ContainerBoxStyle onClick={disappearMenu}>
+                <ContainerCenterStyle>
+                    <PageTitleStyle>timeline</PageTitleStyle>
+                    <TrendingMobile/>
+                    <PostsAndTrendingStyle>
+                        <ColunaPostsStyle>
+                            {loading ? <LoadingStyle>Loading...</LoadingStyle>
+                            :
+                            <>
+                            <AddPosts loadPosts={loadPosts}/>
+                            <NoPostsStyle appear={noPosts}><p>Nenhum post encontrado</p></NoPostsStyle>
+                            <NoFollowersStyle appearNoFollow={noFollow}><p>Você não segue ninguém ainda, procure por perfis na busca</p></NoFollowersStyle>
+                            {postsList.length !== 0 ? 
+                            <InfiniteScroll
+                                pageStart={0}
+                                loadMore={()=>renderMorePosts(postsList[postsList.length-1])}
+                                hasMore={hasMore}
+                                loader={<LoadingStyle key={0} >Loading...</LoadingStyle>}
+                            >
+                                {postsList.length>0 &&
+                                <>{postsList.map((post)=> {
+                                    const wasReposted = post.hasOwnProperty('repostedBy');
+                                return(
+                                    <Post key={wasReposted ? post.repostId : post.id} postInfo={post} renderPage={loadPosts}></Post>
+                                )
+                            })}</>}
+                            </InfiniteScroll>
+                            :``}
+                            </>}
+                        </ColunaPostsStyle>
+                        <Trending/>
+                    </PostsAndTrendingStyle>
+                </ContainerCenterStyle>    
+            </ContainerBoxStyle> 
+        </motion.div>    
     )         
 }
 

@@ -7,6 +7,8 @@ import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import InfiniteScroll from 'react-infinite-scroller';
+import AnimationContext from "../../contexts/AnimationContext";
+import { motion } from "framer-motion";
 
 export default function MyPostPage(){
 
@@ -17,6 +19,7 @@ export default function MyPostPage(){
     const [message, setMessage] = useState("Você ainda não tem posts")
     const {disappearMenu} = useContext(ShowMenuContext);
     const [hasMore, setHasMore] = useState(true)
+    const { pageTransition } = useContext(AnimationContext);
    
 
     useEffect(()=>{
@@ -69,38 +72,39 @@ export default function MyPostPage(){
     }
 
     return(
-    <ContainerBoxStyle onClick={disappearMenu}>
-        <ContainerCenterStyle>
-             <PageTitleStyle>my posts</PageTitleStyle>
-             <PostsAndTrendingStyle>
-                 <ColunaPostsStyle>
-                 {loading ? <LoadingStyle>Loading...</LoadingStyle> 
-                 : 
-                 noPosts? <NoPostsStyle>{message} </NoPostsStyle> 
-                 : 
-                 <InfiniteScroll
-                            pageStart={0}
-                            loadMore={()=>renderMorePosts(posts[posts.length-1])}
-                            hasMore={hasMore}
-                            loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
-                            
-                        >
-                            {posts.length>0 &&
-                            <>{posts.map((post)=> {
-                            return(   
-                                <Post key={post.id} postInfo={post} renderPage={getMyPosts} ></Post>
-                            )
-                        })}</>}
-                </InfiniteScroll>
-                 } 
+    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-posts-animation'>
+        <ContainerBoxStyle onClick={disappearMenu}>
+            <ContainerCenterStyle>
+                <PageTitleStyle>my posts</PageTitleStyle>
+                <PostsAndTrendingStyle>
+                    <ColunaPostsStyle>
+                    {loading ? <LoadingStyle>Loading...</LoadingStyle> 
+                    : 
+                    noPosts? <NoPostsStyle>{message} </NoPostsStyle> 
+                    : 
+                    <InfiniteScroll
+                                pageStart={0}
+                                loadMore={()=>renderMorePosts(posts[posts.length-1])}
+                                hasMore={hasMore}
+                                loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
+                                
+                            >
+                                {posts.length>0 &&
+                                <>{posts.map((post)=> {
+                                return(   
+                                    <Post key={post.id} postInfo={post} renderPage={getMyPosts} ></Post>
+                                )
+                            })}</>}
+                    </InfiniteScroll>
+                    } 
 
-                </ColunaPostsStyle>
-                <Trending />
-             </PostsAndTrendingStyle>
-            
-        </ContainerCenterStyle>
-    </ContainerBoxStyle>
-
+                    </ColunaPostsStyle>
+                    <Trending />
+                </PostsAndTrendingStyle>
+                
+            </ContainerCenterStyle>
+        </ContainerBoxStyle>
+    </motion.div>                
     );
 }
 

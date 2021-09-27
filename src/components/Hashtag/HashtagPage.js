@@ -9,6 +9,8 @@ import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import ReactTooltip from 'react-tooltip';
 import InfiniteScroll from 'react-infinite-scroller';
+import { motion } from "framer-motion";
+import AnimationContext from '../../contexts/AnimationContext'
 
 export default function HashtagPage(){
 
@@ -20,6 +22,7 @@ export default function HashtagPage(){
     const [message, setMessage] = useState("Não há posts com esta #hashtag ")
     const {disappearMenu} = useContext(ShowMenuContext);
    const [hasMore, setHasMore] = useState(true)
+    const { pageTransition } = useContext(AnimationContext)
     useEffect(()=>{
         setNoPosts(false)
         getPosts()
@@ -70,7 +73,8 @@ export default function HashtagPage(){
         .catch(err => alert('Nao foi possivel carregar mais posts'))
     }
 
-    return(  
+    return(
+    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='hashtag-animation'>      
     <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
             <PageTitleStyle># {hashtag}</PageTitleStyle>
@@ -96,11 +100,12 @@ export default function HashtagPage(){
                  } 
             </ColunaPostsStyle>
             
-           <Trending />
-            </PostsAndTrendingStyle>
+                        <Trending />
+                    </PostsAndTrendingStyle>
             
-        </ContainerCenterStyle>
-    </ContainerBoxStyle>
+                </ContainerCenterStyle>
+            </ContainerBoxStyle>
+        </motion.div>
     );
 }
 
