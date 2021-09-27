@@ -28,8 +28,8 @@ export default function MyPostPage(){
         const promise = getAnUserPosts(user.token, user.id);
             promise.then((resp)=>{
                 setLoading(false)
-                setPosts(resp.data.posts) 
-
+                let justMyposts = resp.data.posts.filter((post)=> post.user.id === user.id)
+                setPosts(justMyposts) 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }

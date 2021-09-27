@@ -39,8 +39,6 @@ export default function TimelinePage () {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
-  
-
     return(
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
@@ -55,8 +53,9 @@ export default function TimelinePage () {
                         <NoPostsStyle noPosts={noPosts}>Nenhum post encontrado</NoPostsStyle>
                         {"posts" in postsList && 
                             <>{postsList.posts.map((post)=> {
+                                const wasReposted = post.hasOwnProperty('repostedBy');
                             return(
-                                <Post key={post.id} postInfo={post} renderPage={loadPosts}></Post>
+                                <Post key={wasReposted ? post.repostId : post.id} postInfo={post} renderPage={loadPosts}></Post>
                             )
                         })}</>}</>}
                         
