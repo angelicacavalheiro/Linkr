@@ -1,11 +1,12 @@
 import { ContainerBoxStyle, ContainerCenterStyle, ColunaPostsStyle, PageTitleStyle, PostsAndTrendingStyle } from "../../sharedStyles/sharedStyles";
 import Post from "../../sharedComponents/Post";
 import { useContext, useEffect, useState } from "react";
-import { getAnUserPosts} from "../../Service";
+import { getAnUserPosts, getOlderMyPosts} from "../../Service";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import InfiniteScroll from 'react-infinite-scroller';
 import AnimationContext from "../../contexts/AnimationContext";
 import { motion } from "framer-motion";
 
@@ -17,6 +18,7 @@ export default function MyPostPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Você ainda não tem posts")
     const {disappearMenu} = useContext(ShowMenuContext);
+    const [hasMore, setHasMore] = useState(true)
     const { pageTransition } = useContext(AnimationContext);
    
 
@@ -29,12 +31,14 @@ export default function MyPostPage(){
     function getMyPosts(){
         const promise = getAnUserPosts(user.token, user.id);
             promise.then((resp)=>{
-                setLoading(false)
+                window.scrollTo(0, 0);
                 let justMyposts = resp.data.posts.filter((post)=> post.user.id === user.id)
                 setPosts(justMyposts) 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
                 }
+                setHasMore(true)
+                setLoading(false)
             })
             promise.catch(Erro);
     }
@@ -54,27 +58,54 @@ export default function MyPostPage(){
         setLoading(false);
     }
 
+    function renderMorePosts(lastPost) {
+        const wasReposted = lastPost.hasOwnProperty('repostedBy');
+        getOlderMyPosts(user.token,user.id, wasReposted ? lastPost.repostId : lastPost.id)
+        .then(res=> {
+           
+            setPosts([...posts, ...res.data.posts]);
+            
+            if(res.data.posts.length === 0) {
+                setHasMore(false);
+            }else{setHasMore(true)}
+        })
+        .catch(err => alert('Nao foi possivel carregar mais posts'))
+    }
+
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-posts-animation'>
-            <ContainerBoxStyle onClick={disappearMenu}>
-                <ContainerCenterStyle>
-                    <PageTitleStyle>my posts</PageTitleStyle>
-                    <PostsAndTrendingStyle>
-                        <ColunaPostsStyle>
-                    
-                        {posts.map((postInfo,index)=>
-                            <Post key={postInfo.id} postInfo={postInfo} renderPage ={getMyPosts}/>
-                        )}
-                        {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                        {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-                        </ColunaPostsStyle>
-                        
-                        <Trending />
-                    </PostsAndTrendingStyle>
-                    
-                </ContainerCenterStyle>
-            </ContainerBoxStyle>
-        </motion.div>
+    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-posts-animation'>
+        <ContainerBoxStyle onClick={disappearMenu}>
+            <ContainerCenterStyle>
+                <PageTitleStyle>my posts</PageTitleStyle>
+                <PostsAndTrendingStyle>
+                    <ColunaPostsStyle>
+                    {loading ? <LoadingStyle>Loading...</LoadingStyle> 
+                    : 
+                    noPosts? <NoPostsStyle>{message} </NoPostsStyle> 
+                    : 
+                    <InfiniteScroll
+                                pageStart={0}
+                                loadMore={()=>renderMorePosts(posts[posts.length-1])}
+                                hasMore={hasMore}
+                                loader={<LoadingStyle key={0}>Loading...</LoadingStyle>}
+                                
+                            >
+                                {posts.length>0 &&
+                                <>{posts.map((post)=> {
+                                return(   
+                                    <Post key={post.id} postInfo={post} renderPage={getMyPosts} ></Post>
+                                )
+                            })}</>}
+                    </InfiniteScroll>
+                    } 
+
+                    </ColunaPostsStyle>
+                    <Trending />
+                </PostsAndTrendingStyle>
+                
+            </ContainerCenterStyle>
+        </ContainerBoxStyle>
+    </motion.div>                
     );
 }
 

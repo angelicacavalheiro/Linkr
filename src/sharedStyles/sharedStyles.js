@@ -95,6 +95,8 @@ const SwitchSignUpLoginLinkStyled = styled.p`
 const PostsAndTrendingStyle = styled.div`
     display: flex;
     justify-content: space-between;
+    position: relative;
+    
     @media(max-width:937px) {
         width:100%;
     }
