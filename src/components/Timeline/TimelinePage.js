@@ -22,7 +22,16 @@ export default function TimelinePage () {
         .then((res)=> {
             setLoading(false);
             postsList.length === 0 ? setNoPosts(true) : setNoPosts(false);
-            setPostsList(res.data);
+            if(res.data.posts.length !== 0){
+                let norepeatedposts = []
+                norepeatedposts.push(res.data.posts[0])
+                for(let i=1; i<res.data.posts.length; i++){
+                    if(res.data.posts[i].id !== res.data.posts[i-1].id){
+                        norepeatedposts.push(res.data.posts[i])
+                    }
+                }
+                setPostsList({posts: norepeatedposts}) 
+            }
         })
         .catch(()=> {alert('Houve uma falha ao carregar os Posts. Por favor, recarregue a pagina.')
         }); 
