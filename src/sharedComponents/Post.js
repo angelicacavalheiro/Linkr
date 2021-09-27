@@ -15,6 +15,8 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import LocationMap from "./Maps/LocationMap";
 import { getComments } from "../Service";
+import Repost from "./Repost";
+import { BiRepost } from "react-icons/bi";
 
 export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
@@ -25,11 +27,12 @@ export default function Post ({postInfo, renderPage}) {
     const [sending, setSending] = useState(false);
     const [postText, setPostText]=useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
-    const [seeComments, setSeeComments] = useState(false)
+    const [seeComments, setSeeComments] = useState(false);
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
     const [comments, setComments] =useState([]);
-    
+    const wasReposted = postInfo.hasOwnProperty('repostedBy');
+
     useEffect(()=>{
         setSending(false)
         if(user.id === postInfo.user.id){
@@ -90,11 +93,22 @@ export default function Post ({postInfo, renderPage}) {
 
     return(
         <CommentContainerStyle>
+            {wasReposted ? 
+                <RepostedByStyle>
+                    <LinkRepostStyle style={{textDecoration:"none", color:'lightgray'}} to={`/user/${postInfo.repostedBy.id}`}>
+                        <img src={postInfo.repostedBy.avatar} alt="profile"/>
+                        <span>{postInfo.repostedBy.username} reposted</span>
+                        <BiRepost/>
+                    </LinkRepostStyle>
+                </RepostedByStyle> 
+            : 
+            <div/>}
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} />
             <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
+            <Repost postInfo={postInfo}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
@@ -153,7 +167,7 @@ const BlackBoxStyle = styled.div`
     margin-top:16px;
     display: flex;  
     @media (max-width: 600px){
-        border-radius: 0;
+        border-radius: 0;   
 }  
 `
 const PhotoAndLikeBoxStyle = styled.div`
@@ -318,6 +332,7 @@ const CommentContainerStyle = styled.div`
     height: auto;
     background-color: #1E1E1E;
     border-radius: 16px;
+    margin-top: 15px;
 
     @media (max-width: 600px){
         border-radius: 0;
@@ -329,3 +344,30 @@ color: #B7B7B7;
 font-size: 17px;
 margin-top: 10px;
 `
+const RepostedByStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: lightgray;
+    font-size: 15px;
+    font-weight: 300;
+    padding-top: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0 -5px 0;
+    span{
+        margin-right: 5px;
+        :hover{
+            filter: brightness(1.2);
+        }
+    }
+    img{
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+`;
+
+const LinkRepostStyle = styled(Link)`
+    display: flex;
+`;
