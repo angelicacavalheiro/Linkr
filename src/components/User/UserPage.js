@@ -8,6 +8,8 @@ import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import FollowButton from "./FollowButton";
+import AnimationContext from "../../contexts/AnimationContext";
+import { motion } from "framer-motion";
 
 export default function UserPage(){
    
@@ -19,7 +21,7 @@ export default function UserPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("ainda não há posts disponiveis");
     const {disappearMenu} = useContext(ShowMenuContext);
-   
+    const {pageTransition} = useContext(AnimationContext)
     
    
 
@@ -64,27 +66,29 @@ export default function UserPage(){
     }
 
     return(
-        <ContainerBoxStyle onClick={disappearMenu}>
-            <ContainerCenterStyle>
-                {loading ? "" : <PageTitleStyle>
-                                    {nameUser}'s posts
-                                    <FollowButton id={id}/>
-                                </PageTitleStyle>}
-                <PostsAndTrendingStyle>
-                    <ColunaPostsStyle>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+            <ContainerBoxStyle onClick={disappearMenu}>
+                <ContainerCenterStyle>
+                    {loading ? "" : <PageTitleStyle>
+                                        {nameUser}'s posts
+                                        <FollowButton id={id}/>
+                                    </PageTitleStyle>}
+                    <PostsAndTrendingStyle>
+                        <ColunaPostsStyle>
+                        
+                        {posts.map((postInfo)=>
+                            <Post key={postInfo.id} postInfo={postInfo} renderPage={getUserPosts}/>
+                        )}
+                        {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
+                        {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                    </ColunaPostsStyle>
                     
-                    {posts.map((postInfo)=>
-                        <Post key={postInfo.id} postInfo={postInfo} renderPage={getUserPosts}/>
-                    )}
-                    {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                    {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-                </ColunaPostsStyle>
+                <Trending></Trending>
+                    </PostsAndTrendingStyle>
                 
-            <Trending></Trending>
-                </PostsAndTrendingStyle>
-            
-            </ContainerCenterStyle>
-        </ContainerBoxStyle> 
+                </ContainerCenterStyle>
+            </ContainerBoxStyle> 
+        </motion.div>
     );
 }
 
