@@ -70,6 +70,3 @@ const LinkStyle = styled(Link)`
         filter: brightness(0.9);
     }
 `;
-
-
-
