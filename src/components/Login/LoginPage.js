@@ -9,11 +9,14 @@ import AnimationContext from "../../contexts/AnimationContext";
 import { motion } from "framer-motion";
 
 export default function LoginPage(){
+    const { pageTransition } = useContext(AnimationContext);
     return(
+    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
         <LoginPageStyled>
             <SiteBanner/>
             <LoginArea/>
         </LoginPageStyled>
+    </motion.div>
     );
 }
 
@@ -24,7 +27,7 @@ function LoginArea (){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { setUser } = useContext(UserContext);
-    const { pageTransition } = useContext(AnimationContext);
+
 
     function userLogin (event){
 
@@ -52,7 +55,6 @@ function LoginArea (){
             });
     }
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
             <LoginDataContainerStyled onSubmit={userLogin}>
                 <SignUpOrLoginInputStyled 
                     type="email" 
@@ -79,7 +81,6 @@ function LoginArea (){
                     </SwitchSignUpLoginLinkStyled>
                 </Link>
             </LoginDataContainerStyled>
-        </motion.div>
     );
 }
 

@@ -8,11 +8,14 @@ import { motion } from "framer-motion";
 import AnimationContext from "../../contexts/AnimationContext";
 
 export default function SignUpPage(){
+    const {pageTransition} = useContext(AnimationContext);
     return(
-        <SignUpPageStyled>
-            <SiteBanner/>
-            <SignUpArea/>
-        </SignUpPageStyled>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+            <SignUpPageStyled>
+                <SiteBanner/>
+                <SignUpArea/>
+            </SignUpPageStyled>
+        </motion.div>
     );
 }
 
@@ -24,7 +27,6 @@ function SignUpArea (){
     const [pictureUrl, setpictureUrl] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-    const {pageTransition} = useContext(AnimationContext);
 
     function userSignUp (event){
 
@@ -53,7 +55,7 @@ function SignUpArea (){
 
 
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+        
             <SignUpDataContainerStyled onSubmit={userSignUp}>
                 <SignUpOrLoginInputStyled 
                     type="email" 
@@ -92,7 +94,7 @@ function SignUpArea (){
                     </SwitchSignUpLoginLinkStyled>
                 </Link>
             </SignUpDataContainerStyled>
-        </motion.div>
+        
 
         
     );

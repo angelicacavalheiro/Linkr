@@ -24,6 +24,7 @@ export default function App() {
   const [user, setUser] = useState(storedUser);  
   const [following, setFollowing]=useState([]);
   const location = useLocation();
+  
   const pageTransition = {
     in:{
         opacity: 1,
