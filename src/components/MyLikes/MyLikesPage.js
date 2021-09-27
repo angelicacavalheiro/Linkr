@@ -6,6 +6,8 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
+import AnimationContext from "../../contexts/AnimationContext";
+import { motion } from "framer-motion";
 
 export default function MyLikePage(){
 
@@ -15,6 +17,7 @@ export default function MyLikePage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Você ainda não deu like")
     const {disappearMenu} = useContext(ShowMenuContext);
+    const {pageTransition} = useContext(AnimationContext);
     
 
     useEffect(()=>{
@@ -52,24 +55,25 @@ export default function MyLikePage(){
     }
 
     return(
-    <ContainerBoxStyle onClick={disappearMenu}>
-        <ContainerCenterStyle>
-             <PageTitleStyle>my likes</PageTitleStyle>
-             <PostsAndTrendingStyle>
-                 <ColunaPostsStyle>
-               
-                {likes.map((postInfo)=>
-                    <Post key={postInfo.id} postInfo={postInfo} renderPage={getPostsLikeAUser}/>
-                )}
-                 {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                 {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-                </ColunaPostsStyle>
-                
-                <Trending />
-             </PostsAndTrendingStyle>            
-        </ContainerCenterStyle>
-    </ContainerBoxStyle>
-
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-likes-animation'>
+            <ContainerBoxStyle onClick={disappearMenu}>
+                <ContainerCenterStyle>
+                    <PageTitleStyle>my likes</PageTitleStyle>
+                    <PostsAndTrendingStyle>
+                        <ColunaPostsStyle>
+                    
+                        {likes.map((postInfo)=>
+                            <Post key={postInfo.id} postInfo={postInfo} renderPage={getPostsLikeAUser}/>
+                        )}
+                        {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
+                        {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                        </ColunaPostsStyle>
+                        
+                        <Trending />
+                    </PostsAndTrendingStyle>            
+                </ContainerCenterStyle>
+            </ContainerBoxStyle>
+        </motion.div>
     );
 }
 
