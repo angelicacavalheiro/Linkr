@@ -57,7 +57,7 @@ export default function TrendingMobile () {
                 <h2>#</h2>
             </TitleButtonStyle>                
             
-            <TrendingStyle style={{... styles, opacity: toggleOpacity, height: toggleHeight}}>
+            <TrendingStyle style={{...styles, opacity: toggleOpacity, height: toggleHeight}}>
                     <TitleTrendingStyle >
                         <h2>Trending</h2>
                     </TitleTrendingStyle>
