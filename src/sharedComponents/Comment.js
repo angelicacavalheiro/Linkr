@@ -1,13 +1,24 @@
 import styled from "styled-components"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import UserContext from "../contexts/UserContext"
 import ShowMenuContext from "../contexts/ShowMenuContext"
+import { getFollowingUsers} from "../Service"
+import { Link } from "react-router-dom";
 
 export default function Comment({comment}){
     const {user} = useContext(UserContext);
-    const {following} = useContext(ShowMenuContext);
+    const {following, setFollowing} = useContext(ShowMenuContext);
     let isMycomment = false;
     let amIFollowing =false;
+
+    useEffect(()=>{
+        const promisse = getFollowingUsers(user.token)
+        promisse.then((resp)=>{
+            setFollowing(resp.data.users) 
+        })
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
 
     if(comment.user.id === user.id){
         isMycomment =true;
@@ -22,10 +33,15 @@ export default function Comment({comment}){
     return(
         <>
         <CommentStyled>
-            <img src={comment.user.avatar} alt=""/>
+            <LinkStyle to={`/user/${comment.user.id}`}>
+                <img src={comment.user.avatar} alt=""/>
+            </LinkStyle>
+            
             <div>
                 <UserInfo>
-                    <h5>{comment.user.username}</h5>
+                    <LinkStyle to={`/user/${comment.user.id}`}>
+                        <h5>{comment.user.username}</h5>
+                    </LinkStyle>
                     <span>{isMycomment?`• post’s author`:""}</span>
                     <span>{amIFollowing?"• following" : ""}</span>
                 </UserInfo>
@@ -88,4 +104,7 @@ const Border =styled.div`
     margin-bottom: 15px;
 
 
+`
+const LinkStyle = styled(Link)`
+    text-decoration: none; 
 `

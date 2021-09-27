@@ -8,9 +8,11 @@ import UserContext from "../../contexts/UserContext"
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import FollowButton from "./FollowButton";
+import AnimationContext from "../../contexts/AnimationContext";
+import { motion } from "framer-motion";
 
 export default function UserPage(){
-    
+   
     const {user} = useContext(UserContext);
     const [nameUser, setName] = useState("")
     const [posts, setPosts]= useState([]);
@@ -19,15 +21,12 @@ export default function UserPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("ainda não há posts disponiveis");
     const {disappearMenu} = useContext(ShowMenuContext);
-   
+    const {pageTransition} = useContext(AnimationContext)
     
-   
-
     useEffect(()=>{
         getUserPosts()
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
-
 
     function getUserPosts(){
         const promiseUser = getInfoUser(user.token, id);
@@ -39,7 +38,6 @@ export default function UserPage(){
             promise.then((resp)=>{
                 setLoading(false)
                 setPosts(resp.data.posts) 
-                
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
@@ -65,27 +63,29 @@ export default function UserPage(){
     }
 
     return(
-        <ContainerBoxStyle onClick={disappearMenu}>
-            <ContainerCenterStyle>
-                {loading ? "" : <PageTitleStyle>
-                                    {nameUser}'s posts
-                                    <FollowButton id={id}/>
-                                </PageTitleStyle>}
-                <PostsAndTrendingStyle>
-                    <ColunaPostsStyle>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+            <ContainerBoxStyle onClick={disappearMenu}>
+                <ContainerCenterStyle>
+                    {loading ? "" : <PageTitleStyle>
+                                        {nameUser}'s posts
+                                        <FollowButton id={id}/>
+                                    </PageTitleStyle>}
+                    <PostsAndTrendingStyle>
+                        <ColunaPostsStyle>
+                        
+                        {posts.map((postInfo)=>
+                            <Post key={postInfo.id} postInfo={postInfo} renderPage={getUserPosts}/>
+                        )}
+                        {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
+                        {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                    </ColunaPostsStyle>
                     
-                    {posts.map((postInfo)=>
-                        <Post key={postInfo.id} postInfo={postInfo} renderPage={getUserPosts}/>
-                    )}
-                    {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""} 
-                    {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-                </ColunaPostsStyle>
+                <Trending></Trending>
+                    </PostsAndTrendingStyle>
                 
-            <Trending></Trending>
-                </PostsAndTrendingStyle>
-            
-            </ContainerCenterStyle>
-        </ContainerBoxStyle> 
+                </ContainerCenterStyle>
+            </ContainerBoxStyle> 
+        </motion.div>
     );
 }
 

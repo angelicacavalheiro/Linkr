@@ -15,6 +15,8 @@ import Iframe from "./Iframe";
 import YoutubeVideo from "./YoutubeVideo";
 import LocationMap from "./Maps/LocationMap";
 import { getComments } from "../Service";
+import Repost from "./Repost";
+import { BiRepost } from "react-icons/bi";
 
 export default function Post ({postInfo, renderPage}) {
     let history = useHistory()
@@ -23,14 +25,16 @@ export default function Post ({postInfo, renderPage}) {
     const [isMyPost , setIsMyPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [sending, setSending] = useState(false);
-    const [postText, setPostText]=useState(postInfo.text)
+    const [postText, setPostText] = useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
-    const [seeComments, setSeeComments] = useState(false)
+    const [seeComments, setSeeComments] = useState(false);
     const [displayIframe, setDisplayIframe] = useState(false);
     const [isYoutubeVideo, setIsYoutubeVideo] = useState(false);
     const [comments, setComments] =useState([]);
-    
+    const wasReposted = postInfo.hasOwnProperty('repostedBy');
+
     useEffect(()=>{
+        
         setSending(false)
         if(user.id === postInfo.user.id){
                 setIsMyPost(true);
@@ -90,11 +94,22 @@ export default function Post ({postInfo, renderPage}) {
 
     return(
         <CommentContainerStyle>
+            {wasReposted ? 
+                <RepostedByStyle>
+                    <LinkRepostStyle style={{textDecoration:"none", color:'lightgray'}} to={`/user/${postInfo.repostedBy.id}`}>
+                       
+                        <div> <img src={postInfo.repostedBy.avatar} alt="profile"/>{postInfo.repostedBy.username} reposted <BiRepost/></div>
+                        
+                    </LinkRepostStyle>
+                </RepostedByStyle> 
+            : 
+            <div/>}
         <BlackBoxStyle >
             <PhotoAndLikeBoxStyle >
             <LinkStyle to={`/user/${postInfo.user.id}`}><img src={postInfo.user.avatar} alt={postInfo.user.username} /></LinkStyle>
             <Likes postInfo={postInfo} />
             <CommentsIcon seeComments={seeComments} setSeeComments={setSeeComments} howManyComments={comments.length}/>
+            <Repost postInfo={postInfo}/>
             </PhotoAndLikeBoxStyle>
             <ContentBoxStyle>
                 <DiplayFlexBox>
@@ -152,8 +167,8 @@ const BlackBoxStyle = styled.div`
     border-radius: 16px;
     margin-top:16px;
     display: flex;  
-    @media (max-width: 600px){
-        border-radius: 0;
+    @media (max-width: 937px){
+        border-radius: 0;   
 }  
 `
 const PhotoAndLikeBoxStyle = styled.div`
@@ -174,7 +189,10 @@ text-align: center;
         color: #ffffff;
         
     }
-   
+    @media(max-width: 937px){
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 `
 
 const PencilIcon =styled(TiPencil)`
@@ -216,7 +234,7 @@ width: 500px;
         padding: 7px;
         font-size: 14px;
     }
-    @media(max-width: 600px){
+    @media(max-width: 937px){
         word-break:break-all;
     }
 `
@@ -230,7 +248,7 @@ border-right: none;
 text-decoration: none;
 word-wrap: break-word;
 :hover{
-    cursor: pointer;
+    cursor: pointer;width: 40%;
 }
 img{
     width: 153px;
@@ -238,14 +256,15 @@ img{
     border-radius: 0px 13px 13px 0px;
     margin-left: 10px;
     
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
         width: 95px;
         height: 100%;
     }
 }
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
         word-break: break-all;
         width: 75vw;
+        min-height: 80px;
     }
 `
 const LinkInfoStyle = styled.div`
@@ -263,7 +282,7 @@ color: #CECECE;
 margin-top: 20px;
 font-size: 16px;
 line-height: 19px;
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
        font-size: 11px;
     }
 `
@@ -274,8 +293,10 @@ font-size: 11px;
 color:#9B9595;
 margin-top: 5px;
 line-height: 13px;
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
        font-size: 8px;
+       max-height:90px; 
+     overflow-y: scroll; 
     }
 `
 const LinkUrlStyle = styled.h4`
@@ -287,7 +308,7 @@ margin-top: 10px;
 text-decoration: none;
 color: #CECECE;
     
-    @media(max-width: 600px) {
+    @media(max-width: 937px) {
        font-size: 9px;
     }
 `
@@ -316,14 +337,50 @@ const CommentContainerStyle = styled.div`
     height: auto;
     background-color: #1E1E1E;
     border-radius: 16px;
+    margin-top: 15px;
 
-    @media (max-width: 600px){
+    @media (max-width: 937px){
         border-radius: 0;
     }
 `
 const BreackHashtag = styled.div`
-word-break: break-all;
-color: #B7B7B7;
-font-size: 17px;
-margin-top: 10px;
+    word-break: break-all;
+    color: #B7B7B7;
+    font-size: 17px;
+    margin-top: 10px;
 `
+const RepostedByStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: lightgray;
+    font-size: 15px;
+    font-weight: 300;
+    padding-top: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0 -5px 0;
+
+    
+    div{
+        width: 350px;
+        flex-wrap: wrap;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-align: center;
+
+        margin-right: 5px;
+        :hover{
+            filter: brightness(1.2);
+        }
+    }
+    img{
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+`;
+
+const LinkRepostStyle = styled(Link)`
+    display: flex;
+`;

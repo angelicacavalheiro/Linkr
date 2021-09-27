@@ -34,6 +34,7 @@ export default function MenuHeaderPage(){
 
 const TitleStyled = styled.title`
     font-family: Passion One;    
+    width: 200px;
     font-weight: bold;
     font-size: 49px;
     line-height: 54px;
@@ -42,13 +43,7 @@ const TitleStyled = styled.title`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 28px;
-
-
-    @media(max-width: 800px){
-        width: 50%;
-    } 
-   
+    padding-left: 28px; 
 `;
 
 const HeaderStyled = styled.header`
@@ -60,28 +55,14 @@ const HeaderStyled = styled.header`
     top: 0px;
     left: 0px;
     z-index: 1;
-    justify-content: space-between;
-
-    @media(max-width: 800px){
-        width: 100%;
-    } 
-   
+    justify-content: space-between; 
 `;
 
 const RightHeaderStyled = styled.header`
     width: 150px;
     display: flex;
     justify-content: flex-end;
-    align-items: center;   
-    
-    :hover{
-        filter: brightness(0.8);
-        cursor: pointer;
-    }
-
-    @media(max-width: 800px){
-        width: 50%;
-    } 
+    align-items: center;  
 `;
 
 const LinkStyle = styled(Link)`

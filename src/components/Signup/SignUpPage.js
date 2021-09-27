@@ -1,17 +1,21 @@
 import SiteBanner from "../../sharedComponents/SiteBanner";
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SignUpOrLoginInputStyled, SignUpOrLoginButtonStyled, SwitchSignUpLoginLinkStyled } from "../../sharedStyles/sharedStyles";
 import { postSignUp } from "../../Service";
 import { Link, useHistory } from "react-router-dom";
-
+import { motion } from "framer-motion";
+import AnimationContext from "../../contexts/AnimationContext";
 
 export default function SignUpPage(){
+    const {pageTransition} = useContext(AnimationContext);
     return(
-        <SignUpPageStyled>
-            <SiteBanner/>
-            <SignUpArea/>
-        </SignUpPageStyled>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='sign-up-animation'>
+            <SignUpPageStyled>
+                <SiteBanner/>
+                <SignUpArea/>
+            </SignUpPageStyled>
+        </motion.div>
     );
 }
 
@@ -51,7 +55,7 @@ function SignUpArea (){
 
 
     return(
-         
+        
             <SignUpDataContainerStyled onSubmit={userSignUp}>
                 <SignUpOrLoginInputStyled 
                     type="email" 
