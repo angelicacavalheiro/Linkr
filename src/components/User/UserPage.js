@@ -10,7 +10,7 @@ import ShowMenuContext from '../../contexts/ShowMenuContext';
 import FollowButton from "./FollowButton";
 
 export default function UserPage(){
-    
+   
     const {user} = useContext(UserContext);
     const [nameUser, setName] = useState("")
     const [posts, setPosts]= useState([]);
@@ -39,7 +39,6 @@ export default function UserPage(){
             promise.then((resp)=>{
                 setLoading(false)
                 setPosts(resp.data.posts) 
-                
 
                 if(resp.data.posts.length === 0){
                     setNoPosts(true);
