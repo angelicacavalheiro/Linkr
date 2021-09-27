@@ -8,6 +8,8 @@ import UserContext from "../../contexts/UserContext";
 import Trending from "../../sharedComponents/Trending";
 import ShowMenuContext from '../../contexts/ShowMenuContext';
 import ReactTooltip from 'react-tooltip';
+import { motion } from "framer-motion";
+import AnimationContext from '../../contexts/AnimationContext'
 
 export default function HashtagPage(){
 
@@ -18,7 +20,7 @@ export default function HashtagPage(){
     const [noPosts, setNoPosts ] = useState(false);
     const [message, setMessage] = useState("Não há posts com esta #hashtag ")
     const {disappearMenu} = useContext(ShowMenuContext);
-  
+    const { pageTransition } = useContext(AnimationContext)
     useEffect(()=>{
         setNoPosts(false)
         getPosts()
@@ -55,25 +57,26 @@ export default function HashtagPage(){
     
      }
 
-    return(  
-    <ContainerBoxStyle onClick={disappearMenu}>
-        <ContainerCenterStyle>
-            <PageTitleStyle># {hashtag}</PageTitleStyle>
-            <PostsAndTrendingStyle>
-                <ColunaPostsStyle>
-                
-                {posts.map((postInfo)=>
-                    <Post key={postInfo.id} postInfo={postInfo} renderPage={getPosts}/>
-                )}
-                {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""}
-                {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
-            </ColunaPostsStyle>
+    return( 
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+            <ContainerBoxStyle onClick={disappearMenu}>
+                <ContainerCenterStyle>
+                    <PageTitleStyle># {hashtag}</PageTitleStyle>
+                    <PostsAndTrendingStyle>
+                        <ColunaPostsStyle>
+                            {posts.map((postInfo)=>
+                                <Post key={postInfo.id} postInfo={postInfo} renderPage={getPosts}/>
+                            )}
+                            {loading ? <LoadingStyle>Loading...</LoadingStyle> : ""}
+                            {noPosts? <NoPostsStyle>{message} </NoPostsStyle> : ""}
+                        </ColunaPostsStyle>
             
-           <Trending />
-            </PostsAndTrendingStyle>
+                        <Trending />
+                    </PostsAndTrendingStyle>
             
-        </ContainerCenterStyle>
-    </ContainerBoxStyle>
+                </ContainerCenterStyle>
+            </ContainerBoxStyle>
+        </motion.div>
     );
 }
 

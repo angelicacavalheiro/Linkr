@@ -5,6 +5,8 @@ import { SignUpOrLoginInputStyled, SignUpOrLoginButtonStyled, SwitchSignUpLoginL
 import { Link, useHistory } from "react-router-dom";
 import { postLogin } from "../../Service";
 import UserContext from "../../contexts/UserContext";
+import AnimationContext from "../../contexts/AnimationContext";
+import { motion } from "framer-motion";
 
 export default function LoginPage(){
     return(
@@ -22,6 +24,7 @@ function LoginArea (){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { setUser } = useContext(UserContext);
+    const { pageTransition } = useContext(AnimationContext);
 
     function userLogin (event){
 
@@ -49,6 +52,7 @@ function LoginArea (){
             });
     }
     return(
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
             <LoginDataContainerStyled onSubmit={userLogin}>
                 <SignUpOrLoginInputStyled 
                     type="email" 
@@ -74,7 +78,8 @@ function LoginArea (){
                         First time? Create an account!
                     </SwitchSignUpLoginLinkStyled>
                 </Link>
-            </LoginDataContainerStyled>     
+            </LoginDataContainerStyled>
+        </motion.div>
     );
 }
 
