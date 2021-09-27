@@ -8,9 +8,13 @@ import { motion } from "framer-motion";
 import AnimationContext from "../../contexts/AnimationContext";
 
 export default function SignUpPage(){
-    const {pageTransition} = useContext(AnimationContext);
+    const {pageTransition, pageVariants} = useContext(AnimationContext);
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='sign-up-animation'>
+        <motion.div 
+            initial='out' animate='in' exit = 'out' 
+            variants={pageVariants} transition={pageTransition}
+            key='sign-up-animation'
+        >
             <SignUpPageStyled>
                 <SiteBanner/>
                 <SignUpArea/>

@@ -22,7 +22,7 @@ export default function HashtagPage(){
     const [message, setMessage] = useState("Não há posts com esta #hashtag ")
     const {disappearMenu} = useContext(ShowMenuContext);
    const [hasMore, setHasMore] = useState(true)
-    const { pageTransition } = useContext(AnimationContext)
+    const { pageTransition, pageVariants } = useContext(AnimationContext)
     useEffect(()=>{
         setNoPosts(false)
         getPosts()
@@ -75,7 +75,11 @@ export default function HashtagPage(){
     }
 
     return(
-    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='hashtag-animation'>      
+    <motion.div 
+        initial='out' animate='in' exit = 'out' 
+        variants={pageVariants} transition={pageTransition}
+        key='hashtag-animation'
+    >      
     <ContainerBoxStyle onClick={disappearMenu}>
         <ContainerCenterStyle>
             <PageTitleStyle># {hashtag}</PageTitleStyle>

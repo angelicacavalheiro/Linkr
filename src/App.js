@@ -23,7 +23,7 @@ export default function App() {
   const [following, setFollowing]=useState([]);
   const location = useLocation();
   
-  const pageTransition = {
+  const pageVariants = {
     in:{
         opacity: 1,
         y: 0
@@ -33,19 +33,23 @@ export default function App() {
         y: '-100%'
     }
 }
+
+const pageTransition ={
+  type: "spring",
+  stiffness: 50
+}
   
   function disappearMenu() { 
     if(showMenu === true){
       setShowMenu(!showMenu);
     }
    }
-
+    
     return(    
-
         <UserContext.Provider value={{user, setUser}}>
           <AnimatePresence exitBeforeEnter>
               <Switch location={location} key={location.pathname}>
-                <AnimationContext.Provider value={{pageTransition}}>
+                <AnimationContext.Provider value={{pageVariants, pageTransition}}>
 
                   <ShowMenuContext.Provider value={{disappearMenu, setShowMenu, showMenu, setFollowing, following}}>
          

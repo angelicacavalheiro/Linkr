@@ -19,7 +19,7 @@ export default function MyLikePage(){
     const [message, setMessage] = useState("Você ainda não deu like")
     const {disappearMenu} = useContext(ShowMenuContext);
     const [hasMore, setHasMore] = useState(true)
-    const {pageTransition} = useContext(AnimationContext);
+    const {pageTransition, pageVariants} = useContext(AnimationContext);
     
 
     useEffect(()=>{
@@ -72,7 +72,11 @@ export default function MyLikePage(){
     }
 
     return(
-    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-likes-animation'>
+        <motion.div 
+            initial='out' animate='in' exit = 'out' 
+            variants={pageVariants} transition={pageTransition} 
+            key='my-likes-animation'
+        >
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 <PageTitleStyle>my likes</PageTitleStyle>

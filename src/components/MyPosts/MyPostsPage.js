@@ -19,7 +19,7 @@ export default function MyPostPage(){
     const [message, setMessage] = useState("Você ainda não tem posts")
     const {disappearMenu} = useContext(ShowMenuContext);
     const [hasMore, setHasMore] = useState(true)
-    const { pageTransition } = useContext(AnimationContext);
+    const { pageTransition, pageVariants } = useContext(AnimationContext);
    
 
     useEffect(()=>{
@@ -73,7 +73,11 @@ export default function MyPostPage(){
     }
 
     return(
-    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-posts-animation'>
+    <motion.div 
+        initial='out' animate='in' exit = 'out' 
+        variants={pageVariants} transition={pageTransition} 
+        key='my-posts-animation'
+    >
         <ContainerBoxStyle onClick={disappearMenu}>
             <ContainerCenterStyle>
                 <PageTitleStyle>my posts</PageTitleStyle>
