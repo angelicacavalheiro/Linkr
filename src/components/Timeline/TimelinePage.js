@@ -43,7 +43,7 @@ export default function TimelinePage () {
     },[]);
 
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='timeline-animation'>
             <ContainerBoxStyle onClick={disappearMenu}>
                 <ContainerCenterStyle>
                     <PageTitleStyle>timeline</PageTitleStyle>

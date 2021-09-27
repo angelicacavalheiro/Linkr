@@ -10,7 +10,7 @@ import AnimationContext from "../../contexts/AnimationContext";
 export default function SignUpPage(){
     const {pageTransition} = useContext(AnimationContext);
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='sign-up-animation'>
             <SignUpPageStyled>
                 <SiteBanner/>
                 <SignUpArea/>

@@ -55,7 +55,7 @@ export default function MyLikePage(){
     }
 
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-likes-animation'>
             <ContainerBoxStyle onClick={disappearMenu}>
                 <ContainerCenterStyle>
                     <PageTitleStyle>my likes</PageTitleStyle>

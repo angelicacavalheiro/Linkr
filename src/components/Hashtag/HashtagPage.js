@@ -58,7 +58,7 @@ export default function HashtagPage(){
      }
 
     return( 
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='hashtag-animation'>
             <ContainerBoxStyle onClick={disappearMenu}>
                 <ContainerCenterStyle>
                     <PageTitleStyle># {hashtag}</PageTitleStyle>

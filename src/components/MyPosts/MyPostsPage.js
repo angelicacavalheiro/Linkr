@@ -55,7 +55,7 @@ export default function MyPostPage(){
     }
 
     return(
-        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+        <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='my-posts-animation'>
             <ContainerBoxStyle onClick={disappearMenu}>
                 <ContainerCenterStyle>
                     <PageTitleStyle>my posts</PageTitleStyle>

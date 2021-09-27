@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 export default function LoginPage(){
     const { pageTransition } = useContext(AnimationContext);
     return(
-    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition}>
+    <motion.div initial='out' animate='in' exit = 'out' variants={pageTransition} key='login-animation'>
         <LoginPageStyled>
             <SiteBanner/>
             <LoginArea/>
