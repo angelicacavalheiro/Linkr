@@ -100,6 +100,8 @@ const TrendingStyle = styled.div`
     height: fit-content;
     border-radius: 16px;
     color: white;
+    position: sticky;
+    top: 100px;
 
     @media(max-width:937px) {
         display: none;

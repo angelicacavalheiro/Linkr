@@ -25,7 +25,7 @@ export default function Post ({postInfo, renderPage}) {
     const [isMyPost , setIsMyPost] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [sending, setSending] = useState(false);
-    const [postText, setPostText]=useState(postInfo.text)
+    const [postText, setPostText] = useState(postInfo.text)
     const [inputValue, setInputValue] = useState(postInfo.text);
     const [seeComments, setSeeComments] = useState(false);
     const [displayIframe, setDisplayIframe] = useState(false);
@@ -34,6 +34,7 @@ export default function Post ({postInfo, renderPage}) {
     const wasReposted = postInfo.hasOwnProperty('repostedBy');
 
     useEffect(()=>{
+        
         setSending(false)
         if(user.id === postInfo.user.id){
                 setIsMyPost(true);
